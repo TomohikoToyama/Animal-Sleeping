@@ -7,11 +7,11 @@ namespace SleepingAnimal
 {
     public class GameStateManager : MonoBehaviour
     {
-        enum SCENE
+        public enum SCENE
         {
             TITLE = 0,
             MENU  = 1,
-            ROOM  = 2
+            PLAY = 2
         }
         private int currentScene;
         private void Awake()
@@ -34,18 +34,42 @@ namespace SleepingAnimal
         void Start()
         {
             currentScene = 0;
-            SoundManager.Instance.PlayBGM(0);
+            //SoundManager.Instance.PlayBGM(0);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-            {
-                
+            //タイトルシーン
+            if (currentScene == (int)SCENE.TITLE) {
+
+                //メニューに入る
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+                {
+                    currentScene = (int)SCENE.MENU;
                     SceneManager.LoadScene("Menu");
-                
+                }
+
+                //すぐ入る
+                //
+                /*
+                if ()
+                */
+
             }
+
+            //メニューシーン
+            if (currentScene == (int)SCENE.MENU)
+            {
+
+            }
+
+            //おでかけシーン
+            if(currentScene == (int)SCENE.PLAY)
+            {
+
+            }
+
         }
     }
 }

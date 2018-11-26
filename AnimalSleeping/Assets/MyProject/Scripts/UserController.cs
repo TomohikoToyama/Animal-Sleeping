@@ -5,7 +5,7 @@ using UnityEngine;
 public class UserController : MonoBehaviour {
 
     // Use this for initialization
-
+    private GameObject target;
     private void Awake()
     {
 
@@ -17,16 +17,46 @@ public class UserController : MonoBehaviour {
         }
         else
         {
-            // 音管理はシーン遷移では破棄させない
+            // コントローラーはシーン遷移では破棄させない
             DontDestroyOnLoad(gameObject);
         }
     }
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start() {
+
+    }
+
+    // Update is called once per frame
+    void Update() {
+        EyePoint();
+        InputController();
+    }
+
+    private void EyePoint()
+    {
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
+            Debug.Log(hit.collider.gameObject.name);
+            target = hit.collider.gameObject;
+            
+        }
+        else
+        {
+            target = null;
+        }
+    }
+
+    private void InputController(){
+
+        //トリガー入力時の処理
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            Destroy(target);
+
+
+        }
+    }
 }
