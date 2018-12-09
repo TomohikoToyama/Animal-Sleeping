@@ -7,6 +7,7 @@ namespace SleepingAnimal
 {
     public class GameStateManager : MonoBehaviour
     {
+        public int playerID = 1;
         public enum SCENE
         {
             TITLE = 0,
