@@ -35,7 +35,7 @@ namespace SleepingAnimal
         void Start()
         {
             currentScene = 0;
-            //SoundManager.Instance.PlayBGM(0);
+            SoundManager.Instance.PlayBGM(0);
         }
 
         // Update is called once per frame
