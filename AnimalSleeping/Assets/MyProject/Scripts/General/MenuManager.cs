@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalController : MonoBehaviour {
+public class MenuManager : MonoBehaviour {
 
 
+    
 	// Use this for initialization
 	void Start () {
 		
@@ -14,4 +15,17 @@ public class AnimalController : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    //ルームを設定する
+    public void SettingRoom()
+    {
+
+    }
+
+    //動物を設定する
+    public void SettingAnimal()
+    {
+
+    }
+
 }

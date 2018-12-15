@@ -6,6 +6,9 @@ TagManager:
   tags:
   - SoundManager
   - GameStateManager
+  - AnimalSetting
+  - OptionSetting
+  - RoomSetting
   layers:
   - Default
   - TransparentFX
