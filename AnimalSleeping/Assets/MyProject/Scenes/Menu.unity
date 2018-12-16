@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f4ce82627f2a84bbcb387847fcae17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setObj: {fileID: 0}
+  setCanvas: {fileID: 0}
 --- !u!4 &2917950
 Transform:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &35815242
 GameObject:
@@ -998,7 +1000,7 @@ GameObject:
   - component: {fileID: 415737052}
   - component: {fileID: 415737051}
   m_Layer: 0
-  m_Name: RoomCanvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1618,7 +1620,7 @@ GameObject:
   - component: {fileID: 701765725}
   - component: {fileID: 701765724}
   m_Layer: 0
-  m_Name: SettingCancas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2356,7 +2358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1090821122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2474,7 +2476,7 @@ Transform:
   - {fileID: 2087782377}
   - {fileID: 359726909}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1221310119
 GameObject:
@@ -2589,7 +2591,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231663620
 MonoBehaviour:
@@ -2823,7 +2825,7 @@ GameObject:
   - component: {fileID: 1309535342}
   - component: {fileID: 1309535341}
   m_Layer: 0
-  m_Name: AnimalCanvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3219,6 +3221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abfe9d6fe05fa744b2b57f411a8afc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setObj: {fileID: 0}
+  setCanvas: {fileID: 0}
 --- !u!4 &1637967646
 Transform:
   m_ObjectHideFlags: 0
@@ -3576,6 +3580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b847b319690d7141a1df55138486b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setObj: {fileID: 0}
+  setCanvas: {fileID: 0}
 --- !u!4 &2041826602
 Transform:
   m_ObjectHideFlags: 0
@@ -3583,7 +3589,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2041826600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.556066, y: -30.081104, z: -23.43868}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

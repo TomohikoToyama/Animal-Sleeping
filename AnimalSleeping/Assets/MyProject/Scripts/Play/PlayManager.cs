@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayManager : MonoBehaviour {
-
+    public GameObject setObj;
+    public GameObject setCanvas;
     //シングルトン化のおまじない
     protected static PlayManager instance;
     public static PlayManager Instance
@@ -26,13 +27,26 @@ public class PlayManager : MonoBehaviour {
         }
 
     }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+        InitManager();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    private void InitManager()
+    {
+        setObj = GameObject.FindGameObjectWithTag("PlaySetting");
+        setCanvas = setObj.transform.Find("Canvas").gameObject;
+    }
+
+    public void OpenMenu()
+    {
+        setCanvas.SetActive(true);
+    }
 }
