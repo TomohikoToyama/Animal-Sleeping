@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace SleepingAnimal
-{
+
     public class SoundManager : MonoBehaviour
     {
 
@@ -169,4 +168,3 @@ namespace SleepingAnimal
             Mute = false;
         }
     }
-}

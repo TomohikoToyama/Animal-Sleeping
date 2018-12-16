@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class UserController : MonoBehaviour {
 
+
+    public enum SCENE
+    {
+        TITLE = 0,
+        MENU = 1,
+        PLAY = 2
+    }
     // Use this for initialization
     private GameObject target;
     private void Awake()
@@ -27,6 +34,7 @@ public class UserController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        
         EyePoint();
         InputController();
     }
@@ -51,10 +59,40 @@ public class UserController : MonoBehaviour {
 
     private void InputController(){
 
+        
         //トリガー入力時の処理
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-            Destroy(target);
+            if (target.tag == "AnimalSetting")
+            {
+                //動物設定用メニューを開く
+
+            }
+            if (target.tag == "OptionSetting")
+            {
+                //オプション設定用メニューを開く
+            }
+            if (target.tag == "RoomSetting")
+            {
+                //ルーム設定用メニューを開く
+            }
+            
+            if (target.tag == "Animal")
+            {
+                //動物用メニューを開く
+                target.GetComponent<AnimalController>();
+            }
+            if(GameStateManager.Instance.CurrentScene == (int)SCENE.PLAY)
+            {
+                //プレイルーム用メニューを開く
+
+            }
+            else
+            {
+                //何もない所なら共通メニューを開く
+
+            }
+
 
 
         }

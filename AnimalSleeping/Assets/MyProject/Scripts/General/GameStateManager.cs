@@ -3,10 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SleepingAnimal
-{
+
     public class GameStateManager : MonoBehaviour
     {
+       
+            //シングルトン化のおまじない
+            protected static GameStateManager instance;
+            public static GameStateManager Instance
+            {
+
+                get
+                {
+                    if (instance == null)
+                    {
+                        instance = (GameStateManager)FindObjectOfType(typeof(SoundManager));
+
+                        if (instance == null)
+                        {
+                            Debug.LogError("SoundManager Instance Error");
+
+                        }
+                    }
+
+                    return instance;
+                }
+
+            }
+
         public int playerID = 1;
         public enum SCENE
         {
@@ -15,6 +38,11 @@ namespace SleepingAnimal
             PLAY = 2
         }
         private int currentScene;
+        public  int CurrentScene
+        {
+            get { return currentScene ; }
+            set { currentScene = value; }
+        }
         private void Awake()
         {
 
@@ -73,4 +101,3 @@ namespace SleepingAnimal
 
         }
     }
-}

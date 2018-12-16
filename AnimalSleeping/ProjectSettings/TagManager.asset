@@ -9,6 +9,11 @@ TagManager:
   - AnimalSetting
   - OptionSetting
   - RoomSetting
+  - PlaySetting
+  - AnimalManager
+  - RoomManager
+  - PlayManager
+  - SelectLight
   layers:
   - Default
   - TransparentFX

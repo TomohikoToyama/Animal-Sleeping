@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalManager : MonoBehaviour {
+public class PlayManager : MonoBehaviour {
 
     //シングルトン化のおまじない
-    protected static AnimalManager instance;
-    public static AnimalManager Instance
+    protected static PlayManager instance;
+    public static PlayManager Instance
     {
 
         get
         {
             if (instance == null)
             {
-                instance = (AnimalManager)FindObjectOfType(typeof(AnimalManager));
+                instance = (PlayManager)FindObjectOfType(typeof(PlayManager));
 
                 if (instance == null)
                 {
