@@ -66,17 +66,25 @@ public class UserController : MonoBehaviour {
             if (target.tag == "AnimalSetting")
             {
                 //動物設定用メニューを開く
+                AnimalManager.Instance.OpenMenu();
 
             }
             if (target.tag == "OptionSetting")
             {
                 //オプション設定用メニューを開く
+                OptionManager.Instance.OpenMenu();
             }
             if (target.tag == "RoomSetting")
             {
                 //ルーム設定用メニューを開く
+                RoomManagers.Instance.OpenMenu();
             }
-            
+            if (target.tag == "PlaySetting")
+            {
+                //ルーム設定用メニューを開く
+                PlayManager.Instance.OpenMenu();
+            }
+
             if (target.tag == "Animal")
             {
                 //動物用メニューを開く

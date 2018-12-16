@@ -62,7 +62,7 @@ using UnityEngine.SceneManagement;
         // Use this for initialization
         void Start()
         {
-            currentScene = 0;
+            currentScene = 1;
             SoundManager.Instance.PlayBGM(0);
         }
 

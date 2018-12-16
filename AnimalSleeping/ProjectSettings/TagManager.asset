@@ -14,6 +14,7 @@ TagManager:
   - RoomManager
   - PlayManager
   - SelectLight
+  - OptionManager
   layers:
   - Default
   - TransparentFX
