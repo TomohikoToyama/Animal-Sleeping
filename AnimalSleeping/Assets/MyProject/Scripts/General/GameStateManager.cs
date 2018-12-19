@@ -6,7 +6,18 @@ using UnityEngine.SceneManagement;
 
     public class GameStateManager : MonoBehaviour
     {
-       
+            //一度に複数のメニューが出ないよう制御
+            public enum SELECTMENU
+            {   
+                NONE    = 0,
+                ANIMAL  = 1,
+                OPTION  = 2,
+                PLAY    = 3,
+                ROOM    = 4
+
+            }
+        
+            public int currentMenu;
             //シングルトン化のおまじない
             protected static GameStateManager instance;
             public static GameStateManager Instance
@@ -16,7 +27,7 @@ using UnityEngine.SceneManagement;
                 {
                     if (instance == null)
                     {
-                        instance = (GameStateManager)FindObjectOfType(typeof(SoundManager));
+                        instance = (GameStateManager)FindObjectOfType(typeof(GameStateManager));
 
                         if (instance == null)
                         {

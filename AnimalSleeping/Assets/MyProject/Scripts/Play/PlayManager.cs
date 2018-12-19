@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayManager : MonoBehaviour {
+using UnityEngine.SceneManagement;
+public class PlayManager : MonoBehaviour
+{
     public GameObject setObj;
     public GameObject setCanvas;
+    public GameObject setMenu;
     //シングルトン化のおまじない
     protected static PlayManager instance;
     public static PlayManager Instance
@@ -43,10 +45,21 @@ public class PlayManager : MonoBehaviour {
     {
         setObj = GameObject.FindGameObjectWithTag("PlaySetting");
         setCanvas = setObj.transform.Find("Canvas").gameObject;
+        setMenu = setCanvas.transform.Find("Panel").gameObject;
     }
 
-    public void OpenMenu()
+    public void OpenCloseMenu()
     {
-        setCanvas.SetActive(true);
+        GameStateManager.Instance.CurrentScene = 2;
+        SceneManager.LoadScene("Play");
+        /*
+        if (GameStateManager.Instance.currentMenu == 0)
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        if (GameStateManager.Instance.currentMenu != 0)
+        {
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+            GameStateManager.Instance.currentMenu = 0;
+        }
+        */
     }
 }

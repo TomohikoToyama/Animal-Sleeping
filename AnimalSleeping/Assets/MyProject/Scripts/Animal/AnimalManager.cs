@@ -6,6 +6,7 @@ public class AnimalManager : MonoBehaviour {
 
     public GameObject setObj;
     public GameObject setCanvas;
+    public GameObject setMenu;
     //シングルトン化のおまじない
     protected static AnimalManager instance;
     public static AnimalManager Instance
@@ -43,10 +44,20 @@ public class AnimalManager : MonoBehaviour {
     {
         setObj = GameObject.FindGameObjectWithTag("AnimalSetting");
         setCanvas = setObj.transform.Find("Canvas").gameObject;
+        setMenu = setCanvas.transform.Find("Panel").gameObject;
     }
 
-    public void OpenMenu()
+    public void OpenCloseMenu()
     {
-        setCanvas.SetActive(true);
+        Debug.Log("dd");
+
+        if (GameStateManager.Instance.currentMenu == 0)
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        if (GameStateManager.Instance.currentMenu != 0)
+        {
+            Debug.Log("aa");
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+            GameStateManager.Instance.currentMenu = 0;
+        }
     }
 }

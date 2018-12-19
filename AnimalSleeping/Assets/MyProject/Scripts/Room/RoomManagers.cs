@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManagers : MonoBehaviour {
-   public GameObject setObj;
+    public GameObject setObj;
     public GameObject setCanvas;
-
+    public GameObject setMenu;
     //シングルトン化のおまじない
     protected static RoomManagers instance;
     public static RoomManagers Instance
@@ -45,10 +45,29 @@ public class RoomManagers : MonoBehaviour {
     {
         setObj = GameObject.FindGameObjectWithTag("OptionSetting");
         setCanvas = setObj.transform.Find("Canvas").gameObject;
+        setMenu   = setCanvas.transform.Find("Panel").gameObject;
     }
 
-    public void OpenMenu()
+    //決定
+    public void Decision()
     {
-        setCanvas.SetActive(true);
+
+        OpenCloseMenu();
+    }
+    //キャンセル
+    public void Cancel()
+    {
+        OpenCloseMenu();
+    }
+
+    public void OpenCloseMenu()
+    {
+        if (GameStateManager.Instance.currentMenu == 0)
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        if (GameStateManager.Instance.currentMenu != 0)
+        {
+            setMenu.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
+            GameStateManager.Instance.currentMenu = 0;
+        }
     }
 }
