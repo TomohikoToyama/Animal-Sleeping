@@ -63,11 +63,12 @@ public class RoomManagers : MonoBehaviour {
     public void OpenCloseMenu()
     {
         if (GameStateManager.Instance.currentMenu == 0)
-            setMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            setMenu.SetActive(true);
+
         if (GameStateManager.Instance.currentMenu != 0)
         {
-            setMenu.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
             GameStateManager.Instance.currentMenu = 0;
+            setMenu.SetActive(false);
         }
     }
 }

@@ -50,16 +50,16 @@ public class PlayManager : MonoBehaviour
 
     public void OpenCloseMenu()
     {
-        GameStateManager.Instance.CurrentScene = 2;
-        SceneManager.LoadScene("Play");
-        /*
+        //GameStateManager.Instance.CurrentScene = 2;
+        //SceneManager.LoadScene("Play");
+
         if (GameStateManager.Instance.currentMenu == 0)
-            setMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            setMenu.SetActive(true);
+
         if (GameStateManager.Instance.currentMenu != 0)
         {
-            setMenu.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
             GameStateManager.Instance.currentMenu = 0;
+            setMenu.SetActive(false);
         }
-        */
     }
 }

@@ -59,16 +59,14 @@ public class OptionManager : MonoBehaviour {
 
     public void OpenCloseMenu()
     {
-        Debug.Log("adasa");
+       
         if (GameStateManager.Instance.currentMenu == 0)
             setMenu.SetActive(true);
 
         if (GameStateManager.Instance.currentMenu != 0)
         {
-            Debug.Log("手sと");
             GameStateManager.Instance.currentMenu = 0;
             setMenu.SetActive(false);
-
         }
     }
 }
