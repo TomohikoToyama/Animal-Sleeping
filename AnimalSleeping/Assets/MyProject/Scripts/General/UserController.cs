@@ -26,6 +26,7 @@ public class UserController : MonoBehaviour {
     private int currentMenu;
     // Use this for initialization
     private GameObject target;
+    public GameObject cursor;
     private void Awake()
     {
 
@@ -42,7 +43,7 @@ public class UserController : MonoBehaviour {
         }
     }
     void Start() {
-
+       
     }
 
     // Update is called once per frame
@@ -60,26 +61,29 @@ public class UserController : MonoBehaviour {
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
+            cursor.transform.position = hit.point;
+            cursor.GetComponent<Renderer>().enabled = true;
+            //Debug.Log(cursor.transform.position);
             InputController();
         }
         else
         {
+            cursor.GetComponent<Renderer>().enabled = false;
             target = null;
         }
     }
 
     private void InputController(){
-
-        
+      
         //トリガー入力時の処理
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
         {
             if (GameStateManager.Instance.currentMenu == (int)SELECTMENU.NONE)
             {
                 
-                Debug.Log("クリック");
+                //Debug.Log("クリック");
                 if (target.tag == "AnimalSetting")
                 {
                     //動物設定用メニューを開く
@@ -122,17 +126,14 @@ public class UserController : MonoBehaviour {
 
             }else if (GameStateManager.Instance.currentMenu != (int)SELECTMENU.NONE)
             {
-                Debug.Log("hhh");
+                //Debug.Log("hhh");
                 if (target.tag == "Close")
                 {
-                    Debug.Log("ccc");
+                    //Debug.Log("ccc");
                     target.GetComponent<GeneralButton>().CloseMenu();
                     target = null;
                 }
                 
-
-                
-               
                 
             }
 

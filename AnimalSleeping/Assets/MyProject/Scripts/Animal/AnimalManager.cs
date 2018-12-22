@@ -36,10 +36,7 @@ public class AnimalManager : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
     private void InitManager()
     {
         setObj = GameObject.FindGameObjectWithTag("AnimalSetting");

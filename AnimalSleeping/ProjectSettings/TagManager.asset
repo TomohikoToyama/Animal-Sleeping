@@ -16,6 +16,8 @@ TagManager:
   - SelectLight
   - OptionManager
   - Close
+  - Cursor
+  - Label
   layers:
   - Default
   - TransparentFX
