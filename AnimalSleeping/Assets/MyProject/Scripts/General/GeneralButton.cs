@@ -5,37 +5,67 @@ using UnityEngine;
 public class GeneralButton : MonoBehaviour {
 
     public GameObject PanelObj;
-    protected static GeneralButton instance;
-    public static GeneralButton Instance
+    public GameObject RootObj;
+    public enum NAME
     {
-
-        get
-        {
-            if (instance == null)
-            {
-                instance = (GeneralButton)FindObjectOfType(typeof(GeneralButton));
-
-                if (instance == null)
-                {
-                    Debug.LogError("SoundManager Instance Error");
-
-                }
-            }
-
-            return instance;
-        }
-
+        Close,
+        Dicision
+    }
+    public enum ROOT
+    {
+        AnimalSetting = 0,
+        WorldSetting = 1
+    }
+    public enum SE
+    {
+        HIT = 0
     }
 
+    private void Start()
+    {
+        PanelObj = transform.parent.gameObject;
+
+        RootObj = transform.root.gameObject;
+    }
     //メニューを閉じる
     public void CloseMenu()
     {
        
-        PanelObj = transform.parent.gameObject;
+        
         PanelObj.SetActive(false);
-
         GameStateManager.Instance.currentMenu = 0;
-
        
     }
+
+    public void Dicision()
+    {
+        if (RootObj.tag == ROOT.WorldSetting.ToString())
+        {
+            GameStateManager.Instance.currentMenu = 0;
+            WorldManager.Instance.ChangeWorld();
+        }
+        
+    }
+
+
+
+    public void Onclick()
+    {
+        if (name == NAME.Close.ToString())
+        {
+            CloseMenu();
+
+        }else if (name == NAME.Dicision.ToString())
+        {
+            Dicision();
+        }
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        SoundManager.Instance.PlaySE((int)SE.HIT);
+
+    }
+
+
 }

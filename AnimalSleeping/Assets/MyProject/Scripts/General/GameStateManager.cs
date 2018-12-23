@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
                 NONE    = 0,
                 ANIMAL  = 1,
                 OPTION  = 2,
-                PLAY    = 3,
+                WORLD   = 3,
                 ROOM    = 4
 
             }
@@ -46,7 +46,7 @@ using UnityEngine.SceneManagement;
         {
             TITLE = 0,
             MENU  = 1,
-            PLAY = 2
+            WORLD = 2
         }
         private int currentScene;
         public  int CurrentScene
@@ -80,6 +80,7 @@ using UnityEngine.SceneManagement;
         // Update is called once per frame
         void Update()
         {
+            /*
             //タイトルシーン
             if (currentScene == (int)SCENE.TITLE) {
 
@@ -89,23 +90,20 @@ using UnityEngine.SceneManagement;
                     currentScene = (int)SCENE.MENU;
                     SceneManager.LoadScene("Menu");
                 }
-
-                //すぐ入る
-                //
-                /*
-                if ()
-                */
+/
 
             }
+            */
 
             //メニューシーン
             if (currentScene == (int)SCENE.MENU)
             {
-
+                //if(WorldManager.Instance
+                
             }
 
             //おでかけシーン
-            if(currentScene == (int)SCENE.PLAY)
+            if(currentScene == (int)SCENE.WORLD)
             {
 
             }

@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class PlayManager : MonoBehaviour
-{
+public class WorldManager : MonoBehaviour {
+
     public GameObject setObj;
     public GameObject setCanvas;
     public GameObject setMenu;
     //シングルトン化のおまじない
-    protected static PlayManager instance;
-    public static PlayManager Instance
+    protected static WorldManager instance;
+    public static WorldManager Instance
     {
 
         get
         {
             if (instance == null)
             {
-                instance = (PlayManager)FindObjectOfType(typeof(PlayManager));
+                instance = (WorldManager)FindObjectOfType(typeof(WorldManager));
 
                 if (instance == null)
                 {
-                    Debug.LogError("SoundManager Instance Error");
+                    Debug.LogError("WorldManager Instance Error");
 
                 }
             }
@@ -43,11 +43,18 @@ public class PlayManager : MonoBehaviour
     }
     private void InitManager()
     {
-        setObj = GameObject.FindGameObjectWithTag("PlaySetting");
+        setObj = GameObject.FindGameObjectWithTag("WorldSetting");
         setCanvas = setObj.transform.Find("Canvas").gameObject;
         setMenu = setCanvas.transform.Find("Panel").gameObject;
     }
 
+    
+    public void ChangeWorld()
+    {
+        GameStateManager.Instance.CurrentScene = 2;
+        SceneManager.LoadSceneAsync("World");
+        SoundManager.Instance.PlayBGM(0);
+    }
     public void OpenCloseMenu()
     {
         //GameStateManager.Instance.CurrentScene = 2;

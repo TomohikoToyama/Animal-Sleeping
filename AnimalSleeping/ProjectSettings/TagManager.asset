@@ -18,6 +18,10 @@ TagManager:
   - Close
   - Cursor
   - Label
+  - WorldSetting
+  - WorldICon
+  - WorldManager
+  - Button
   layers:
   - Default
   - TransparentFX

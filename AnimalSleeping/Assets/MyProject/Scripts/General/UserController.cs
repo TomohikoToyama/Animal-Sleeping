@@ -20,7 +20,7 @@ public class UserController : MonoBehaviour {
         ANIMAL  = 1,
         GENERAL = 2,
         OPTION  = 3,
-        PLAY    = 4,
+        WORLD   = 4,
         ROOM    = 5
     }
     private int currentMenu;
@@ -103,11 +103,11 @@ public class UserController : MonoBehaviour {
                     RoomManagers.Instance.OpenCloseMenu();
                     GameStateManager.Instance.currentMenu = (int)SELECTMENU.ROOM;
                 }
-                if (target.tag == "PlaySetting")
+                if (target.tag == "WorldSetting")
                 {
                     //ルーム設定用メニューを開く
-                    PlayManager.Instance.OpenCloseMenu();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.PLAY;
+                    WorldManager.Instance.OpenCloseMenu();
+                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.WORLD;
                 }
 
                 if (target.tag == "Animal")
@@ -127,10 +127,10 @@ public class UserController : MonoBehaviour {
             }else if (GameStateManager.Instance.currentMenu != (int)SELECTMENU.NONE)
             {
                 //Debug.Log("hhh");
-                if (target.tag == "Close")
+                if (target.tag == "Button")
                 {
                     //Debug.Log("ccc");
-                    target.GetComponent<GeneralButton>().CloseMenu();
+                    target.GetComponent<GeneralButton>().Onclick();
                     target = null;
                 }
                 

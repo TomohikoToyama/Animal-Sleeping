@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayController : MonoBehaviour {
+public class WorldSetting : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
