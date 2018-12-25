@@ -22,6 +22,8 @@ TagManager:
   - WorldICon
   - WorldManager
   - Button
+  - AnimalSimple
+  - AnimalButton
   layers:
   - Default
   - TransparentFX

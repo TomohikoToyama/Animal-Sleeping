@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UserController : MonoBehaviour {
 
 
@@ -27,6 +27,7 @@ public class UserController : MonoBehaviour {
     // Use this for initialization
     private GameObject target;
     public GameObject cursor;
+    public Renderer rnd;
     private void Awake()
     {
 
@@ -43,7 +44,7 @@ public class UserController : MonoBehaviour {
         }
     }
     void Start() {
-       
+        rnd = cursor.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -64,13 +65,13 @@ public class UserController : MonoBehaviour {
             //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
             cursor.transform.position = hit.point;
-            cursor.GetComponent<Renderer>().enabled = true;
+            rnd.enabled = true;
             //Debug.Log(cursor.transform.position);
             InputController();
         }
         else
         {
-            cursor.GetComponent<Renderer>().enabled = false;
+            rnd.enabled = false;
             target = null;
         }
     }
@@ -131,6 +132,10 @@ public class UserController : MonoBehaviour {
                 {
                     //Debug.Log("ccc");
                     target.GetComponent<GeneralButton>().Onclick();
+                    target = null;
+                }else if(target.tag == "AnimalButton")
+                {
+                    target.GetComponent<AnimalData>().GetCell();
                     target = null;
                 }
                 
