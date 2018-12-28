@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
     public class GameStateManager : MonoBehaviour
     {
+            GameObject Animal;
+            GameObject World;
             //一度に複数のメニューが出ないよう制御
             public enum SELECTMENU
             {   
@@ -41,14 +43,15 @@ using UnityEngine.SceneManagement;
 
             }
 
-        public int playerID = 1;
+        public int playerID;
         public enum SCENE
         {
             TITLE = 0,
             MENU  = 1,
             WORLD = 2
         }
-        private int currentScene;
+    [SerializeField]
+    private int currentScene;
         public  int CurrentScene
         {
             get { return currentScene ; }
@@ -56,8 +59,11 @@ using UnityEngine.SceneManagement;
         }
         private void Awake()
         {
-
-            GameObject[] obj = GameObject.FindGameObjectsWithTag("GameStateManager");
+        if (SceneManager.GetActiveScene().name == "Menu")
+            CurrentScene = (int)SCENE.MENU;
+        if (SceneManager.GetActiveScene().name == "World")
+            CurrentScene = (int)SCENE.WORLD;
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("GameStateManager");
             if (obj.Length > 1)
             {
                 // 既に存在しているなら削除
@@ -73,8 +79,9 @@ using UnityEngine.SceneManagement;
         // Use this for initialization
         void Start()
         {
-            currentScene = 1;
-            SoundManager.Instance.PlayBGM(0);
+        
+                
+                SoundManager.Instance.PlayBGM(0);
         }
 
         // Update is called once per frame

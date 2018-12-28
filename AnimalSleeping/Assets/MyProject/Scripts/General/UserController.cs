@@ -9,7 +9,7 @@ public class UserController : MonoBehaviour {
     {
         TITLE = 0,
         MENU = 1,
-        PLAY = 2
+        WORLD = 2
     }
 
 
@@ -49,8 +49,13 @@ public class UserController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        
+        if(GameStateManager.Instance.CurrentScene == (int)SCENE.MENU)
         EyePoint();
+
+        if(GameStateManager.Instance.CurrentScene == (int)SCENE.WORLD)
+        {
+            InputWorld();
+        }
         
     }
 
@@ -67,7 +72,7 @@ public class UserController : MonoBehaviour {
             cursor.transform.position = hit.point;
             rnd.enabled = true;
             //Debug.Log(cursor.transform.position);
-            InputController();
+            InputMenu();
         }
         else
         {
@@ -75,8 +80,15 @@ public class UserController : MonoBehaviour {
             target = null;
         }
     }
+    private void InputWorld()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            WorldManager.Instance.BackRoom();
+        }
 
-    private void InputController(){
+    }
+    private void InputMenu(){
       
         //トリガー入力時の処理
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
@@ -118,7 +130,7 @@ public class UserController : MonoBehaviour {
                     GameStateManager.Instance.currentMenu = (int)SELECTMENU.ANIMAL;
                 }
                 
-                if (GameStateManager.Instance.CurrentScene == (int)SCENE.PLAY)
+                if (GameStateManager.Instance.CurrentScene == (int)SCENE.WORLD)
                 {
                     //プレイルーム用メニューを開く
                     GameStateManager.Instance.currentMenu = (int)SELECTMENU.GENERAL;
@@ -138,8 +150,13 @@ public class UserController : MonoBehaviour {
                     target.GetComponent<AnimalData>().GetCell();
                     target = null;
                 }
-                
-                
+                else if (target.tag == "WorldButton")
+                {
+                    target.GetComponent<WorldData>().GetCell();
+                    target = null;
+                }
+
+
             }
 
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEditor;
 public class AnimalManager : MonoBehaviour {
 
     public GameObject setObj;
@@ -10,6 +10,7 @@ public class AnimalManager : MonoBehaviour {
     public List<AnimalData> DataList = new List<AnimalData>();
     public AnimalData SelectedData;
     public AnimalData ChooseData;
+    public AnimalCreator animalCreator;
     public Sprite SelThumbnail;
     public string SelName;
     //シングルトン化のおまじない
@@ -34,6 +35,21 @@ public class AnimalManager : MonoBehaviour {
         }
 
     }
+    private void Awake()
+    {
+
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("AnimalManager");
+        if (obj.Length > 1)
+        {
+            // 既に存在しているなら削除
+            Destroy(gameObject);
+        }
+        else
+        {
+            // 音管理はシーン遷移では破棄させない
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     // Use this for initialization
     void Start () {
         TestSet();
@@ -45,9 +61,13 @@ public class AnimalManager : MonoBehaviour {
     {
         SelectedData.SetData(ChooseData);
         SelectedData.SetCell(ChooseData.Thumbnail,ChooseData.AnimalName);
-   
+        
     } 
 	
+    public void AnimalCreate()
+    {
+        animalCreator.Create(SelectedData.Category.ToString(), SelectedData.ID.ToString());
+    }
     private void TestSet()
     {
         DataList[0].Category   = 100;
