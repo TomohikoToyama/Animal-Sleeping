@@ -50,7 +50,7 @@ public class AnimalData : MonoBehaviour {
     public void GetCell()
     {
        
-        AnimalManager.Instance.ChooseData = this;
+        AnimalManager.Instance.UseData = this;
         AnimalManager.Instance.SetSelect();
     }
 

@@ -82,7 +82,7 @@ public class UserController : MonoBehaviour {
     }
     private void InputWorld()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
             WorldManager.Instance.BackRoom();
         }
@@ -144,6 +144,7 @@ public class UserController : MonoBehaviour {
                 {
                     //Debug.Log("ccc");
                     target.GetComponent<GeneralButton>().Onclick();
+                    rnd.enabled = false;
                     target = null;
                 }else if(target.tag == "AnimalButton")
                 {

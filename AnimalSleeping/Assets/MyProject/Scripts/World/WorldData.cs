@@ -5,10 +5,8 @@ using UnityEngine.UI;
 public class WorldData : MonoBehaviour {
     private int id;
     public  int ID { get { return id; } set { id = value; } }
-    private Image thumbnail;
-    public  Image Thumbnail{ get { return thumbnail; } set { thumbnail = value; }}
-    private Text worldText;
-    public  Text WorldText{ get { return worldText; }set { worldText = value; }}
+    public Image Thumbnail;
+    public Text WorldText;
     private string worldName;
     public  string WorldName { get { return worldName; } set { worldName = value; } }
     private int moveType;
@@ -25,7 +23,8 @@ public class WorldData : MonoBehaviour {
     public void GetCell()
     {
 
-         WorldManager.Instance.ChooseData = this;
+        Debug.Log("test");
+         WorldManager.Instance.UseData = this;
          WorldManager.Instance.SetSelect();
     }
 
@@ -36,8 +35,5 @@ public class WorldData : MonoBehaviour {
         WorldName = data.WorldName;
         MoveType = data.MoveType;
     }
-    public void Init()
-    {
-    
-    }
+   
 }

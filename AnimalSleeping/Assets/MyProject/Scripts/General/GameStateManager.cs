@@ -46,9 +46,9 @@ using UnityEngine.SceneManagement;
         public int playerID;
         public enum SCENE
         {
-            TITLE = 0,
-            MENU  = 1,
-            WORLD = 2
+            Title = 0,
+            Menu  = 1,
+            World = 2
         }
     [SerializeField]
     private int currentScene;
@@ -60,9 +60,9 @@ using UnityEngine.SceneManagement;
         private void Awake()
         {
         if (SceneManager.GetActiveScene().name == "Menu")
-            CurrentScene = (int)SCENE.MENU;
+            CurrentScene = (int)SCENE.Menu;
         if (SceneManager.GetActiveScene().name == "World")
-            CurrentScene = (int)SCENE.WORLD;
+            CurrentScene = (int)SCENE.World;
         GameObject[] obj = GameObject.FindGameObjectsWithTag("GameStateManager");
             if (obj.Length > 1)
             {
@@ -79,13 +79,39 @@ using UnityEngine.SceneManagement;
         // Use this for initialization
         void Start()
         {
-        
-                
-                SoundManager.Instance.PlayBGM(0);
+        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        SoundManager.Instance.PlayBGM(0);
         }
 
-        // Update is called once per frame
-        void Update()
+    void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
+    {
+        if (CurrentScene == 1)
+        {
+            AnimalManager.Instance.Init();
+            WorldManager.Instance.Init();
+        }else if (CurrentScene == 2)
+        {
+            WorldManager.Instance.Init();
+            WorldManager.Instance.Create();
+            AnimalManager.Instance.Init();
+            AnimalManager.Instance.Create();
+        }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log(scene.name + " scene loaded");
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log(scene.name + " scene unloaded");
+    }
+    // Update is called once per frame
+    void Update()
         {
             /*
             //タイトルシーン
@@ -103,14 +129,14 @@ using UnityEngine.SceneManagement;
             */
 
             //メニューシーン
-            if (currentScene == (int)SCENE.MENU)
+            if (currentScene == (int)SCENE.Menu)
             {
                 //if(WorldManager.Instance
                 
             }
 
             //おでかけシーン
-            if(currentScene == (int)SCENE.WORLD)
+            if(currentScene == (int)SCENE.World)
             {
 
             }

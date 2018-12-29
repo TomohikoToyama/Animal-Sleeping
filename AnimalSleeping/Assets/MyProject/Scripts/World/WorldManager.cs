@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour {
 
-    public GameObject setObj;
-    public GameObject setCanvas;
-    public GameObject setMenu;
+    private WorldCreator WCreator;
     public List<WorldData> DataList = new List<WorldData>();
     public WorldData SelectedData;
-    public WorldData ChooseData;
-
+    public WorldData UseData;
+    public WorldSetting WSetting;
     //シングルトン化のおまじない
     protected static WorldManager instance;
     public static WorldManager Instance
@@ -48,40 +46,39 @@ public class WorldManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
     }
-    void Start()
+    private void Start()
     {
-
-        InitManager();
-
+        Init();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Init()
     {
+        if (GameStateManager.Instance.CurrentScene == 1)
+        {
 
-    }
-    private void InitManager()
-    {
-        setObj = GameObject.FindGameObjectWithTag("WorldSetting");
-        setCanvas = setObj.transform.Find("Canvas").gameObject;
-        setMenu = setCanvas.transform.Find("Panel").gameObject;
+            WSetting = GameObject.FindGameObjectWithTag("WorldSetting").GetComponent<WorldSetting>();
+        }
+        if (GameStateManager.Instance.CurrentScene == 2)
+            WCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<WorldCreator>();
     }
 
 
 
     public void SetSelect()
     {
-        SelectedData.SetData(ChooseData);
-        SelectedData.SetCell(ChooseData.Thumbnail, ChooseData.WorldName);
+        
+        WSetting.SelectedData.SetCell(UseData.Thumbnail, UseData.WorldName);
 
+    }
+
+    public void Create()
+    {
+        WCreator.Create( UseData.ID.ToString());
     }
     public void ChangeWorld()
     {
         GameStateManager.Instance.CurrentScene = 2;
         
         SceneManager.LoadSceneAsync("World");
-        if (SceneManager.GetActiveScene().name == "World")
-            AnimalManager.Instance.AnimalCreate();
         SoundManager.Instance.PlayBGM(0);
     }
 
@@ -89,23 +86,12 @@ public class WorldManager : MonoBehaviour {
     {
         GameStateManager.Instance.CurrentScene = 1;
         
-        AnimalManager.Instance.AnimalCreate();
         SoundManager.Instance.PlayBGM(0);
         
             SceneManager.LoadSceneAsync("Menu");
     }
     public void OpenCloseMenu()
     {
-        //GameStateManager.Instance.CurrentScene = 2;
-        //SceneManager.LoadScene("Play");
-
-        if (GameStateManager.Instance.currentMenu == 0)
-            setMenu.SetActive(true);
-
-        if (GameStateManager.Instance.currentMenu != 0)
-        {
-            GameStateManager.Instance.currentMenu = 0;
-            setMenu.SetActive(false);
-        }
+        WSetting.OpenCloseMenu();
     }
 }

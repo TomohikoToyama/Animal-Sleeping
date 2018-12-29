@@ -17,8 +17,9 @@ public class GeneralButton : MonoBehaviour {
     }
     public enum ROOT
     {
-        AnimalSetting = 0,
-        WorldSetting = 1
+        AnimalSetting,
+        WorldSetting,
+        OptionSetting
     }
     public enum SE
     {
@@ -34,11 +35,13 @@ public class GeneralButton : MonoBehaviour {
     //メニューを閉じる
     public void CloseMenu()
     {
-       
-        
-        PanelObj.SetActive(false);
-        GameStateManager.Instance.currentMenu = 0;
-       
+        if (RootObj.tag == ROOT.AnimalSetting.ToString())
+            AnimalManager.Instance.OpenCloseMenu();
+        if (RootObj.tag == ROOT.WorldSetting.ToString())
+            WorldManager.Instance.OpenCloseMenu();
+        if (RootObj.tag == ROOT.OptionSetting.ToString())
+            OptionManager.Instance.OpenCloseMenu();
+
     }
 
     public void Dicision()

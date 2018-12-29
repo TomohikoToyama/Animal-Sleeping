@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class WorldCreator : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private string folder = "Prefabs/World/";
+    //    private string type = ".prefab";
+    private string path;
+    public GameObject world;
+    // Use this for initialization
+
+    public void Create(string id)
+    {
+        // 拡張子まで書く
+        path = folder +  id;
+        Debug.Log(path);
+        world = Resources.Load<GameObject>(path);
+        Debug.Log(world.name);
+        Instantiate(world);
+        Debug.Log(world.name);
+    }
 }
