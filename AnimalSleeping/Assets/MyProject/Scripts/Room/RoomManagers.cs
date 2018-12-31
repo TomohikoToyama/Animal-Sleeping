@@ -32,7 +32,7 @@ public class RoomManagers : MonoBehaviour {
     void Start()
     {
 
-        InitManager();
+    //    InitManager();
 
     }
 

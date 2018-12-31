@@ -6,6 +6,11 @@ public class AnimalData : MonoBehaviour {
 
     public Image Thumbnail;
     public Text  NameText;
+    //足音
+    public AudioSource foot;
+    //鳴き声
+    public AudioSource voice;
+
     //動物の状態
     private int state;
     public int State { get { return state; } set { state = value ; } }

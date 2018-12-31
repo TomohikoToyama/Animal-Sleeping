@@ -25,6 +25,7 @@ TagManager:
   - AnimalSimple
   - AnimalButton
   - ObjectSpawner
+  - WorldButton
   layers:
   - Default
   - TransparentFX

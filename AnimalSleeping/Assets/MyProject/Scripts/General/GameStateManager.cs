@@ -79,9 +79,14 @@ using UnityEngine.SceneManagement;
         // Use this for initialization
         void Start()
         {
-        SceneManager.activeSceneChanged += OnActiveSceneChanged;
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        if (SceneManager.GetActiveScene().name == "Menu")
+            CurrentScene = (int)SCENE.Menu;
+        if (SceneManager.GetActiveScene().name == "World")
+            CurrentScene = (int)SCENE.World;
+
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         SoundManager.Instance.PlayBGM(0);
         }
@@ -110,36 +115,38 @@ using UnityEngine.SceneManagement;
     {
         Debug.Log(scene.name + " scene unloaded");
     }
-    // Update is called once per frame
-    void Update()
-        {
-            /*
-            //タイトルシーン
-            if (currentScene == (int)SCENE.TITLE) {
+    /*
+   // Update is called once per frame
+   void Update()
+       {
 
-                //メニューに入る
-                if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-                {
-                    currentScene = (int)SCENE.MENU;
-                    SceneManager.LoadScene("Menu");
-                }
+       //タイトルシーン
+       if (currentScene == (int)SCENE.TITLE) {
+
+           //メニューに入る
+           if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+           {
+               currentScene = (int)SCENE.MENU;
+               SceneManager.LoadScene("Menu");
+           }
 /
 
-            }
-            */
+       }
 
-            //メニューシーン
-            if (currentScene == (int)SCENE.Menu)
-            {
-                //if(WorldManager.Instance
-                
-            }
 
-            //おでかけシーン
-            if(currentScene == (int)SCENE.World)
-            {
+       //メニューシーン
+       if (currentScene == (int)SCENE.Menu)
+       {
+           //if(WorldManager.Instance
 
-            }
+       }
 
-        }
+       //おでかけシーン
+       if(currentScene == (int)SCENE.World)
+       {
+
+       }
+        
     }
+    */
+}

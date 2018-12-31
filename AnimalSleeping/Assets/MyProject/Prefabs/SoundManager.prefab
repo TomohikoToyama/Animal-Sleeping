@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1935558675344032}
+  m_RootGameObject: {fileID: 1790864820718830}
   m_IsPrefabAsset: 1
---- !u!1 &1935558675344032
+--- !u!1 &1790864820718830
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4082215036421618}
-  - component: {fileID: 114869742792533212}
+  - component: {fileID: 4633812139649662}
+  - component: {fileID: 114714692853657654}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: SoundManager
@@ -27,25 +27,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4082215036421618
+--- !u!4 &4633812139649662
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1935558675344032}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1790864820718830}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114869742792533212
+--- !u!114 &114714692853657654
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1935558675344032}
+  m_GameObject: {fileID: 1790864820718830}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e56d350e5f7767c4488090f6e5e2b155, type: 3}
@@ -56,5 +56,6 @@ MonoBehaviour:
     SE: 0.5
     Mute: 0
   BGM:
-  - {fileID: 8300000, guid: e2e65e247ddf3fb40be488d1951477ee, type: 3}
-  SE: []
+  - {fileID: 8300000, guid: fef8f9da2c23e344b9d3c884dfb0a26d, type: 3}
+  SE:
+  - {fileID: 8300000, guid: 3523306a4ca75434786a1658d9809526, type: 3}

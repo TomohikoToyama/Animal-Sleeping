@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class OptionSetting : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public GameObject setObj;
+    public GameObject setCanvas;
+    public GameObject setMenu;
+
+    public void OpenCloseMenu()
+    {
+
+        if (GameStateManager.Instance.currentMenu == 0)
+            setMenu.SetActive(true);
+
+        if (GameStateManager.Instance.currentMenu != 0)
+        {
+            GameStateManager.Instance.currentMenu = 0;
+            setMenu.SetActive(false);
+        }
+    }
 }

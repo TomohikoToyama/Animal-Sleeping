@@ -53,10 +53,8 @@ public class WorldManager : MonoBehaviour {
     public void Init()
     {
         if (GameStateManager.Instance.CurrentScene == 1)
-        {
-
             WSetting = GameObject.FindGameObjectWithTag("WorldSetting").GetComponent<WorldSetting>();
-        }
+        
         if (GameStateManager.Instance.CurrentScene == 2)
             WCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<WorldCreator>();
     }

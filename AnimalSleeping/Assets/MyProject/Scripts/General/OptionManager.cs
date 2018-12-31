@@ -6,7 +6,7 @@ public class OptionManager : MonoBehaviour {
     public GameObject setObj;
     public GameObject setCanvas;
     public GameObject setMenu;
-
+    public OptionSetting OSetting;
     //一度に複数のメニューが出ないよう制御
     public enum SELECTMENU
     {
@@ -41,32 +41,17 @@ public class OptionManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        InitManager();
-
+        //     InitManager();
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Init()
     {
-
-    }
-    private void InitManager()
-    {
-        setObj = GameObject.FindGameObjectWithTag("OptionSetting");
-        setCanvas = setObj.transform.Find("Canvas").gameObject;
-        setMenu = setCanvas.transform.Find("Panel").gameObject;
+        OSetting = GameObject.FindGameObjectWithTag("OptionSetting").GetComponent<OptionSetting>();
     }
 
     public void OpenCloseMenu()
     {
-       
-        if (GameStateManager.Instance.currentMenu == 0)
-            setMenu.SetActive(true);
-
-        if (GameStateManager.Instance.currentMenu != 0)
-        {
-            GameStateManager.Instance.currentMenu = 0;
-            setMenu.SetActive(false);
-        }
+        OSetting.OpenCloseMenu();
     }
 }

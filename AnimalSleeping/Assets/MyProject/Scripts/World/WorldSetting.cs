@@ -20,7 +20,7 @@ public class WorldSetting : MonoBehaviour {
         DataList[0].ID = 1;
         DataList[0].WorldName = "サッカースタジアム";
         DataList[1].ID = 2;
-        DataList[1].WorldName = "ひつじ";
+        DataList[1].WorldName = "うみ";
         DataList[2].ID = 3;
         DataList[2].WorldName = "にわとり";
         DataList[3].ID = 4;
