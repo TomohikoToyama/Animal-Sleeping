@@ -11,8 +11,19 @@ public class AnimalData : MonoBehaviour {
     //鳴き声
     public AudioSource voice;
 
+    /*
+     * ごはん上げる時や触る時の反応具合に影響する
+     * 0 = なし 
+     * 1 = 臆病
+     * 2 = 懐っこい
+     * 3 = 気まぐれ
+     * 
+    */
+    //性格
+    public int personality;
+
     //動物の状態
-    private int state;
+    private int state = 99;
     public int State { get { return state; } set { state = value ; } }
     //動物が選択済みメニュー開き用
     private bool selected;

@@ -26,6 +26,13 @@ TagManager:
   - AnimalButton
   - ObjectSpawner
   - WorldButton
+  - WorldMenu
+  - AnimalMenu
+  - OptionMenu
+  - ControllerManager
+  - Menu
+  - AnimalCommand
+  - Animal
   layers:
   - Default
   - TransparentFX

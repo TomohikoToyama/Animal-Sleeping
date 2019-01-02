@@ -22,11 +22,11 @@ public class WorldSetting : MonoBehaviour {
         DataList[1].ID = 2;
         DataList[1].WorldName = "うみ";
         DataList[2].ID = 3;
-        DataList[2].WorldName = "にわとり";
+        DataList[2].WorldName = "まち";
         DataList[3].ID = 4;
-        DataList[3].WorldName = "さけ";
+        DataList[3].WorldName = "つき";
         DataList[4].ID = 5;
-        DataList[4].WorldName = "ワニ";
+        DataList[4].WorldName = "  わしつ";
         DataList[5].ID = 6;
         DataList[5].WorldName = "ワイバーン";
         

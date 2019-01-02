@@ -93,6 +93,7 @@ using UnityEngine.SceneManagement;
 
     void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
     {
+        ControllerManager.Instance.Init();
         if (CurrentScene == 1)
         {
             AnimalManager.Instance.Init();
@@ -102,17 +103,19 @@ using UnityEngine.SceneManagement;
             WorldManager.Instance.Init();
             WorldManager.Instance.Create();
             AnimalManager.Instance.Init();
-            AnimalManager.Instance.Create();
+            AnimalManager.Instance.AnimalCreate();
         }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+       // ControllerManager.Instance.FadeOut();
         Debug.Log(scene.name + " scene loaded");
     }
 
     void OnSceneUnloaded(Scene scene)
     {
+       // ControllerManager.Instance.FadeIn();
         Debug.Log(scene.name + " scene unloaded");
     }
     /*

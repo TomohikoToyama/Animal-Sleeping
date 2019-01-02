@@ -14,7 +14,7 @@ public class TestController : MonoBehaviour {
 
 
         if (Input.GetKey(KeyCode.W))
-            transform.Translate(transform.forward);
+            transform.Translate(transform.forward * 0.01f);
         if (Input.GetKey(KeyCode.S))
             transform.Translate(-0.1f, 0, 0);
         if (Input.GetKey(KeyCode.A))
@@ -22,9 +22,9 @@ public class TestController : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
             transform.Translate(transform.right);
         if (Input.GetKey(KeyCode.R))
-            transform.Translate(0, 0.1f, 0);
+            transform.Rotate(new Vector3(1f, 0f, 0f));
         if (Input.GetKey(KeyCode.F))
-            transform.Translate(0, -0.1f, 0);
+            transform.Rotate(new Vector3(-1f, 0f, 0f));
         if (Input.GetKey(KeyCode.Q))
             transform.Rotate(new Vector3(0f, 1f, 0f));
         if (Input.GetKey(KeyCode.E))

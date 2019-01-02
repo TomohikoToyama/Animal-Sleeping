@@ -6,6 +6,7 @@ public class RoomManagers : MonoBehaviour {
     public GameObject setObj;
     public GameObject setCanvas;
     public GameObject setMenu;
+    public RoomSetting RSetting;
     //シングルトン化のおまじない
     protected static RoomManagers instance;
     public static RoomManagers Instance
@@ -32,20 +33,14 @@ public class RoomManagers : MonoBehaviour {
     void Start()
     {
 
-    //    InitManager();
+        Init();
 
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Init()
     {
-
-    }
-    private void InitManager()
-    {
-        setObj = GameObject.FindGameObjectWithTag("OptionSetting");
-        setCanvas = setObj.transform.Find("Canvas").gameObject;
-        setMenu   = setCanvas.transform.Find("Panel").gameObject;
+        if (GameStateManager.Instance.CurrentScene == 1)
+            RSetting = GameObject.FindGameObjectWithTag("RoomSetting").GetComponent<RoomSetting>();
     }
 
     //決定

@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 public class AnimalManager : MonoBehaviour {
+    public enum COMMAND
+    {
+        Call = 0,
+        Hangout = 1,
+        Eat = 2,
+        Change = 3,
+        Sleep = 4,
+        Close = 5
 
+    }
+    private AnimalController ACon;
     private AnimalCreator ACreator;
+    private FoodCreator FCreator;
     public AnimalSetting ASetting;
     public AnimalData UseData;
     public AnimalData ChooseData;
@@ -56,9 +67,11 @@ public class AnimalManager : MonoBehaviour {
             ASetting = GameObject.FindGameObjectWithTag("AnimalSetting").GetComponent<AnimalSetting>();
            // UseData = ASetting.ChooseData ;
         }
-        if (GameStateManager.Instance.CurrentScene == 2)
+        if (GameStateManager.Instance.CurrentScene == 2) {
             ACreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<AnimalCreator>();
-
+            FCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<FoodCreator>();
+            
+        }
     }
 
     public void SetSelect()
@@ -68,10 +81,13 @@ public class AnimalManager : MonoBehaviour {
         
     } 
 	
-    public void Create()
+    public void AnimalCreate()
     {
         ACreator.Create(UseData.Category.ToString(), UseData.ID.ToString());
+        ACon = GameObject.FindGameObjectWithTag("Animal").GetComponent<AnimalController>();
     }
+
+ 
     
 	/*
     private void InitManager()
@@ -87,4 +103,16 @@ public class AnimalManager : MonoBehaviour {
         ASetting.OpenCloseMenu();
     }
     
+    public void Command(int com)
+    {
+        if(com == (int)COMMAND.Call)
+        {
+            ACon.StateChange(com);
+        }
+
+        if(com == (int)COMMAND.Eat)
+        {
+            FCreator.Create("2");
+        }
+    }
 }

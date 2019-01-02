@@ -41,13 +41,13 @@ public class OptionManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        //     InitManager();
-        
+        Init();
     }
 
     private void Init()
     {
-        OSetting = GameObject.FindGameObjectWithTag("OptionSetting").GetComponent<OptionSetting>();
+        if (GameStateManager.Instance.CurrentScene == 1)
+            OSetting = GameObject.FindGameObjectWithTag("OptionSetting").GetComponent<OptionSetting>();
     }
 
     public void OpenCloseMenu()
