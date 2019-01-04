@@ -10,6 +10,7 @@ public class ControllerManager : MonoBehaviour {
     public WorldUserController    WCon;
     public Image fade;
     Color color;
+
    // color.a = 0.5f;
 //renderer.material.color = color;
 	// Use this for initialization

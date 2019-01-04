@@ -36,7 +36,7 @@ public class AnimalData : MonoBehaviour {
     //種族のID
     public int AID { get; private set; }
     //個体のID
-    public int id { get; private set; }
+    public int id;
     public int ID { get { return id; } set { id = value; } }
     //動物種族名
     private string animalName;
@@ -44,8 +44,12 @@ public class AnimalData : MonoBehaviour {
     //ニックネーム
     public string NickName { get; private set; }
     //水陸空移動
-    public int moveType { get; private set; }
+    private int moveType;
     public int MoveType { get { return moveType; } set { moveType = value; } }
+
+    //大きさ
+    private int size;
+    public  int Size { get { return size; } set { size = value; } }
 
     public void SetData(AnimalData data)
     {

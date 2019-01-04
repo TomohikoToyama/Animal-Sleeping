@@ -45,7 +45,8 @@ public class AnimalCommand : MonoBehaviour {
         }
         else if (id == (int)COMMAND.Sleep)
         {
-
+            Sleep();
+            Close();
         }
         else if (id == (int)COMMAND.Hangout)
         {
@@ -53,7 +54,8 @@ public class AnimalCommand : MonoBehaviour {
         }
         else if (id == (int)COMMAND.Change)
         {
-
+            Change();
+            Close();
         }
         else if (id == (int)COMMAND.Close)
         {
@@ -84,7 +86,8 @@ public class AnimalCommand : MonoBehaviour {
 
     public void Sleep()
     {
-
+        Debug.Log("ねる");
+        AnimalManager.Instance.Command(id);
     }
 
     public void Hangout()
@@ -94,7 +97,8 @@ public class AnimalCommand : MonoBehaviour {
 
     public void Change()
     {
-
+        Debug.Log("変化");
+        AnimalManager.Instance.Command(id);
     }
     public void Close()
     {

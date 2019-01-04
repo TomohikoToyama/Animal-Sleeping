@@ -105,14 +105,13 @@ public class AnimalManager : MonoBehaviour {
     
     public void Command(int com)
     {
-        if(com == (int)COMMAND.Call)
+        if(com != (int)COMMAND.Eat)
         {
             ACon.StateChange(com);
-        }
-
-        if(com == (int)COMMAND.Eat)
+        }else if(com == (int)COMMAND.Eat)
         {
             FCreator.Create("2");
         }
+        
     }
 }

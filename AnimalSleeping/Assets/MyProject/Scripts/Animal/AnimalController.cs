@@ -6,8 +6,11 @@ public class AnimalController : MonoBehaviour {
 
     public enum STATE
     {
-        CALL = 0,
-        EAT = 1,
+        CALL    = 0,
+        HANGOUT = 1,
+        EAT     = 2,
+        CHANGE  = 3,
+        SLEEP   = 4,
         NONE = 99
     }
     private GameObject Player;
@@ -17,6 +20,13 @@ public class AnimalController : MonoBehaviour {
     private float speed = 1f;
     private Animator animator;
     private AnimalData AData;
+    private Vector3 targetSize;
+    private Vector3 normalSize = new Vector3(1f,1f,1f);
+    private Vector3 minSize = new Vector3(0.1f, 0.1f, 0.1f);
+    private Vector3 maxSize = new Vector3(5f, 5f, 5f);
+
+    private float nowScale;
+    private float targetScale;
     // Use this for initialization
     void Start () {
         stopTime = Random.Range(3f,7f);
@@ -25,10 +35,11 @@ public class AnimalController : MonoBehaviour {
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
     }
-	
 
-	// Update is called once per frame
-	void Update () {
+    Vector3 vel = Vector3.zero;
+
+    // Update is called once per frame
+    void Update () {
 
        if(AData.State == (int)STATE.NONE)
         {
@@ -37,9 +48,68 @@ public class AnimalController : MonoBehaviour {
         {
             Call();
         }
-    
-	}
+        else if (AData.State == (int)STATE.HANGOUT)
+        {
+           
+        }
+        else if (AData.State == (int)STATE.EAT)
+        {
+           
+        }
+        else if (AData.State == (int)STATE.CHANGE)
+        {
+            Change();
+        }
+        else if (AData.State == (int)STATE.SLEEP)
+        {
+            Sleep();
+        }
 
+    }
+    /*
+    private IEnumerator SizeChange(GameObject target)
+    {
+        
+        int loopCount = 10;
+        float waitSec = 0.05f;
+        if (AData.Size == 0)
+        {
+            targetSize = maxSize;
+            targetScale = 5f;
+            nowScale = 1f;
+
+            AData.Size = 1;
+        }
+        else if(AData.Size == 1)
+        {
+            targetSize = minSize;
+            targetScale = 0.1f;
+            nowScale = 5f;
+            AData.Size = -1;
+            AData.State = (int)STATE.NONE;
+        }
+        else if (AData.Size == -1)
+        {
+            targetSize = normalSize;
+            targetScale = 1f;
+            nowScale = 0f;
+            AData.Size = -1;
+            AData.State = (int)STATE.NONE;
+        }
+        float offsetScale = targetScale / loopCount;
+        float updateScale = nowScale;
+        for (int loop = 0; loop < loopCount; loop++)
+        {
+            // スケール更新
+            updateScale = updateScale + offsetScale;
+            target.transform.localScale = new Vector3(updateScale, updateScale, updateScale);
+            yield return new WaitForSeconds(waitSec);
+        }
+        target.transform.localScale = targetSize;
+        AData.State = (int)STATE.NONE;
+        
+    }   
+    */
     public void StateChange(int num)
     {
         Debug.Log(num + "の支持がでたよ");
@@ -50,12 +120,42 @@ public class AnimalController : MonoBehaviour {
     {
         Debug.Log("向かってます");
         //呼ばれているよ
-        targetPosition = Player.transform.position;
+        animator.SetBool("Run", true);
+        targetPosition = Player.transform.position - new Vector3(0,-1f,2f);
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
 
     }
+
+    public void Change()
+    {
+        
+        if (AData.Size == 0)
+        {
+            this.transform.localScale = maxSize;
+            AData.Size = 1;
+            AData.State = (int)STATE.NONE;
+        }
+        else if (AData.Size == 1) {
+            this.transform.localScale = minSize;
+            AData.Size = -1;
+            AData.State = (int)STATE.NONE;
+        }
+        else if (AData.Size == -1)
+        {
+            this.transform.localScale = normalSize;
+            AData.Size = 0;
+            AData.State = (int)STATE.NONE;
+        }
+        
+    }
+    public void Sleep()
+    {
+        animator.SetBool("Sleep", true);
+    }
+
+
     public void RandomWalk()
     {
         if (stopTime > 0)
@@ -64,7 +164,7 @@ public class AnimalController : MonoBehaviour {
         if (stopTime <= 0)
         {
             //正面に進む
-            // animator.SetBool("metariglWalk", true);
+            animator.SetBool("Walk", true);
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
@@ -72,6 +172,7 @@ public class AnimalController : MonoBehaviour {
         }
         if (moveTime <= 0)
         {
+            animator.SetBool("Walk", false);
             stopTime = Random.Range(3f, 7f);
             moveTime = MoveTime();
             targetPosition = GetRandomPosition();

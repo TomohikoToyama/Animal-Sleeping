@@ -24,6 +24,8 @@ public class WorldUserController : MonoBehaviour {
         OPTION  = 4,
         FOOD    = 5
     }
+    private float smoothTime = 0.5f;
+    Vector3 velocity = Vector3.zero;
     public int currentMenu;
     // Use this for initialization
     private GameObject target;
@@ -62,10 +64,10 @@ public class WorldUserController : MonoBehaviour {
         if (currentMenu == (int)SELECTMENU.NONE)
             InputWorld();
 
-        if (currentMenu == (int)SELECTMENU.ANIMAL)
+        else if (currentMenu == (int)SELECTMENU.ANIMAL)
             InputAnimal();
 
-        if (currentMenu == (int)SELECTMENU.FOOD)
+        else if (currentMenu == (int)SELECTMENU.FOOD)
             InputFood();
 
     }
@@ -84,11 +86,11 @@ public class WorldUserController : MonoBehaviour {
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
             {
                 //プレイルーム用メニューを開く
-                AnimalMenu.transform.position = Menu.transform.position;
-                AnimalMenu.transform.rotation = Menu.transform.rotation;
-                AnimalMenu.SetActive(true);
+            AnimalMenu.transform.position =Menu.transform.position + new Vector3(0,0.2f,0) ;
+            AnimalMenu.transform.rotation = Menu.transform.rotation;
                 currentMenu = (int)SELECTMENU.ANIMAL;
-
+                
+                
 
             }
             
@@ -101,6 +103,7 @@ public class WorldUserController : MonoBehaviour {
         
     }
 
+    
     private void InputAnimal()
     {
         EyePoint();
