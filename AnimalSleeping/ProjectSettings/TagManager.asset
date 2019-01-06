@@ -33,6 +33,13 @@ TagManager:
   - Menu
   - AnimalCommand
   - Animal
+  - Hand
+  - Food
+  - Left
+  - Right
+  - Prev
+  - Next
+  - PageButton
   layers:
   - Default
   - TransparentFX

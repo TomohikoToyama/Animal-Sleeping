@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ControllerManager : MonoBehaviour {
 
-
+    public GameObject cameraObj;
     public GameObject Menu;
     public RoomUserController RCon;
     public WorldUserController    WCon;
@@ -19,6 +19,7 @@ public class ControllerManager : MonoBehaviour {
 
     }
 
+ 
     public void Init()
     {
         color = fade.color;

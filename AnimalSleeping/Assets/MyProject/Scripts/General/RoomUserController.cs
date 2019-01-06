@@ -63,65 +63,59 @@ public class RoomUserController : MonoBehaviour {
         //トリガー入力時の処理
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
         {
-            if (GameStateManager.Instance.currentMenu == (int)SELECTMENU.NONE)
-            {
+            
 
                 //Debug.Log("クリック");
                 if (target.tag == "AnimalSetting")
                 {
                     //動物設定用メニューを開く
                     AnimalManager.Instance.OpenCloseMenu();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.ANIMAL;
 
                 }
                 if (target.tag == "OptionSetting")
                 {
                     //オプション設定用メニューを開く
                     OptionManager.Instance.OpenCloseMenu();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.OPTION;
                 }
                 if (target.tag == "RoomSetting")
                 {
                     //ルーム設定用メニューを開く
                     RoomManagers.Instance.OpenCloseMenu();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.ROOM;
                 }
                 if (target.tag == "WorldSetting")
                 {
                     //ルーム設定用メニューを開く
                     WorldManager.Instance.OpenCloseMenu();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.WORLD;
                 }
 
                 if (target.tag == "Animal")
                 {
                     //動物用メニューを開く
                     target.GetComponent<AnimalController>();
-                    GameStateManager.Instance.currentMenu = (int)SELECTMENU.ANIMAL;
                 }
 
-            }
-            else if (GameStateManager.Instance.currentMenu != (int)SELECTMENU.NONE)
+
+            //Debug.Log("hhh");
+            if (target.tag == "Button")
             {
-                //Debug.Log("hhh");
-                if (target.tag == "Button")
-                {
-                    rnd.enabled = false;
-                    target.GetComponent<GeneralButton>().Onclick();
-                    target = null;
-                }
-                else if (target.tag == "AnimalButton")
-                {
-                    target.GetComponent<AnimalData>().GetCell();
-                    target = null;
-                }
-                else if (target.tag == "WorldButton")
-                {
-                    target.GetComponent<WorldData>().GetCell();
-                    target = null;
-                }
-
-
+                target.GetComponent<GeneralButton>().Onclick();
+                rnd.enabled = false;
+                target = null;
+            }
+            else if (target.tag == "AnimalButton")
+            {
+                target.GetComponent<AnimalData>().GetCell();
+                target = null;
+            }
+            else if (target.tag == "WorldButton")
+            {
+                target.GetComponent<WorldData>().GetCell();
+                target = null;
+            }
+            else if (target.tag == "PageButton")
+            {
+                target.GetComponent<PageButton>().OnClick();
+                target = null;
             }
 
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AnimalData : MonoBehaviour {
 
+
     public Image Thumbnail;
     public Text  NameText;
     //足音
@@ -31,13 +32,13 @@ public class AnimalData : MonoBehaviour {
     //動物の選択コマンド
     public Hashtable Command { get; private set; }
     //動物のカテゴリ
-    private int category;
-    public int Category { get { return category; } set { category = value; } }
+    private string category;
+    public string Category { get { return category; } set { category = value; } }
     //種族のID
-    public int AID { get; private set; }
+    public string AID { get; private set; }
     //個体のID
-    public int id;
-    public int ID { get { return id; } set { id = value; } }
+    public string id;
+    public string ID { get { return id; } set { id = value; } }
     //動物種族名
     private string animalName;
     public string AnimalName { get { return animalName; } set { animalName = value; } }
@@ -54,15 +55,19 @@ public class AnimalData : MonoBehaviour {
     public void SetData(AnimalData data)
     {
         Category   = data.Category;
-        AID        = data.AID;
+        //AID        = data.AID;
         ID         = data.ID;
         AnimalName = data.AnimalName;
         MoveType   = data.MoveType;
     }
 
-    public void SetCell(Image img ,string str)
+    public void SetCellData()
     {
-        Thumbnail.sprite = img.sprite;
+
+    }
+    public void SetCell(Sprite img ,string str)
+    {
+        Thumbnail.sprite = img;
         NameText.text    = str;
         Debug.Log(NameText.text);
     }
@@ -74,5 +79,14 @@ public class AnimalData : MonoBehaviour {
         AnimalManager.Instance.SetSelect();
     }
 
+    public void Apear()
+    {
+        gameObject.SetActive(true);
 
+    }
+
+    public void DisApear()
+    {
+        gameObject.SetActive(false);
+    }
 }

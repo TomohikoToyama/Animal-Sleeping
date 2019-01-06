@@ -37,14 +37,10 @@ public class WorldSetting : MonoBehaviour {
 
     public void OpenCloseMenu()
     {
-
-        if (GameStateManager.Instance.currentMenu == 0)
+        if (!setMenu.activeSelf)
             setMenu.SetActive(true);
 
-        if (GameStateManager.Instance.currentMenu != 0)
-        {
-            GameStateManager.Instance.currentMenu = 0;
+        else if (setMenu.activeSelf)
             setMenu.SetActive(false);
-        }
     }
 }

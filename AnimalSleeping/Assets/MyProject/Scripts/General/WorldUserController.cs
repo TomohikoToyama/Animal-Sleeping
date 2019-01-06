@@ -24,6 +24,9 @@ public class WorldUserController : MonoBehaviour {
         OPTION  = 4,
         FOOD    = 5
     }
+    public GameObject directionObj;
+    public GameObject moveObj;
+    float forwardSpeed = 0.01f;
     private float smoothTime = 0.5f;
     Vector3 velocity = Vector3.zero;
     public int currentMenu;
@@ -39,7 +42,19 @@ public class WorldUserController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+        if (currentMenu == (int)SELECTMENU.NONE)
+            InputWorld();
 
+        else if (currentMenu == (int)SELECTMENU.ANIMAL)
+            InputAnimal();
+
+        else if (currentMenu == (int)SELECTMENU.FOOD)
+            InputFood();
+
+    }
+    public void TouchImput()
+    {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 
         if (touchPadPt.x > 0.5 && -0.5 < touchPadPt.y && touchPadPt.y < 0.5)
@@ -53,54 +68,48 @@ public class WorldUserController : MonoBehaviour {
         if (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
         {
             //上方向
-            transform.Translate(transform.forward * 0.01f);
+            transform.Translate( transform.forward * 0.01f);
         }
         if (touchPadPt.y < -0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
         {
             //下方向
             transform.Translate(-transform.forward * 0.01f);
         }
-
-        if (currentMenu == (int)SELECTMENU.NONE)
-            InputWorld();
-
-        else if (currentMenu == (int)SELECTMENU.ANIMAL)
-            InputAnimal();
-
-        else if (currentMenu == (int)SELECTMENU.FOOD)
-            InputFood();
-
     }
-
     public void Init()
     {
         rnd = cursor.GetComponent<Renderer>();
         rnd.enabled = false;
         Menu = GameObject.FindGameObjectWithTag("Menu");
         AnimalMenu = GameObject.FindGameObjectWithTag("AnimalMenu");
+        AnimalMenu.SetActive(false);
 
     }
     private void InputWorld()
-
     {
+            TouchImput();
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
             {
-                //プレイルーム用メニューを開く
+            //プレイルーム用メニューを開く
+            AnimalMenu.SetActive(true);
             AnimalMenu.transform.position =Menu.transform.position + new Vector3(0,0.2f,0) ;
             AnimalMenu.transform.rotation = Menu.transform.rotation;
-                currentMenu = (int)SELECTMENU.ANIMAL;
-                
-                
+            currentMenu = (int)SELECTMENU.ANIMAL;
+            
 
             }
             
-            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+            else if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
             {
             
                 WorldManager.Instance.BackRoom();
             transform.position = new Vector3(0, 1, 0);
-        }
-        
+            }
+
+            else if (  Input.GetKeyDown(KeyCode.Return)||  (OVRInput.GetDown(OVRInput.Button.Back) && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) ) )
+                ScreenCapture.CaptureScreenshot(Application.dataPath + "/savedata.PNG");
+
+
     }
 
     
@@ -145,8 +154,12 @@ public class WorldUserController : MonoBehaviour {
             //Debug.Log("クリック");
             if (target.tag == "AnimalCommand")
             {
+
                 Debug.Log("コマンド―");
                 target.GetComponent<AnimalCommand>().Onclick();
+                rnd.enabled = false;
+                target = null;
+                AnimalMenu.SetActive(false);
             }
         }
     }

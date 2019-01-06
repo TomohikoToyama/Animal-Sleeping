@@ -16,9 +16,14 @@ public class AnimalManager : MonoBehaviour {
     private AnimalController ACon;
     private AnimalCreator ACreator;
     private FoodCreator FCreator;
+    private AnimalLoader ALoader;
     public AnimalSetting ASetting;
     public AnimalData UseData;
     public AnimalData ChooseData;
+    public List<string[]> Datas = new List<string[]>();
+    float panelNum = 6.0f;
+    int currentPage;
+    int maxPage;
     //シングルトン化のおまじない
     protected static AnimalManager instance;
     public static AnimalManager Instance
@@ -56,53 +61,104 @@ public class AnimalManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
     }
+
     private void Start()
     {
         Init();
     }
+
+    //初期化処理
     public void Init()
     {
-        if (GameStateManager.Instance.CurrentScene == 1) { 
-            
+        //ルームに遷移したの時の初期化
+        if (GameStateManager.Instance.CurrentScene == 1) {
             ASetting = GameObject.FindGameObjectWithTag("AnimalSetting").GetComponent<AnimalSetting>();
-           // UseData = ASetting.ChooseData ;
+
+            if (ALoader == null)
+            {
+                ALoader = new AnimalLoader();
+                // ALoader = GameObject.FindGameObjectWithTag("AnimalSetting").GetComponent<AnimalLoader>();
+                Datas = ALoader.LoadData();
+                maxPage = (int)Mathf.Ceil(Datas.Count / panelNum);
+                currentPage = 1;
+                ASetting.SetDataList(Datas, currentPage);
+
+            }
+           
+            // UseData = ASetting.ChooseData ;
+           // Datatest();
         }
-        if (GameStateManager.Instance.CurrentScene == 2) {
+        //おでかけ先に遷移した時の初期化
+        else if (GameStateManager.Instance.CurrentScene == 2) {
             ACreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<AnimalCreator>();
             FCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<FoodCreator>();
             
         }
     }
 
-    public void SetSelect()
+    //
+    public void Datatest()
+    {
+        int num = 5;
+        for(int x = 0;x < Datas.Count; x++)
+        {
+            for(int y = 0; y < num; y++)
+            {
+                Debug.Log(Datas[x][y]);
+            }
+        }
+    }
+
+    public void LoadData()
     {
 
-        ASetting.SelectedData.SetCell(UseData.Thumbnail, UseData.AnimalName);
+    }
+
+
+    public void SetPage(int num)
+    {
+        currentPage += num;
+    }
+
+    public void ChangePage()
+    {
+        ASetting.ChangePage(currentPage, maxPage);
+        ASetting.SetDataList(Datas, currentPage);
+
+    }
+    //ルームでの処理
+    #region
+    //ルームでのメニューを開閉する
+    public void OpenCloseMenu()
+    {
+        ASetting.OpenCloseMenu();
+    }
+
+    //選択した動物さんを選択済みパネルに反映する
+    public void SetSelect()
+    {
         
-    } 
-	
+        ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
+    }
+
+
+    #endregion
+
+
+    //おでかけ先での処理
+    #region
+    //動物を生成する。
     public void AnimalCreate()
     {
         ACreator.Create(UseData.Category.ToString(), UseData.ID.ToString());
         ACon = GameObject.FindGameObjectWithTag("Animal").GetComponent<AnimalController>();
     }
 
- 
-    
-	/*
-    private void InitManager()
-    {
-        setObj = GameObject.FindGameObjectWithTag("AnimalSetting");
-        setCanvas = setObj.transform.Find("Canvas").gameObject;
-        setMenu   = setCanvas.transform.Find("Panel").gameObject;
-        setMenu   = setCanvas.transform.Find("Panel").gameObject;
-    }
-    */
-    public void OpenCloseMenu()
-    {
-        ASetting.OpenCloseMenu();
-    }
-    
+    /*
+     * 動物コマンド 
+     * コマンドがEat以外の場合はAnimalControllerにコマンドに応じたStateにする
+     * コマンドがEatの場合は、動物に応じたごはんを生成し動物のStateを食事にする
+     */
     public void Command(int com)
     {
         if(com != (int)COMMAND.Eat)
@@ -111,7 +167,9 @@ public class AnimalManager : MonoBehaviour {
         }else if(com == (int)COMMAND.Eat)
         {
             FCreator.Create("2");
-        }
-        
+            ACon.StateChange(com);
+        }    
     }
+
+    #endregion
 }

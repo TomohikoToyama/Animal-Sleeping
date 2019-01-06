@@ -8,13 +8,16 @@ public class FoodCreator : MonoBehaviour {
     //    private string type = ".prefab";
     private string path;
     public GameObject food;
+    private GameObject handPos;
     // Use this for initialization
 
     public void Create(string id)
     {
+
         // 拡張子まで書く
+        handPos = GameObject.FindGameObjectWithTag("Hand");
         path = folder  + id;
         food = Resources.Load<GameObject>(path);
-        Instantiate(food, new Vector3(1.0f, 1.0f, 1.0f), Quaternion.identity);
+        Instantiate(food, handPos.transform.position, Quaternion.identity);
     }
 }

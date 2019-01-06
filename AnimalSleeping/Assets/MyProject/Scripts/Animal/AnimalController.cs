@@ -11,6 +11,7 @@ public class AnimalController : MonoBehaviour {
         EAT     = 2,
         CHANGE  = 3,
         SLEEP   = 4,
+        EATING  = 90,
         NONE = 99
     }
     private GameObject Player;
@@ -22,9 +23,9 @@ public class AnimalController : MonoBehaviour {
     private AnimalData AData;
     private Vector3 targetSize;
     private Vector3 normalSize = new Vector3(1f,1f,1f);
-    private Vector3 minSize = new Vector3(0.1f, 0.1f, 0.1f);
+    private Vector3 minSize = new Vector3(0.25f, 0.25f, 0.25f);
     private Vector3 maxSize = new Vector3(5f, 5f, 5f);
-
+    private bool isSleep;
     private float nowScale;
     private float targetScale;
     // Use this for initialization
@@ -54,7 +55,7 @@ public class AnimalController : MonoBehaviour {
         }
         else if (AData.State == (int)STATE.EAT)
         {
-           
+            Eat();
         }
         else if (AData.State == (int)STATE.CHANGE)
         {
@@ -118,7 +119,7 @@ public class AnimalController : MonoBehaviour {
 
     public void Call()
     {
-        Debug.Log("向かってます");
+
         //呼ばれているよ
         animator.SetBool("Run", true);
         targetPosition = Player.transform.position - new Vector3(0,-1f,2f);
@@ -127,7 +128,16 @@ public class AnimalController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
 
     }
+    public void Eat()
+    {
 
+        //呼ばれているよ
+        animator.SetBool("Run", true);
+        targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
+    }
     public void Change()
     {
         
@@ -152,7 +162,11 @@ public class AnimalController : MonoBehaviour {
     }
     public void Sleep()
     {
-        animator.SetBool("Sleep", true);
+        if (!isSleep)
+        {
+            isSleep = true;
+            animator.SetBool("Sleep", true);
+        }
     }
 
 
