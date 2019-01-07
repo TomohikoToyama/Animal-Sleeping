@@ -88,7 +88,7 @@ using UnityEngine.SceneManagement;
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
 
-        SoundManager.Instance.PlayBGM(0);
+            SoundManager.Instance.PlayBGM(0);
         }
 
     void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
@@ -101,9 +101,7 @@ using UnityEngine.SceneManagement;
         }else if (CurrentScene == 2)
         {
             WorldManager.Instance.Init();
-            WorldManager.Instance.Create();
             AnimalManager.Instance.Init();
-            AnimalManager.Instance.AnimalCreate();
         }
     }
 

@@ -24,6 +24,8 @@ public class AnimalManager : MonoBehaviour {
     float panelNum = 6.0f;
     int currentPage;
     int maxPage;
+    private string UseCategory;
+    private string UseID;
     //シングルトン化のおまじない
     protected static AnimalManager instance;
     public static AnimalManager Instance
@@ -84,14 +86,16 @@ public class AnimalManager : MonoBehaviour {
                 ASetting.SetDataList(Datas, currentPage);
 
             }
-           
+            UseCategory = "100";
+            UseID = "1";
             // UseData = ASetting.ChooseData ;
-           // Datatest();
+            // Datatest();
         }
         //おでかけ先に遷移した時の初期化
         else if (GameStateManager.Instance.CurrentScene == 2) {
             ACreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<AnimalCreator>();
             FCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<FoodCreator>();
+            AnimalCreate();
             
         }
     }
@@ -137,7 +141,8 @@ public class AnimalManager : MonoBehaviour {
     //選択した動物さんを選択済みパネルに反映する
     public void SetSelect()
     {
-        
+        UseCategory = UseData.Category;
+        UseID = UseData.ID;
         ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
     }
 
@@ -150,7 +155,7 @@ public class AnimalManager : MonoBehaviour {
     //動物を生成する。
     public void AnimalCreate()
     {
-        ACreator.Create(UseData.Category.ToString(), UseData.ID.ToString());
+        ACreator.Create(UseCategory, UseID);
         ACon = GameObject.FindGameObjectWithTag("Animal").GetComponent<AnimalController>();
     }
 

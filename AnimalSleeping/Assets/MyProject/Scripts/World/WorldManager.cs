@@ -9,6 +9,7 @@ public class WorldManager : MonoBehaviour {
     public WorldData SelectedData;
     public WorldData UseData;
     public WorldSetting WSetting;
+    public int worldID;
     //シングルトン化のおまじない
     protected static WorldManager instance;
     public static WorldManager Instance
@@ -53,10 +54,15 @@ public class WorldManager : MonoBehaviour {
     public void Init()
     {
         if (GameStateManager.Instance.CurrentScene == 1)
+        {
             WSetting = GameObject.FindGameObjectWithTag("WorldSetting").GetComponent<WorldSetting>();
-        
-        if (GameStateManager.Instance.CurrentScene == 2)
+            worldID = 1;
+        }
+        else if (GameStateManager.Instance.CurrentScene == 2)
+        {
             WCreator = GameObject.FindGameObjectWithTag("ObjectSpawner").GetComponent<WorldCreator>();
+            Create();
+        }
     }
 
 
@@ -65,12 +71,12 @@ public class WorldManager : MonoBehaviour {
     {
         
         WSetting.SelectedData.SetCell(UseData.Thumbnail, UseData.WorldName);
-
+        worldID = UseData.ID;
     }
 
     public void Create()
     {
-        WCreator.Create( UseData.ID.ToString());
+        WCreator.Create(worldID.ToString());
     }
     public void ChangeWorld()
     {
