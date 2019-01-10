@@ -8,12 +8,8 @@ public class GeneralButton : MonoBehaviour {
     public GameObject RootObj;
     public enum NAME
     {
-        
         Close,
-        Dicision,
-        Left,
-        Right
-            
+        Dicision,            
     }
     public enum ROOT
     {

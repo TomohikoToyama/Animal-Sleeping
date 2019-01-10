@@ -14,8 +14,11 @@ public class PageButton : MonoBehaviour {
         Prev,
         Next
     }
-	
-    
+    public enum SE
+    {
+        HIT = 0
+    }
+
     public void prePage()
     {
         if (pageNum == 1)
@@ -54,6 +57,11 @@ public class PageButton : MonoBehaviour {
         }
 
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        SoundManager.Instance.PlaySE((int)SE.HIT);
 
     }
 }
