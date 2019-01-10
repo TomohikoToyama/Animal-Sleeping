@@ -61,6 +61,10 @@ public class AnimalData : MonoBehaviour {
         MoveType   = data.MoveType;
     }
 
+    public enum SE
+    {
+        HIT = 0
+    }
     public void SetCellData()
     {
 
@@ -88,5 +92,15 @@ public class AnimalData : MonoBehaviour {
     public void DisApear()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (this.tag == "AnimalButton")
+        {
+            gameObject.GetComponent<Image>().color = new Color(125f,150f,255f,255f);
+            SoundManager.Instance.PlaySE((int)SE.HIT);
+        }
+
     }
 }

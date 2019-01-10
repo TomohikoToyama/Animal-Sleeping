@@ -10,10 +10,16 @@ public class WorldSetting : MonoBehaviour {
     public List<WorldData> DataList = new List<WorldData>();
     public WorldData SelectedData;
     public WorldData ChooseData;
+    private BoxCollider col;
     // Use this for initialization
     void Start () {
         TestSet();
         WorldManager.Instance.UseData = SelectedData;
+        col = GetComponent<BoxCollider>();
+    }
+    public enum SE
+    {
+        HIT = 0
     }
     private void TestSet()
     {
@@ -38,9 +44,21 @@ public class WorldSetting : MonoBehaviour {
     public void OpenCloseMenu()
     {
         if (!setMenu.activeSelf)
+        {
             setMenu.SetActive(true);
-
+            col.enabled = false;
+        }
         else if (setMenu.activeSelf)
+        {
             setMenu.SetActive(false);
+            col.enabled = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+          //  SoundManager.Instance.PlaySE((int)SE.HIT);
+        
     }
 }

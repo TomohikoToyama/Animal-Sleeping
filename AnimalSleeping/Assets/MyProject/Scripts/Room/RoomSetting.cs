@@ -7,7 +7,7 @@ public class RoomSetting : MonoBehaviour {
     public GameObject setObj;
     public GameObject setCanvas;
     public GameObject setMenu;
-
+    private BoxCollider col;
     public void OpenCloseMenu()
     {
 

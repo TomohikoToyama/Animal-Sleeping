@@ -19,7 +19,10 @@ public class WorldData : MonoBehaviour {
         Thumbnail.sprite = img.sprite;
         WorldText.text = str;
     }
-
+    public enum SE
+    {
+        HIT = 0
+    }
     public void GetCell()
     {
 
@@ -35,5 +38,13 @@ public class WorldData : MonoBehaviour {
         WorldName = data.WorldName;
         MoveType = data.MoveType;
     }
-   
+    private void OnTriggerEnter(Collider other)
+    {
+        if (this.tag == "WorldButton")
+        {
+            gameObject.GetComponent<Image>().color = new Color(125f, 150f, 255f, 255f);
+            SoundManager.Instance.PlaySE((int)SE.HIT);
+        }
+
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class RoomUserController : MonoBehaviour {
 
  
@@ -15,6 +15,7 @@ public class RoomUserController : MonoBehaviour {
         WORLD = 4,
         ROOM = 5
     }
+    private Color selected = new Color(125, 150, 255,255);
     private int currentMenu;
     // Use this for initialization
     private GameObject target;
@@ -66,7 +67,7 @@ public class RoomUserController : MonoBehaviour {
             
 
                 //Debug.Log("クリック");
-                if (target.tag == "AnimalSetting")
+                if (target.tag == "AnimalSetting" )
                 {
                     //動物設定用メニューを開く
                     AnimalManager.Instance.OpenCloseMenu();

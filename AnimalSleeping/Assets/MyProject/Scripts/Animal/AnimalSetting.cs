@@ -18,14 +18,19 @@ public class AnimalSetting : MonoBehaviour {
     public int dataNum  = 6;
     private int cellNum = 6;
     public Sprite clear;
+    private BoxCollider col;
     // Use this for initialization
     void Start () {
         TestSet();
         ChooseData = DataList[0];
         AnimalManager.Instance.UseData = SelectedData;
         prevButton.SetActive(false);
+        col = GetComponent<BoxCollider>();
     }
-	
+    public enum SE
+    {
+        HIT = 0
+    }
     public void SetDataList(List<string[]> datas,int page)
     {
         pageNum.text = page.ToString();
@@ -93,10 +98,20 @@ public class AnimalSetting : MonoBehaviour {
     public void OpenCloseMenu()
     {
         if (!setMenu.activeSelf)
+        {
             setMenu.SetActive(true);
-
+            col.enabled = false;
+        }
         else if (setMenu.activeSelf)
+        {
             setMenu.SetActive(false);
+            col.enabled = true;
+        }
     }
+    private void OnTriggerEnter(Collider other)
+    {
 
- }
+        //SoundManager.Instance.PlaySE((int)SE.HIT);
+
+    }
+}
