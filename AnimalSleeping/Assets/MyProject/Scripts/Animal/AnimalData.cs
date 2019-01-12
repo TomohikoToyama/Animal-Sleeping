@@ -98,8 +98,16 @@ public class AnimalData : MonoBehaviour {
     {
         if (this.tag == "AnimalButton")
         {
-            gameObject.GetComponent<Image>().color = new Color(125f,150f,255f,255f);
+            gameObject.GetComponent<Image>().color = new Color(125f/255f,150f/255f,255f/255f);
             SoundManager.Instance.PlaySE((int)SE.HIT);
+        }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (this.tag == "AnimalButton")
+        {
+            gameObject.GetComponent<Image>().color = new Color(1,1,1);
         }
 
     }

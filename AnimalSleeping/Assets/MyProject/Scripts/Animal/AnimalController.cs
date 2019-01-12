@@ -14,11 +14,12 @@ public class AnimalController : MonoBehaviour {
         EATING  = 90,
         NONE = 99
     }
+    private float reahTime = 3.0f;
     private GameObject Player;
     private Vector3 targetPosition;
     private float stopTime;
     private float moveTime;
-    private float speed = 1f;
+    private float speed = 2f;
     private Animator animator;
     private AnimalData AData;
     private Vector3 targetSize;
@@ -115,17 +116,30 @@ public class AnimalController : MonoBehaviour {
     {
         Debug.Log(num + "の支持がでたよ");
         AData.State = num;
+
     }
 
     public void Call()
     {
 
         //呼ばれているよ
+        animator.SetBool("Walk", false);
         animator.SetBool("Run", true);
-        targetPosition = Player.transform.position - new Vector3(0,-1f,2f);
+        Vector3 Apos = transform.position;
+        Vector3 Bpos = Player.transform.position;
+        float dis = Vector3.Distance(Apos, Bpos);
+        targetPosition = Player.transform.position;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+        targetRotation.x = 0;
+        targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
+        if(dis <= 3f)
+        {
+            animator.SetBool("Run", false);
+            AData.State = (int)STATE.NONE;
+
+        }
 
     }
     public void Eat()
@@ -181,7 +195,10 @@ public class AnimalController : MonoBehaviour {
             animator.SetBool("Walk", true);
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+            targetRotation.x = 0;
+            targetRotation.z = 0;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
+             
             moveTime -= Time.deltaTime;
         }
         if (moveTime <= 0)

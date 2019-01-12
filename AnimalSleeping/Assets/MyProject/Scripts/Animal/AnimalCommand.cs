@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class AnimalCommand : MonoBehaviour {
 
     public string commandName;
@@ -33,7 +33,8 @@ public class AnimalCommand : MonoBehaviour {
 
     public  void Onclick()
     {
-        if(id == (int)COMMAND.Call)
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+        if (id == (int)COMMAND.Call)
         {
             Call();
             Close();
@@ -67,7 +68,17 @@ public class AnimalCommand : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-        SoundManager.Instance.PlaySE((int)SE.HIT);
+       
+            gameObject.GetComponent<Image>().color = new Color(125f / 255f, 150f / 255f, 255f / 255f);
+            SoundManager.Instance.PlaySE((int)SE.HIT);
+        
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+       
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+        
 
     }
 

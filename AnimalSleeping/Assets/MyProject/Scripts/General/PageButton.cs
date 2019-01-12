@@ -45,13 +45,16 @@ public class PageButton : MonoBehaviour {
 
     public void OnClick()
     {
+
         if (name == NAME.Prev.ToString())
         {
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
             AnimalManager.Instance.SetPage(-1);
             AnimalManager.Instance.ChangePage();
         }
         else if (name == NAME.Next.ToString())
         {
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
             AnimalManager.Instance.SetPage(1);
             AnimalManager.Instance.ChangePage();
         }
@@ -61,7 +64,17 @@ public class PageButton : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        SoundManager.Instance.PlaySE((int)SE.HIT);
+        
+            gameObject.GetComponent<Image>().color = new Color(125f / 255f, 150f / 255f, 255f / 255f);
+            SoundManager.Instance.PlaySE((int)SE.HIT);
+        
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+        
 
     }
 }
