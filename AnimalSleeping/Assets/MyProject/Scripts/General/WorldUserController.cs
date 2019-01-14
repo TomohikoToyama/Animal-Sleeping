@@ -26,7 +26,7 @@ public class WorldUserController : MonoBehaviour {
     }
     public GameObject directionObj;
     public GameObject moveObj;
-    float forwardSpeed = 0.01f;
+    float forwardSpeed = 1f;
     private float smoothTime = 0.5f;
     Vector3 velocity = Vector3.zero;
     public int currentMenu;
@@ -34,6 +34,11 @@ public class WorldUserController : MonoBehaviour {
     private GameObject target;
     public GameObject cursor;
     public Renderer rnd;
+    public Transform animalPos;
+    public GameObject food;
+    private Transform dir;
+    public GameObject cameraDir;
+    private float footTimer;
     // Use this for initialization
     void Start () {
         
@@ -41,8 +46,15 @@ public class WorldUserController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        
+	void Update ()
+    {
+
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+        {
+
+            WorldManager.Instance.BackRoom();
+            transform.position = new Vector3(0, 1, 0);
+        }
         if (currentMenu == (int)SELECTMENU.NONE)
             InputWorld();
 
@@ -57,24 +69,25 @@ public class WorldUserController : MonoBehaviour {
     {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 
-        if (touchPadPt.x > 0.5 && -0.5 < touchPadPt.y && touchPadPt.y < 0.5)
+
+        if (Input.GetKey(KeyCode.X) || (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5))
         {
-            //右方向
-        }
-        if (touchPadPt.x < -0.5 && -0.5 < touchPadPt.y && touchPadPt.y < 0.5)
-        {
-            //左方向
-        }
-        if (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
-        {
+            footTimer += Time.deltaTime;
+            var moveDir = directionObj.transform.rotation.eulerAngles.y;
+            var moveQ = Quaternion.Euler(0, moveDir, 0);
+            transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
             //上方向
-            transform.Translate( transform.forward * 0.01f);
+            if(footTimer >= 1f)
+            {
+                SoundManager.Instance.PlaySE(1);
+                footTimer = 0;
+            }
         }
-        if (touchPadPt.y < -0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
+        else
         {
-            //下方向
-            transform.Translate(-transform.forward * 0.01f);
+            footTimer = 0;
         }
+      
     }
     public void Init()
     {
@@ -83,7 +96,8 @@ public class WorldUserController : MonoBehaviour {
         Menu = GameObject.FindGameObjectWithTag("Menu");
         AnimalMenu = GameObject.FindGameObjectWithTag("AnimalMenu");
         AnimalMenu.SetActive(false);
-
+        dir = transform;
+        currentMenu = (int)SELECTMENU.NONE;
     }
     private void InputWorld()
     {
@@ -99,12 +113,7 @@ public class WorldUserController : MonoBehaviour {
 
             }
             
-            else if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
-            {
             
-                WorldManager.Instance.BackRoom();
-            transform.position = new Vector3(0, 1, 0);
-            }
 
             else if (  Input.GetKeyDown(KeyCode.Return)||  (OVRInput.GetDown(OVRInput.Button.Back) && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) ) )
                 ScreenCapture.CaptureScreenshot(Application.dataPath + "/savedata.PNG");
@@ -120,7 +129,19 @@ public class WorldUserController : MonoBehaviour {
 
     private void InputFood()
     {
-
+        Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        food = GameObject.FindGameObjectWithTag("Food");
+        if (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
+        {
+            //上方向
+            transform.Translate(transform.forward * 0.01f);
+        }
+        float dis =  Vector3.Distance(transform.position, animalPos.position);
+        if (dis <= 1f)
+        {
+            AnimalManager.Instance.Eating();
+            Destroy(food);
+        }
     }
 
     private void EyePoint()
@@ -154,8 +175,7 @@ public class WorldUserController : MonoBehaviour {
             //Debug.Log("クリック");
             if (target.tag == "AnimalCommand")
             {
-
-                Debug.Log("コマンド―");
+                animalPos = GameObject.FindGameObjectWithTag("Animal").transform;
                 target.GetComponent<AnimalCommand>().Onclick();
                 rnd.enabled = false;
                 target = null;

@@ -35,11 +35,10 @@ TagManager:
   - Animal
   - Hand
   - Food
-  - Left
-  - Right
   - Prev
   - Next
   - PageButton
+  - Direction
   layers:
   - Default
   - TransparentFX

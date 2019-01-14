@@ -29,6 +29,7 @@ public class AnimalController : MonoBehaviour {
     private bool isSleep;
     private float nowScale;
     private float targetScale;
+    float dis;
     // Use this for initialization
     void Start () {
         stopTime = Random.Range(3f,7f);
@@ -64,7 +65,13 @@ public class AnimalController : MonoBehaviour {
         }
         else if (AData.State == (int)STATE.SLEEP)
         {
-            Sleep();
+            
+        }
+        else if (AData.State == (int)STATE.EATING)
+        {
+           
+                Eating();
+            
         }
 
     }
@@ -117,40 +124,61 @@ public class AnimalController : MonoBehaviour {
         Debug.Log(num + "の支持がでたよ");
         AData.State = num;
 
+        if(num == (int)STATE.SLEEP)
+        Sleep();
     }
 
     public void Call()
     {
 
         //呼ばれているよ
-        animator.SetBool("Walk", false);
-        animator.SetBool("Run", true);
-        Vector3 Apos = transform.position;
-        Vector3 Bpos = Player.transform.position;
-        float dis = Vector3.Distance(Apos, Bpos);
+        animator.SetBool("Sleep",false);
+        animator.SetBool("Move", false);
+        animator.SetBool("MoveFast", true);
         targetPosition = Player.transform.position;
+        dis = Vector3.Distance(transform.position, targetPosition);
+        if (dis <= 3f)
+        {
+            animator.SetBool("MoveFast", false);
+            AData.State = (int)STATE.NONE;
+
+        }
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
-        if(dis <= 3f)
-        {
-            animator.SetBool("Run", false);
-            AData.State = (int)STATE.NONE;
-
-        }
 
     }
     public void Eat()
     {
 
         //呼ばれているよ
-        animator.SetBool("Run", true);
+        animator.SetBool("Sleep", false);
+        animator.SetBool("Move", false);
+        animator.SetBool("MoveFast", true);
         targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        dis = Vector3.Distance(transform.position, targetPosition);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+        targetRotation.x = 0;
+        targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
+        if (dis <= 3f)
+        {
+             Debug.Log("食事待機");
+            animator.SetBool("MoveFast", false);
+            AData.State = (int)STATE.EATING;
+
+        }
+    }
+
+    public void Eating()
+    {
+        Debug.Log("食事");
+        animator.SetBool("Move", false);
+        animator.SetBool("MoveFast", false);
+        animator.SetBool("Eat", true);
     }
     public void Change()
     {
@@ -179,7 +207,14 @@ public class AnimalController : MonoBehaviour {
         if (!isSleep)
         {
             isSleep = true;
+            animator.SetBool("Move", false);
+            animator.SetBool("MoveFast", false);
             animator.SetBool("Sleep", true);
+        }else
+        {
+            isSleep = false;
+            animator.SetBool("Sleep", false);
+            AData.State = (int)STATE.NONE;
         }
     }
 
@@ -192,7 +227,7 @@ public class AnimalController : MonoBehaviour {
         if (stopTime <= 0)
         {
             //正面に進む
-            animator.SetBool("Walk", true);
+            animator.SetBool("Move", true);
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             targetRotation.x = 0;
@@ -203,7 +238,7 @@ public class AnimalController : MonoBehaviour {
         }
         if (moveTime <= 0)
         {
-            animator.SetBool("Walk", false);
+            animator.SetBool("Move", false);
             stopTime = Random.Range(3f, 7f);
             moveTime = MoveTime();
             targetPosition = GetRandomPosition();

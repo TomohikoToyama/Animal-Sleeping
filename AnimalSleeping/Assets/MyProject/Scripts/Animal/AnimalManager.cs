@@ -113,6 +113,11 @@ public class AnimalManager : MonoBehaviour {
         }
     }
 
+    public void Eating()
+    {
+        //食事
+        ACon.Eating();
+    }
     public void LoadData()
     {
 

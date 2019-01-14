@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class WorldData : MonoBehaviour {
-    private int id;
-    public  int ID { get { return id; } set { id = value; } }
+    private string id;
+    public  string ID { get { return id; } set { id = value; } }
     public Image Thumbnail;
     public Text WorldText;
     private string worldName;
@@ -14,9 +14,9 @@ public class WorldData : MonoBehaviour {
     private int favorite;
     public  int Favorite { get { return favorite; } set { favorite = value; } }
 
-    public void SetCell(Image img, string str)
+    public void SetCell(Sprite img, string str)
     {
-        Thumbnail.sprite = img.sprite;
+        Thumbnail.sprite = img;
         WorldText.text = str;
     }
     public enum SE
@@ -54,5 +54,15 @@ public class WorldData : MonoBehaviour {
             gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
         }
 
+    }
+    public void Apear()
+    {
+        gameObject.SetActive(true);
+
+    }
+
+    public void DisApear()
+    {
+        gameObject.SetActive(false);
     }
 }

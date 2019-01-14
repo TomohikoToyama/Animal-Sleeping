@@ -9,7 +9,7 @@ public class WorldManager : MonoBehaviour {
     public WorldData SelectedData;
     public WorldData UseData;
     public WorldSetting WSetting;
-    public int worldID;
+    public string worldID;
     //シングルトン化のおまじない
     protected static WorldManager instance;
     public static WorldManager Instance
@@ -56,7 +56,7 @@ public class WorldManager : MonoBehaviour {
         if (GameStateManager.Instance.CurrentScene == 1)
         {
             WSetting = GameObject.FindGameObjectWithTag("WorldSetting").GetComponent<WorldSetting>();
-            worldID = 1;
+            worldID = "1";
         }
         else if (GameStateManager.Instance.CurrentScene == 2)
         {
@@ -70,7 +70,7 @@ public class WorldManager : MonoBehaviour {
     public void SetSelect()
     {
         
-        WSetting.SelectedData.SetCell(UseData.Thumbnail, UseData.WorldName);
+        WSetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.WorldName);
         worldID = UseData.ID;
     }
 
