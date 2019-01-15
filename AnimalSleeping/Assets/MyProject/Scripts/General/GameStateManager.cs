@@ -100,6 +100,7 @@ using UnityEngine.SceneManagement;
             WorldManager.Instance.Init();
         }else if (CurrentScene == 2)
         {
+            ControllerManager.Instance.FadeIn();
             WorldManager.Instance.Init();
             AnimalManager.Instance.Init();
         }

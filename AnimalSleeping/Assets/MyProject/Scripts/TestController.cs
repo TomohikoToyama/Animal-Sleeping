@@ -12,15 +12,11 @@ public class TestController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (Input.GetKeyDown(KeyCode.O))
+            ControllerManager.Instance.FadeOut();
+        if (Input.GetKeyDown(KeyCode.I))
+            ControllerManager.Instance.FadeIn();
 
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(transform.forward * 0.01f);
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(-0.1f, 0, 0);
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(0,0,0);
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(transform.right);
         if (Input.GetKey(KeyCode.R))
             transform.Rotate(new Vector3(1f, 0f, 0f));
         if (Input.GetKey(KeyCode.F))

@@ -77,13 +77,13 @@ public class ControllerManager : MonoBehaviour {
     }
     public void FadeOut()
     {
-        color.a = 255;
+        fade.color = new Color(0, 0, 0, 1);
 
     }
 
     public void FadeIn()
     {
-        color.a = 255;
+        fade.color = new Color(0,0,0,0);
 
 
     }

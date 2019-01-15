@@ -80,6 +80,7 @@ public class WorldManager : MonoBehaviour {
     }
     public void ChangeWorld()
     {
+        ControllerManager.Instance.FadeOut();
         GameStateManager.Instance.CurrentScene = 2;
         
         SceneManager.LoadSceneAsync("World");
