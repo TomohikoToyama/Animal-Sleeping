@@ -12,7 +12,7 @@ public class AnimalController : MonoBehaviour {
         CHANGE  = 3,
         SLEEP   = 4,
         EATING  = 90,
-        NONE = 99
+        NONE    = 99
     }
     private float reahTime = 3.0f;
     private GameObject Player;
@@ -128,12 +128,18 @@ public class AnimalController : MonoBehaviour {
         Sleep();
     }
 
+    private void AnimReset()
+    {
+        animator.SetBool("MoveFast", false);
+        animator.SetBool("Sleep", false);
+        animator.SetBool("Move", false);
+        animator.SetBool("Eat", false);
+    }
     public void Call()
     {
 
         //呼ばれているよ
-        animator.SetBool("Sleep",false);
-        animator.SetBool("Move", false);
+        AnimReset();
         animator.SetBool("MoveFast", true);
         targetPosition = Player.transform.position;
         dis = Vector3.Distance(transform.position, targetPosition);
@@ -154,8 +160,7 @@ public class AnimalController : MonoBehaviour {
     {
 
         //呼ばれているよ
-        animator.SetBool("Sleep", false);
-        animator.SetBool("Move", false);
+        AnimReset();
         animator.SetBool("MoveFast", true);
         targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -166,6 +171,7 @@ public class AnimalController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
         if (dis <= 3f)
         {
+            AnimReset();
              Debug.Log("食事待機");
             animator.SetBool("MoveFast", false);
             AData.State = (int)STATE.EATING;
@@ -176,8 +182,7 @@ public class AnimalController : MonoBehaviour {
     public void Eating()
     {
         Debug.Log("食事");
-        animator.SetBool("Move", false);
-        animator.SetBool("MoveFast", false);
+        AnimReset();
         animator.SetBool("Eat", true);
     }
     public void Change()
@@ -207,13 +212,12 @@ public class AnimalController : MonoBehaviour {
         if (!isSleep)
         {
             isSleep = true;
-            animator.SetBool("Move", false);
-            animator.SetBool("MoveFast", false);
+            AnimReset();
             animator.SetBool("Sleep", true);
         }else
         {
             isSleep = false;
-            animator.SetBool("Sleep", false);
+            AnimReset();
             AData.State = (int)STATE.NONE;
         }
     }
@@ -238,7 +242,7 @@ public class AnimalController : MonoBehaviour {
         }
         if (moveTime <= 0)
         {
-            animator.SetBool("Move", false);
+            AnimReset();
             stopTime = Random.Range(3f, 7f);
             moveTime = MoveTime();
             targetPosition = GetRandomPosition();

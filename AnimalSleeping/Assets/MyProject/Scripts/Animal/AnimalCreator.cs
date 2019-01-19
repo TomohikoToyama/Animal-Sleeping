@@ -14,6 +14,6 @@ public class AnimalCreator : MonoBehaviour {
         // 拡張子まで書く
         path = folder + category + "/" + id;
         animal = Resources.Load<GameObject>(path);
-        Instantiate(animal,new Vector3(1.0f, 0f, 1.0f), Quaternion.identity);
+        Instantiate(animal);
     }
 }
