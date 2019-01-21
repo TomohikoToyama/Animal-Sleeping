@@ -9,6 +9,7 @@ public class ControllerManager : MonoBehaviour {
     public RoomUserController RCon;
     public WorldUserController    WCon;
     public Image fade;
+    float alpha;
     Color color;
 
    // color.a = 0.5f;
@@ -35,7 +36,6 @@ public class ControllerManager : MonoBehaviour {
             RCon.enabled = false;
             WCon.enabled = true;
             WCon.Init();
-            FadeOut();
         }
     }
     //シングルトン化のおまじない
@@ -77,16 +77,41 @@ public class ControllerManager : MonoBehaviour {
     }
     public void FadeOut()
     {
-        fade.color = new Color(0, 0, 0, 1);
+        StartCoroutine(OutEffect());
+        //fade.color = new Color(0, 0, 0, 1);
 
     }
 
     public void FadeIn()
     {
-        fade.color = new Color(0,0,0,0);
+        StartCoroutine(InEffect());
+//        fade.color = new Color(0, 0, 0, 0);
 
 
     }
+    private IEnumerator OutEffect()
+    {
+        while (alpha < 1f)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha += 0.1f;
+            yield return new WaitForSeconds(0.05f);
+        }
+        alpha = 1;
+    }
+
+    private IEnumerator InEffect()
+    {
+
+        while (alpha > 0)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha -= 0.1f;
+            yield return new WaitForSeconds(0.05f);
+        }
+        alpha = 0;
+    }
+
 
     public void CloseMenu()
     {

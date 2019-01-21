@@ -81,8 +81,13 @@ public class WorldManager : MonoBehaviour {
     public void ChangeWorld()
     {
         ControllerManager.Instance.FadeOut();
+        StartCoroutine(ChangeWait());
+       
+    }
+    private IEnumerator ChangeWait()
+    {
+        yield return new WaitForSeconds(0.6f);
         GameStateManager.Instance.CurrentScene = 2;
-        
         SceneManager.LoadSceneAsync("World");
         SoundManager.Instance.PlayBGM(0);
     }

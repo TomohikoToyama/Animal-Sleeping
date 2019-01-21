@@ -98,23 +98,27 @@ using UnityEngine.SceneManagement;
         {
             AnimalManager.Instance.Init();
             WorldManager.Instance.Init();
-        }else if (CurrentScene == 2)
-        {
             ControllerManager.Instance.FadeIn();
+        }
+        else if (CurrentScene == 2)
+        {
+            
             WorldManager.Instance.Init();
             AnimalManager.Instance.Init();
+            ControllerManager.Instance.FadeIn();
         }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-       // ControllerManager.Instance.FadeOut();
+       // 
         Debug.Log(scene.name + " scene loaded");
     }
 
     void OnSceneUnloaded(Scene scene)
     {
-       // ControllerManager.Instance.FadeIn();
+        
+        // ControllerManager.Instance.FadeIn();
         Debug.Log(scene.name + " scene unloaded");
     }
     /*
