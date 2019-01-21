@@ -38,7 +38,7 @@ public class WorldSetting : MonoBehaviour {
         DataList[2].ID = "3";
         DataList[2].WorldName = "まち";
         DataList[3].ID = "4";
-        DataList[3].WorldName = "はらっぱ";
+        DataList[3].WorldName = "チェス";
         DataList[4].ID = "5";
         DataList[4].WorldName = "  わしつ";
         DataList[5].ID = "6";

@@ -48,12 +48,12 @@ public class WorldUserController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
+        //バックキー入力で部屋に戻る
         if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
-
-            WorldManager.Instance.BackRoom();
-            transform.position = new Vector3(0, 1, 0);
+            ControllerManager.Instance.FadeOut();
+            StartCoroutine(ChangeWait());
+            
         }
         if (currentMenu == (int)SELECTMENU.NONE)
             InputWorld();
@@ -65,6 +65,15 @@ public class WorldUserController : MonoBehaviour {
             InputFood();
 
     }
+
+    private IEnumerator ChangeWait()
+    {
+        yield return new WaitForSeconds(0.6f);
+        transform.position = new Vector3(0, 1, 0);
+        WorldManager.Instance.BackRoom();
+    }
+
+    //コントローラ入力時
     public void TouchImput()
     {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
@@ -104,11 +113,11 @@ public class WorldUserController : MonoBehaviour {
             TouchImput();
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
             {
-            //プレイルーム用メニューを開く
-            AnimalMenu.SetActive(true);
-            AnimalMenu.transform.position =Menu.transform.position + new Vector3(0,0.2f,0) ;
-            AnimalMenu.transform.rotation = Menu.transform.rotation;
-            currentMenu = (int)SELECTMENU.ANIMAL;
+                //プレイルーム用メニューを開く
+                AnimalMenu.SetActive(true);
+                AnimalMenu.transform.position =Menu.transform.position + new Vector3(0,0.2f,0) ;
+                AnimalMenu.transform.rotation = Menu.transform.rotation;
+                currentMenu = (int)SELECTMENU.ANIMAL;
             
 
             }

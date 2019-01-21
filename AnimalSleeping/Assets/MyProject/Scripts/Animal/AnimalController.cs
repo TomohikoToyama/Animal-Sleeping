@@ -19,7 +19,8 @@ public class AnimalController : MonoBehaviour {
     private Vector3 targetPosition;
     private float stopTime;
     private float moveTime;
-    private float speed = 2f;
+    private float speed = 1f;
+    private float run = 2f;
     private Animator animator;
     private AnimalData AData;
     private Vector3 targetSize;
@@ -149,7 +150,7 @@ public class AnimalController : MonoBehaviour {
             AData.State = (int)STATE.NONE;
 
         }
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * run * Time.deltaTime);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
         targetRotation.x = 0;
         targetRotation.z = 0;
@@ -163,7 +164,7 @@ public class AnimalController : MonoBehaviour {
         AnimReset();
         animator.SetBool("MoveFast", true);
         targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * run * Time.deltaTime);
         dis = Vector3.Distance(transform.position, targetPosition);
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
         targetRotation.x = 0;
@@ -191,16 +192,19 @@ public class AnimalController : MonoBehaviour {
         if (AData.Size == 0)
         {
             this.transform.localScale = maxSize;
+            speed *= 5;
             AData.Size = 1;
             AData.State = (int)STATE.NONE;
         }
         else if (AData.Size == 1) {
             this.transform.localScale = minSize;
+            speed /= 20;
             AData.Size = -1;
             AData.State = (int)STATE.NONE;
         }
         else if (AData.Size == -1)
         {
+            speed *= 4;
             this.transform.localScale = normalSize;
             AData.Size = 0;
             AData.State = (int)STATE.NONE;
