@@ -31,6 +31,7 @@ public class AnimalController : MonoBehaviour {
     private float nowScale;
     private float targetScale;
     float dis;
+    float sleepWait = 0.6f;
     // Use this for initialization
     void Start () {
         stopTime = Random.Range(3f,7f);
@@ -125,8 +126,11 @@ public class AnimalController : MonoBehaviour {
         Debug.Log(num + "の支持がでたよ");
         AData.State = num;
 
-        if(num == (int)STATE.SLEEP)
-        Sleep();
+        if (num == (int)STATE.SLEEP)
+        {
+            WorldManager.Instance.PositionSet();
+            Sleep();
+        }
     }
 
     private void AnimReset()
@@ -215,14 +219,19 @@ public class AnimalController : MonoBehaviour {
     {
         if (!isSleep)
         {
+            ControllerManager.Instance.Sleep();
+            ControllerManager.Instance.FadeOut();
             isSleep = true;
             AnimReset();
             animator.SetBool("Sleep", true);
+            
         }else
         {
             isSleep = false;
             AnimReset();
             AData.State = (int)STATE.NONE;
+            ControllerManager.Instance.FadeIn();
+            ControllerManager.Instance.WakeUp();
         }
     }
 

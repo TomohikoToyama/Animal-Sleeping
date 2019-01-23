@@ -47,6 +47,7 @@ public class RoomUserController : MonoBehaviour {
             //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
             cursor.transform.position = hit.point;
+            Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
             rnd.enabled = true;
             //Debug.Log(cursor.transform.position);
             InputMenu();

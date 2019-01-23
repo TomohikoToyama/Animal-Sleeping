@@ -42,7 +42,7 @@ public class WorldSetting : MonoBehaviour {
         DataList[4].ID = "5";
         DataList[4].WorldName = "  わしつ";
         DataList[5].ID = "6";
-        DataList[5].WorldName = "おかしのまち";
+        DataList[5].WorldName = "さばく";
         
         SelectedData.ID = "1";
         SelectedData.WorldName = "サッカースタジアム";

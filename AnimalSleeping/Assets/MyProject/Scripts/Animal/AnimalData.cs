@@ -23,6 +23,9 @@ public class AnimalData : MonoBehaviour {
     //性格
     public int personality;
 
+
+    public int activity;
+    public int Activity { get { return activity; } set { activity = value; } }
     //動物の状態
     private int state = 99;
     public int State { get { return state; } set { state = value ; } }

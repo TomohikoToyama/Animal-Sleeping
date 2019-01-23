@@ -31,7 +31,7 @@ public class AnimalCommand : MonoBehaviour {
 		
 	}
 
-    public  void Onclick()
+    public void Onclick()
     {
         gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
         if (id == (int)COMMAND.Call)
@@ -46,8 +46,8 @@ public class AnimalCommand : MonoBehaviour {
         }
         else if (id == (int)COMMAND.Sleep)
         {
-            Sleep();
             Close();
+            Sleep();
         }
         else if (id == (int)COMMAND.Hangout)
         {
@@ -59,9 +59,7 @@ public class AnimalCommand : MonoBehaviour {
             Close();
         }
         else if (id == (int)COMMAND.Close)
-        {
-            Debug.Log("とじるんです");
-            
+        {            
             Close();
         }
 

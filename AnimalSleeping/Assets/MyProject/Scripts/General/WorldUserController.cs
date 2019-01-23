@@ -22,7 +22,8 @@ public class WorldUserController : MonoBehaviour {
         HANGOUT = 2,
         WORLD   = 3,
         OPTION  = 4,
-        FOOD    = 5
+        FOOD    = 5,
+        SLEEP   = 6
     }
     public GameObject directionObj;
     public GameObject moveObj;
@@ -56,14 +57,22 @@ public class WorldUserController : MonoBehaviour {
             
         }
         if (currentMenu == (int)SELECTMENU.NONE)
+        {
             InputWorld();
-
+        }
         else if (currentMenu == (int)SELECTMENU.ANIMAL)
+        {
             InputAnimal();
-
+        }
         else if (currentMenu == (int)SELECTMENU.FOOD)
+        {
             InputFood();
-
+        }
+        else if (currentMenu == (int)SELECTMENU.SLEEP)
+        {
+            InputSleep();
+            TouchImput();
+        }
     }
 
     private IEnumerator ChangeWait()
@@ -153,6 +162,13 @@ public class WorldUserController : MonoBehaviour {
         }
     }
 
+    private void InputSleep()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        {
+            AnimalManager.Instance.Command(4);
+        }
+    }
     private void EyePoint()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -164,6 +180,7 @@ public class WorldUserController : MonoBehaviour {
             //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
             cursor.transform.position = hit.point;
+            Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
             rnd.enabled = true;
             //Debug.Log(cursor.transform.position);
             InputMenu();

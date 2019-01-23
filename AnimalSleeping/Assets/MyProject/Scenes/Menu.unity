@@ -221,7 +221,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u304A\u304B\u3057\u306E\u304F\u306B"
+  m_Text: "\u3055\u3070\u304F"
 --- !u!1 &50075845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1256,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &220689555
 GameObject:
@@ -2443,6 +2444,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &567387820
 GameObject:
@@ -3859,6 +3861,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!114 &770279828
 MonoBehaviour:
@@ -4485,6 +4488,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &913864061
 GameObject:
@@ -7913,6 +7917,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &1656227248
 GameObject:
@@ -8487,6 +8492,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &1757012243
 GameObject:
@@ -8825,6 +8831,7 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
+  activity: 0
   id: 
 --- !u!1 &1814482990
 GameObject:
@@ -9032,7 +9039,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fa97c7037ae30cd47b4b885c9b13038a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76c9ae8079f6419449546cdbaf01e757, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

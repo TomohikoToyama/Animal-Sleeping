@@ -10,6 +10,8 @@ public class WorldManager : MonoBehaviour {
     public WorldData UseData;
     public WorldSetting WSetting;
     public string worldID;
+    private GameObject playerObj;
+    private GameObject animalObj;
     //シングルトン化のおまじない
     protected static WorldManager instance;
     public static WorldManager Instance
@@ -103,5 +105,16 @@ public class WorldManager : MonoBehaviour {
     public void OpenCloseMenu()
     {
         WSetting.OpenCloseMenu();
+    }
+
+    public void PositionSet()
+    {
+        if(playerObj == null)
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        if(animalObj == null)
+        animalObj = GameObject.FindGameObjectWithTag("Animal");
+
+        playerObj.transform.position = new Vector3(1,1,1);
+        animalObj.transform.position = new Vector3(-1, animalObj.transform.position.y, -1);
     }
 }

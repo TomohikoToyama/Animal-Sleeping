@@ -8,12 +8,16 @@ public class AnimalCreator : MonoBehaviour {
     private string path;
     public GameObject animal;
     // Use this for initialization
-
+    
     public void Create(string category, string id)
     {
-        // 拡張子まで書く
         path = folder + category + "/" + id;
         animal = Resources.Load<GameObject>(path);
         Instantiate(animal);
+        var animalPos = animal.transform.position;
+        var posX = Random.Range(-5.0f, 5.0f);
+        var posY = animalPos.y;
+        var posZ = Random.Range(-5.0f, 5.0f);
+        animal.transform.position = new Vector3(posX,posY,posZ);
     }
 }

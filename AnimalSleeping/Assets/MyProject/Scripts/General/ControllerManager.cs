@@ -78,8 +78,6 @@ public class ControllerManager : MonoBehaviour {
     public void FadeOut()
     {
         StartCoroutine(OutEffect());
-        //fade.color = new Color(0, 0, 0, 1);
-
     }
 
     public void FadeIn()
@@ -116,5 +114,13 @@ public class ControllerManager : MonoBehaviour {
     public void CloseMenu()
     {
         WCon.Close();
+    }
+    public void Sleep()
+    {
+        WCon.currentMenu = 6;
+    }
+    public void WakeUp()
+    {
+        WCon.currentMenu = 0;
     }
 }
