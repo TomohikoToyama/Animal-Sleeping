@@ -53,6 +53,8 @@ public class WorldManager : MonoBehaviour {
     {
         Init();
     }
+
+    //初期化処理
     public void Init()
     {
         if (GameStateManager.Instance.CurrentScene == 1)
@@ -68,24 +70,27 @@ public class WorldManager : MonoBehaviour {
     }
 
 
-
+    //選択済みパネルに選択した情報を表示する
     public void SetSelect()
-    {
-        
+    {  
         WSetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.WorldName);
         worldID = UseData.ID;
     }
 
+    //ワールドを生成する
     public void Create()
     {
         WCreator.Create(worldID.ToString());
     }
+
+    //ワールド遷移時にフェードアウトの演出を入れる
     public void ChangeWorld()
     {
         ControllerManager.Instance.FadeOut();
         StartCoroutine(ChangeWait());
        
     }
+
     private IEnumerator ChangeWait()
     {
         yield return new WaitForSeconds(0.6f);
@@ -94,19 +99,21 @@ public class WorldManager : MonoBehaviour {
         SoundManager.Instance.PlayBGM(0);
     }
 
+    //ルームに戻る
     public void BackRoom()
     {
         GameStateManager.Instance.CurrentScene = 1;
-        
         SoundManager.Instance.PlayBGM(0);
-        
-            SceneManager.LoadSceneAsync("Menu");
+        SceneManager.LoadSceneAsync("Menu");
     }
+
+    //ワールド設定パネルを開閉する
     public void OpenCloseMenu()
     {
         WSetting.OpenCloseMenu();
     }
 
+    //動物とプレイヤ―の位置をセットする
     public void PositionSet()
     {
         if(playerObj == null)

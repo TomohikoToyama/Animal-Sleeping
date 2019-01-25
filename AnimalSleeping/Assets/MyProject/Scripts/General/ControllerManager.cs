@@ -87,6 +87,30 @@ public class ControllerManager : MonoBehaviour {
 
 
     }
+
+    public void FadeAll()
+    {
+        StartCoroutine(AllEffect());
+    }
+
+    private IEnumerator AllEffect()
+    {
+        while (alpha < 1f)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha += 0.1f;
+            yield return new WaitForSeconds(0.03f);
+        }
+        alpha = 1;
+        yield return new WaitForSeconds(0.4f);
+        while (alpha > 0)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha -= 0.1f;
+            yield return new WaitForSeconds(0.03f);
+        }
+        alpha = 0;
+    }
     private IEnumerator OutEffect()
     {
         while (alpha < 1f)

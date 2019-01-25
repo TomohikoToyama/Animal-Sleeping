@@ -40,6 +40,7 @@ public class WorldUserController : MonoBehaviour {
     private Transform dir;
     public GameObject cameraDir;
     private float footTimer;
+    float transTIme;
     // Use this for initialization
     void Start () {
         
@@ -63,6 +64,7 @@ public class WorldUserController : MonoBehaviour {
         else if (currentMenu == (int)SELECTMENU.ANIMAL)
         {
             InputAnimal();
+
         }
         else if (currentMenu == (int)SELECTMENU.FOOD)
         {
@@ -143,6 +145,14 @@ public class WorldUserController : MonoBehaviour {
     private void InputAnimal()
     {
         EyePoint();
+        if(transTIme >= 2f)
+        {
+
+            AnimalMenu.transform.position = Menu.transform.position + new Vector3(0, 0.2f, 0);
+            AnimalMenu.transform.rotation = Menu.transform.rotation;
+            transTIme = 0;
+        }
+
     }
 
     private void InputFood()
@@ -182,13 +192,14 @@ public class WorldUserController : MonoBehaviour {
             cursor.transform.position = hit.point;
             Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
             rnd.enabled = true;
-            //Debug.Log(cursor.transform.position);
             InputMenu();
+
         }
         else
         {
             rnd.enabled = false;
             target = null;
+            transTIme += Time.deltaTime;
         }
     }
 
@@ -198,7 +209,7 @@ public class WorldUserController : MonoBehaviour {
         //トリガー入力時の処理
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
         {
-            //Debug.Log("クリック");
+            
             if (target.tag == "AnimalCommand")
             {
                 animalPos = GameObject.FindGameObjectWithTag("Animal").transform;
@@ -207,6 +218,7 @@ public class WorldUserController : MonoBehaviour {
                 target = null;
                 AnimalMenu.SetActive(false);
             }
+            
         }
     }
 

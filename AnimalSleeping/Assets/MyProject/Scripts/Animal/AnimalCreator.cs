@@ -16,8 +16,12 @@ public class AnimalCreator : MonoBehaviour {
         Instantiate(animal);
         var animalPos = animal.transform.position;
         var posX = Random.Range(-5.0f, 5.0f);
+        if (-1 <= posX && posX <= 1)
+            posX = 2;
         var posY = animalPos.y;
         var posZ = Random.Range(-5.0f, 5.0f);
+        if (-1 <= posZ && posZ <= 1)
+            posZ = 2;
         animal.transform.position = new Vector3(posX,posY,posZ);
     }
 }

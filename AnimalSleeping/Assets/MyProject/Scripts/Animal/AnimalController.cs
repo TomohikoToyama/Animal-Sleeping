@@ -219,8 +219,9 @@ public class AnimalController : MonoBehaviour {
     {
         if (!isSleep)
         {
+           
             ControllerManager.Instance.Sleep();
-            ControllerManager.Instance.FadeOut();
+            ControllerManager.Instance.FadeAll();
             isSleep = true;
             AnimReset();
             animator.SetBool("Sleep", true);
@@ -230,8 +231,8 @@ public class AnimalController : MonoBehaviour {
             isSleep = false;
             AnimReset();
             AData.State = (int)STATE.NONE;
-            ControllerManager.Instance.FadeIn();
             ControllerManager.Instance.WakeUp();
+            ControllerManager.Instance.FadeAll();
         }
     }
 

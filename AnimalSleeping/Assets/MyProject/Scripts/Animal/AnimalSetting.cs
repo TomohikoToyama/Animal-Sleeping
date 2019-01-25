@@ -21,7 +21,7 @@ public class AnimalSetting : MonoBehaviour {
     private BoxCollider col;
     // Use this for initialization
     void Start () {
-        TestSet();
+        DefaultSet();
         ChooseData = DataList[0];
         AnimalManager.Instance.UseData = SelectedData;
         prevButton.SetActive(false);
@@ -42,7 +42,6 @@ public class AnimalSetting : MonoBehaviour {
         {
             dataNum = datas.Count - ((page - 1) * cellNum);
         }
-        Debug.Log("今のページ" + page);
         
         for(int i = 0; i < dataNum; i++)
         {
@@ -68,33 +67,40 @@ public class AnimalSetting : MonoBehaviour {
     }
 
 
-	private void TestSet()
+	private void DefaultSet()
     {
-      
         SelectedData.Category = "100";
         SelectedData.ID = "1";
         SelectedData.AnimalName = "ぞう";
     }
+
+    //ページを変更時に必要に応じてボタンを表示非表示にする
     public void ChangePage(int num,int max)
     {
+        //1ページ目なら前ボタンを消す
         if (num == 1)
         {
             prevButton.SetActive(false);
         }
-        if (num > 1)
+        //1ページ超過のページ数なら前ボタン表示
+        else if (num > 1)
         {
             prevButton.SetActive(true);
         }
+        //最大ページ数未満なら次ボタン表示
         if (num < max)
         {
             nextButton.SetActive(true);
         }
-        if (num == max)
+        //最大ページ数なら次ボタン非表示
+        else if (num == max)
         {
             nextButton.SetActive(false);
         }
 
     }
+
+    //パネルの表示非表示
     public void OpenCloseMenu()
     {
         if (!setMenu.activeSelf)
@@ -108,6 +114,9 @@ public class AnimalSetting : MonoBehaviour {
             col.enabled = true;
         }
     }
+
+    //カーソルが当たった時の処理
+    //起動したての向きによっては即処理が発生してしまうので検討
     private void OnTriggerEnter(Collider other)
     {
 
