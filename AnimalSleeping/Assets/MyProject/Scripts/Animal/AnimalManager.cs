@@ -112,7 +112,11 @@ public class AnimalManager : MonoBehaviour {
             }
         }
     }
-
+    public Vector3 GetTop()
+    {
+        return ACon.topSize;
+    }
+    
     public void Eating()
     {
         //食事
@@ -171,14 +175,15 @@ public class AnimalManager : MonoBehaviour {
      */
     public void Command(int com)
     {
-        if(com != (int)COMMAND.Eat)
-        {
+       
             ACon.StateChange(com);
-        }else if(com == (int)COMMAND.Eat)
+       /*
+        else if(com == (int)COMMAND.Eat)
         {
             FCreator.Create("2");
             ACon.StateChange(com);
-        }    
+        } 
+        */
     }
 
     #endregion

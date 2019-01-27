@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GeneralButton : MonoBehaviour {
 
     public GameObject PanelObj;
@@ -57,6 +57,7 @@ public class GeneralButton : MonoBehaviour {
 
     public void Onclick()
     {
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
         if (name == NAME.Close.ToString())
         {
             CloseMenu();
@@ -70,8 +71,18 @@ public class GeneralButton : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         SoundManager.Instance.PlaySE((int)SE.HIT);
-
+        gameObject.GetComponent<Image>().color = new Color(125f / 255f, 150f / 255f, 255f / 255f);
     }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+       
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+       
+    }
+
+
 
 
 }

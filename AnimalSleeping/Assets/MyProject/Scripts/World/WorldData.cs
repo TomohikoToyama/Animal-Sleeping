@@ -14,6 +14,13 @@ public class WorldData : MonoBehaviour {
     private int favorite;
     public  int Favorite { get { return favorite; } set { favorite = value; } }
 
+    private void Start()
+    {
+        if(gameObject.tag == "Water")
+        {
+            GameObject.FindGameObjectWithTag("Animal").GetComponent<Rigidbody>().useGravity = false;
+        }
+    }
     public void SetCell(Sprite img, string str)
     {
         Thumbnail.sprite = img;

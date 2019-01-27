@@ -7,10 +7,12 @@ public class AnimalController : MonoBehaviour {
     public enum STATE
     {
         CALL    = 0,
-        HANGOUT = 1,
-        EAT     = 2,
+        STOP = 1,
+        RIDE    = 2,
         CHANGE  = 3,
         SLEEP   = 4,
+        HANGOUT    = 5,
+        EAT = 6,
         EATING  = 90,
         NONE    = 99
     }
@@ -32,6 +34,7 @@ public class AnimalController : MonoBehaviour {
     private float targetScale;
     float dis;
     float sleepWait = 0.6f;
+    public Vector3 topSize;
     // Use this for initialization
     void Start () {
         stopTime = Random.Range(3f,7f);
@@ -39,23 +42,26 @@ public class AnimalController : MonoBehaviour {
         AData = GetComponent<AnimalData>();
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
+        topSize = GetComponent<BoxCollider>().bounds.size;
     }
 
     Vector3 vel = Vector3.zero;
 
     // Update is called once per frame
     void Update () {
-
        if(AData.State == (int)STATE.NONE)
         {
             RandomWalk();
         }else if(AData.State == (int)STATE.CALL)
         {
             Call();
-        }
-        else if (AData.State == (int)STATE.HANGOUT)
+        }else if (AData.State == (int)STATE.STOP)
         {
-           
+
+        }
+        else if (AData.State == (int)STATE.RIDE)
+        {
+            RandomWalk();
         }
         else if (AData.State == (int)STATE.EAT)
         {
@@ -123,12 +129,19 @@ public class AnimalController : MonoBehaviour {
     */
     public void StateChange(int num)
     {
-        Debug.Log(num + "の支持がでたよ");
+        //Debug.Log(num + "の支持がでたよ");
         AData.State = num;
-
+        if(num == (int)STATE.STOP)
+        {
+            AnimReset();
+        }
+        if(num == (int)STATE.RIDE)
+        {
+            ControllerManager.Instance.FadeAll();
+            ControllerManager.Instance.ChangeState();
+        }
         if (num == (int)STATE.SLEEP)
         {
-            WorldManager.Instance.PositionSet();
             Sleep();
         }
     }
@@ -177,7 +190,7 @@ public class AnimalController : MonoBehaviour {
         if (dis <= 3f)
         {
             AnimReset();
-             Debug.Log("食事待機");
+             //Debug.Log("食事待機");
             animator.SetBool("MoveFast", false);
             AData.State = (int)STATE.EATING;
 
@@ -186,7 +199,7 @@ public class AnimalController : MonoBehaviour {
 
     public void Eating()
     {
-        Debug.Log("食事");
+        //Debug.Log("食事");
         AnimReset();
         animator.SetBool("Eat", true);
     }

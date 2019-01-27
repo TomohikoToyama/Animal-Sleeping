@@ -39,6 +39,7 @@ TagManager:
   - Next
   - PageButton
   - Direction
+  - Water
   layers:
   - Default
   - TransparentFX

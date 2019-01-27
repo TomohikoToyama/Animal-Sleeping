@@ -41,8 +41,9 @@ public class AnimalCommand : MonoBehaviour {
         }
         else if (id == (int)COMMAND.Eat)
         {
-            Eat();
             Close();
+            Eat();
+            
         }
         else if (id == (int)COMMAND.Sleep)
         {
@@ -66,10 +67,11 @@ public class AnimalCommand : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other)
     {
-       
+        if (other.tag == "Cursor")
+        {
             gameObject.GetComponent<Image>().color = new Color(125f / 255f, 150f / 255f, 255f / 255f);
             SoundManager.Instance.PlaySE((int)SE.HIT);
-        
+        }
 
     }
     private void OnTriggerExit(Collider other)

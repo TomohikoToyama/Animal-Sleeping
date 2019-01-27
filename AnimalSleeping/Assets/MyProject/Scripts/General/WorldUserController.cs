@@ -23,7 +23,8 @@ public class WorldUserController : MonoBehaviour {
         WORLD   = 3,
         OPTION  = 4,
         FOOD    = 5,
-        SLEEP   = 6
+        SLEEP   = 6,
+        RIDE    = 7
     }
     public GameObject directionObj;
     public GameObject moveObj;
@@ -41,6 +42,7 @@ public class WorldUserController : MonoBehaviour {
     public GameObject cameraDir;
     private float footTimer;
     float transTIme;
+    Vector3 topPos;
     // Use this for initialization
     void Start () {
         
@@ -50,6 +52,13 @@ public class WorldUserController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        //Debug.Log(currentMenu);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            InputRide();
+
+
+        }
         //バックキー入力で部屋に戻る
         if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
@@ -74,9 +83,17 @@ public class WorldUserController : MonoBehaviour {
         {
             InputSleep();
             TouchImput();
+        }else if (currentMenu == (int)SELECTMENU.RIDE)
+        {
+            InputRide();
         }
     }
-
+    
+    public void ChangeState()
+    {
+        //Debug.Log("チェンジ");
+        currentMenu = 7;
+    }
     private IEnumerator ChangeWait()
     {
         yield return new WaitForSeconds(0.6f);
@@ -99,7 +116,7 @@ public class WorldUserController : MonoBehaviour {
             //上方向
             if(footTimer >= 1f)
             {
-                SoundManager.Instance.PlaySE(1);
+                //SoundManager.Instance.PlaySE(1);
                 footTimer = 0;
             }
         }
@@ -118,6 +135,7 @@ public class WorldUserController : MonoBehaviour {
         AnimalMenu.SetActive(false);
         dir = transform;
         currentMenu = (int)SELECTMENU.NONE;
+        target = null;
     }
     private void InputWorld()
     {
@@ -130,13 +148,7 @@ public class WorldUserController : MonoBehaviour {
                 AnimalMenu.transform.rotation = Menu.transform.rotation;
                 currentMenu = (int)SELECTMENU.ANIMAL;
             
-
             }
-            
-            
-
-            else if (  Input.GetKeyDown(KeyCode.Return)||  (OVRInput.GetDown(OVRInput.Button.Back) && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) ) )
-                ScreenCapture.CaptureScreenshot(Application.dataPath + "/savedata.PNG");
 
 
     }
@@ -172,6 +184,22 @@ public class WorldUserController : MonoBehaviour {
         }
     }
 
+    private void InputRide()
+    {
+        
+        topPos = AnimalManager.Instance.GetTop();
+        if(animalPos == null)
+            animalPos = GameObject.FindGameObjectWithTag("Animal").transform;
+
+        var size = animalPos.localScale.y;
+        var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.3f * size, animalPos.position.z);
+        transform.position = ridePos;
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        {
+            currentMenu = (int)SELECTMENU.NONE;
+            transform.position = animalPos.position + new Vector3(0,1,0);
+        }
+    }
     private void InputSleep()
     {
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
@@ -183,12 +211,15 @@ public class WorldUserController : MonoBehaviour {
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
-
+        
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
-            //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
+            if (target.tag != "AnimalCommand")
+                transTIme += Time.deltaTime;
+            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
+            ////Debug.Log(hit.collider.gameObject.name);
+            
             cursor.transform.position = hit.point;
             Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
             rnd.enabled = true;
