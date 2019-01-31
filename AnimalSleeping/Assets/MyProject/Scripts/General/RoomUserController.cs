@@ -21,14 +21,13 @@ public class RoomUserController : MonoBehaviour {
     private GameObject target;
     public GameObject cursor;
     public Renderer rnd;
- 
     void Start()
     {
         Init();
     }
     public void Init()
     {
-        rnd = cursor.GetComponent<Renderer>();
+       
         transform.position = new Vector3(0, 1, 0);
     }
     // Update is called once per frame
@@ -48,9 +47,8 @@ public class RoomUserController : MonoBehaviour {
             //Debug.Log(hit.collider.gameObject.name);
             target = hit.collider.gameObject;
             cursor.transform.position = hit.point;
-            Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
+            cursor.transform.rotation = Quaternion.LookRotation(cursor.transform.position - Camera.main.transform.position);
             rnd.enabled = true;
-            //Debug.Log(cursor.transform.position);
             InputMenu();
         }
         else
@@ -102,7 +100,7 @@ public class RoomUserController : MonoBehaviour {
             if (target.tag == "Button")
             {
                 target.GetComponent<GeneralButton>().Onclick();
-                rnd.enabled = false;
+                rnd.enabled =  false;
                 target = null;
             }
             else if (target.tag == "AnimalButton")
@@ -120,6 +118,13 @@ public class RoomUserController : MonoBehaviour {
                 target.GetComponent<PageButton>().OnClick();
                 target = null;
             }
+
+        }
+
+        // 英語対応
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+        {
+            
 
         }
     }

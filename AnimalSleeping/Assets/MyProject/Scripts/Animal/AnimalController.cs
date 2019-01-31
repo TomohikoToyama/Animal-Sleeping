@@ -208,6 +208,7 @@ public class AnimalController : MonoBehaviour {
         
         if (AData.Size == 0)
         {
+            this.transform.position += new Vector3(0, 2f, 0); 
             this.transform.localScale = maxSize;
             speed *= 5;
             AData.Size = 1;

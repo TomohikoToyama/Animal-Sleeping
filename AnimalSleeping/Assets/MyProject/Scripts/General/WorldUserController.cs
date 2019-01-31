@@ -35,7 +35,6 @@ public class WorldUserController : MonoBehaviour {
     // Use this for initialization
     private GameObject target;
     public GameObject cursor;
-    public Renderer rnd;
     public Transform animalPos;
     public GameObject food;
     private Transform dir;
@@ -43,6 +42,7 @@ public class WorldUserController : MonoBehaviour {
     private float footTimer;
     float transTIme;
     Vector3 topPos;
+    public Renderer rnd;
     // Use this for initialization
     void Start () {
         
@@ -128,7 +128,6 @@ public class WorldUserController : MonoBehaviour {
     }
     public void Init()
     {
-        rnd = cursor.GetComponent<Renderer>();
         rnd.enabled = false;
         Menu = GameObject.FindGameObjectWithTag("Menu");
         AnimalMenu = GameObject.FindGameObjectWithTag("AnimalMenu");
@@ -216,19 +215,25 @@ public class WorldUserController : MonoBehaviour {
         {
             target = hit.collider.gameObject;
             if (target.tag != "AnimalCommand")
+            {
                 transTIme += Time.deltaTime;
+                rnd.enabled = false;
+            }
+            if(target.tag == "AnimalCommand")
+                rnd.enabled = true;
+
             //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
             ////Debug.Log(hit.collider.gameObject.name);
-            
+
             cursor.transform.position = hit.point;
-            Quaternion targetRotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
-            rnd.enabled = true;
+            cursor.transform.rotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
+            
             InputMenu();
 
         }
         else
         {
-            rnd.enabled = false;
+            rnd.enabled = false ;
             target = null;
             transTIme += Time.deltaTime;
         }
