@@ -209,7 +209,7 @@ public class WorldUserController : MonoBehaviour {
     }
     private void InputSleep()
     {
-        if ((OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space));
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
             AnimalManager.Instance.Command(4);
         }
