@@ -59,20 +59,28 @@ public class WorldUserController : MonoBehaviour {
 
 
         }
-        //バックキー入力で部屋に戻る
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
-        {
-            ControllerManager.Instance.FadeOut();
-            StartCoroutine(ChangeWait());
-            
-        }
+        
         if (currentMenu == (int)SELECTMENU.NONE)
         {
             InputWorld();
+            //バックキー入力で部屋に戻る
+            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+            {
+                ControllerManager.Instance.FadeOut();
+                StartCoroutine(ChangeWait());
+
+            }
         }
         else if (currentMenu == (int)SELECTMENU.ANIMAL)
         {
             InputAnimal();
+            //バックキー入力で部屋に戻る
+            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+            {
+                ControllerManager.Instance.FadeOut();
+                StartCoroutine(ChangeWait());
+
+            }
 
         }
         else if (currentMenu == (int)SELECTMENU.FOOD)
@@ -193,7 +201,7 @@ public class WorldUserController : MonoBehaviour {
         var size = animalPos.localScale.y;
         var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.3f * size, animalPos.position.z);
         transform.position = ridePos;
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
             currentMenu = (int)SELECTMENU.NONE;
             transform.position = animalPos.position + new Vector3(0,1,0);
@@ -201,7 +209,7 @@ public class WorldUserController : MonoBehaviour {
     }
     private void InputSleep()
     {
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        if ((OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
             AnimalManager.Instance.Command(4);
         }
