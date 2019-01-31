@@ -199,7 +199,7 @@ public class WorldUserController : MonoBehaviour {
             animalPos = GameObject.FindGameObjectWithTag("Animal").transform;
 
         var size = animalPos.localScale.y;
-        var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.3f * size, animalPos.position.z);
+        var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.7f * size, animalPos.position.z);
         transform.position = ridePos;
         if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
         {
