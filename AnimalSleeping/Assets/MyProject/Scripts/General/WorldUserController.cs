@@ -43,6 +43,8 @@ public class WorldUserController : MonoBehaviour {
     float transTIme;
     Vector3 topPos;
     public Renderer rnd;
+
+    private float closeTime;
     // Use this for initialization
     void Start () {
         
@@ -52,6 +54,11 @@ public class WorldUserController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (InputEyeClosed.GetCloseBoth())
+        {
+            closeTime += Time.deltaTime;
+
+        }
         //Debug.Log(currentMenu);
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -59,7 +66,7 @@ public class WorldUserController : MonoBehaviour {
 
 
         }
-        
+       
         if (currentMenu == (int)SELECTMENU.NONE)
         {
             InputWorld();
@@ -144,10 +151,30 @@ public class WorldUserController : MonoBehaviour {
         currentMenu = (int)SELECTMENU.NONE;
         target = null;
     }
+
+    private bool InputEye()
+    {
+        return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+    }
+
+    private bool InputBackEye()
+    {
+        if (closeTime >= 1f)
+        {
+            closeTime = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
     private void InputWorld()
     {
             TouchImput();
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
             {
                 //プレイルーム用メニューを開く
                 AnimalMenu.SetActive(true);
@@ -201,7 +228,7 @@ public class WorldUserController : MonoBehaviour {
         var size = animalPos.localScale.y;
         var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.7f * size, animalPos.position.z);
         transform.position = ridePos;
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
         {
             currentMenu = (int)SELECTMENU.NONE;
             transform.position = animalPos.position + new Vector3(0,1,0);
@@ -209,7 +236,7 @@ public class WorldUserController : MonoBehaviour {
     }
     private void InputSleep()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
         {
             AnimalManager.Instance.Command(4);
         }
@@ -251,7 +278,7 @@ public class WorldUserController : MonoBehaviour {
     private void InputMenu()
     {
         //トリガー入力時の処理
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
         {
             
             if (target.tag == "AnimalCommand")

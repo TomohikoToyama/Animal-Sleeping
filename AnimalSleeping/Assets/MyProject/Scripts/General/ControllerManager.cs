@@ -11,33 +11,46 @@ public class ControllerManager : MonoBehaviour {
     public Image fade;
     float alpha;
     Color color;
+    private enum SCENE
+    {
+        Menu  = 1,
+        World = 2
+    }
 
-    // color.a = 0.5f;
-    //renderer.material.color = color;
-    // Use this for initialization
+
+    //初期化処理群
+    #region
+
     void Start() {
         Init();
 
     }
 
-
+    //シーン毎の初期化処理
     public void Init()
     {
         color = fade.color;
-        if (GameStateManager.Instance.CurrentScene == 1)
+        if (GameStateManager.Instance.CurrentScene == (int)SCENE.Menu)
         {
             RCon.enabled = true;
             RCon.Init();
             WCon.enabled = false;
         }
 
-        if (GameStateManager.Instance.CurrentScene == 2)
+
+        if (GameStateManager.Instance.CurrentScene == (int)SCENE.World)
         {
             RCon.enabled = false;
             WCon.enabled = true;
             WCon.Init();
         }
     }
+
+    #endregion
+
+    //管理クラス用の仕込み
+    #region
+
     //シングルトン化のおまじない
     protected static ControllerManager instance;
     public static ControllerManager Instance
@@ -75,42 +88,38 @@ public class ControllerManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    #endregion
+
+
+    //フェードインアウト演出
+    #region
+
+    //フェードアウト
     public void FadeOut()
     {
         StartCoroutine(OutEffect());
     }
 
+    //フェードイン
     public void FadeIn()
     {
         StartCoroutine(InEffect());
-        //        fade.color = new Color(0, 0, 0, 0);
-
-
     }
 
+    //フェードアウト⇒フェードイン
     public void FadeAll()
     {
         StartCoroutine(AllEffect());
     }
 
-    private IEnumerator AllEffect()
-    {
-        while (alpha < 1f)
-        {
-            fade.color = new Color(0, 0, 0, alpha);
-            alpha += 0.1f;
-            yield return new WaitForSeconds(0.001f);
-        }
-        alpha = 1;
-        yield return new WaitForSeconds(2f);
-        while (alpha > 0)
-        {
-            fade.color = new Color(0, 0, 0, alpha);
-            alpha -= 0.1f;
-            yield return new WaitForSeconds(0.001f);
-        }
-        alpha = 0;
-    }
+    #endregion
+
+
+    // コルーチン広場
+    #region
+
+    //フェードアウト演出
     private IEnumerator OutEffect()
     {
         while (alpha < 1f)
@@ -133,6 +142,28 @@ public class ControllerManager : MonoBehaviour {
         }
         alpha = 0;
     }
+
+    //フェードアウト⇒フェードイン
+    private IEnumerator AllEffect()
+    {
+        while (alpha < 1f)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha += 0.1f;
+            yield return new WaitForSeconds(0.001f);
+        }
+        alpha = 1;
+        yield return new WaitForSeconds(1.5f);
+        while (alpha > 0)
+        {
+            fade.color = new Color(0, 0, 0, alpha);
+            alpha -= 0.1f;
+            yield return new WaitForSeconds(0.001f);
+        }
+        alpha = 0;
+    }
+
+    #endregion
 
 
     public void CloseMenu()

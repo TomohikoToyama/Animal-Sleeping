@@ -15,12 +15,14 @@ public class RoomUserController : MonoBehaviour {
         WORLD = 4,
         ROOM = 5
     }
+    
     private Color selected = new Color(125, 150, 255,255);
     private int currentMenu;
     // Use this for initialization
     private GameObject target;
     public GameObject cursor;
     public Renderer rnd;
+    private float closeTime;
     void Start()
     {
         Init();
@@ -58,11 +60,32 @@ public class RoomUserController : MonoBehaviour {
         }
     }
 
+    private bool InputEye()
+    {
+        return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+    }
+
+    private bool InputBackEye()
+    {
+        if (InputEyeClosed.GetCloseBothDown())
+        {
+            closeTime += Time.deltaTime;
+            if (closeTime >= 1f)
+                return true;
+        }
+        else
+        {
+            closeTime = 0;
+        }
+        return false;
+    }
+
     private void InputMenu()
     {
+ //       Fove.Managed.EFVR_Eye.Right
 
         //トリガー入力時の処理
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
         {
             
 

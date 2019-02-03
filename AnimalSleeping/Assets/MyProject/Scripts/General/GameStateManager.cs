@@ -42,6 +42,9 @@ using UnityEngine.SceneManagement;
                 }
 
             }
+    private GameObject worldSet;
+    private GameObject animalSet;
+    private GameObject gameSet;
 
         public int playerID;
         public enum SCENE
@@ -59,9 +62,9 @@ using UnityEngine.SceneManagement;
         }
         private void Awake()
         {
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (SceneManager.GetActiveScene().name == SCENE.Menu.ToString() )
             CurrentScene = (int)SCENE.Menu;
-        if (SceneManager.GetActiveScene().name == "World")
+        if (SceneManager.GetActiveScene().name == SCENE.World.ToString())
             CurrentScene = (int)SCENE.World;
         GameObject[] obj = GameObject.FindGameObjectsWithTag("GameStateManager");
             if (obj.Length > 1)
@@ -79,80 +82,35 @@ using UnityEngine.SceneManagement;
         // Use this for initialization
         void Start()
         {
-        if (SceneManager.GetActiveScene().name == "Menu")
+        if (SceneManager.GetActiveScene().name == SCENE.Menu.ToString())
             CurrentScene = (int)SCENE.Menu;
-        if (SceneManager.GetActiveScene().name == "World")
+        if (SceneManager.GetActiveScene().name == SCENE.World.ToString())
             CurrentScene = (int)SCENE.World;
 
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.sceneUnloaded += OnSceneUnloaded;
-
             SoundManager.Instance.PlayBGM(0);
         }
 
+    // シーン遷移後に読み込む
     void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
     {
         ControllerManager.Instance.Init();
-        if (CurrentScene == 1)
+        if (CurrentScene == (int)SCENE.Menu)
         {
+            animalSet = GameObject.FindGameObjectWithTag("AnimalSetting");
+            worldSet = GameObject.FindGameObjectWithTag("WorldSetting");
+
             AnimalManager.Instance.Init();
             WorldManager.Instance.Init();
             ControllerManager.Instance.FadeIn();
         }
-        else if (CurrentScene == 2)
+        else if (CurrentScene == (int)SCENE.World)
         {
-            
             WorldManager.Instance.Init();
             AnimalManager.Instance.Init();
             ControllerManager.Instance.FadeIn();
         }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-       // 
-        Debug.Log(scene.name + " scene loaded");
-    }
-
-    void OnSceneUnloaded(Scene scene)
-    {
-        
-        // ControllerManager.Instance.FadeIn();
-        Debug.Log(scene.name + " scene unloaded");
-    }
-    /*
-   // Update is called once per frame
-   void Update()
-       {
-
-       //タイトルシーン
-       if (currentScene == (int)SCENE.TITLE) {
-
-           //メニューに入る
-           if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-           {
-               currentScene = (int)SCENE.MENU;
-               SceneManager.LoadScene("Menu");
-           }
-/
-
-       }
-
-
-       //メニューシーン
-       if (currentScene == (int)SCENE.Menu)
-       {
-           //if(WorldManager.Instance
-
-       }
-
-       //おでかけシーン
-       if(currentScene == (int)SCENE.World)
-       {
-
-       }
-        
-    }
-    */
+    
 }

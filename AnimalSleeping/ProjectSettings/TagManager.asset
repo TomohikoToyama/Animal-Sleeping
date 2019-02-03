@@ -40,6 +40,8 @@ TagManager:
   - PageButton
   - Direction
   - Water
+  - Floor
+  - GameSetting
   layers:
   - Default
   - TransparentFX

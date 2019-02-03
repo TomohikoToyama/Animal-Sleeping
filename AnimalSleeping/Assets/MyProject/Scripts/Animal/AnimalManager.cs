@@ -13,15 +13,15 @@ public class AnimalManager : MonoBehaviour {
         Close = 5
 
     }
-    private AnimalController ACon;
-    private AnimalCreator ACreator;
-    private FoodCreator FCreator;
-    private AnimalLoader ALoader;
-    public AnimalSetting ASetting;
-    public AnimalData UseData;
+    private AnimalController ACon;  //動物操作クラス
+    private AnimalCreator ACreator; //動物生成クラス
+    private FoodCreator FCreator;   //ごはん生成クラス
+    private AnimalLoader ALoader;   //動物情報読込クラス
+    public AnimalSetting ASetting;  //動物設定クラス
+    public AnimalData UseData;      //おでかけする動物クラス
     public AnimalData ChooseData;
     public List<string[]> Datas = new List<string[]>();
-    float panelNum = 6.0f;
+    float panelNum = 6.0f;          //パネルの数
     int currentPage;
     int maxPage;
     private string UseCategory;
@@ -100,21 +100,16 @@ public class AnimalManager : MonoBehaviour {
         }
     }
 
-    //
-    public void Datatest()
-    {
-        int num = 5;
-        for(int x = 0;x < Datas.Count; x++)
-        {
-            for(int y = 0; y < num; y++)
-            {
-                Debug.Log(Datas[x][y]);
-            }
-        }
-    }
+    //動物の高さを取得
     public Vector3 GetTop()
     {
         return ACon.topSize;
+    }
+
+    //動物を乗せる
+    public void Put()
+    {
+
     }
     
     public void Eating()
@@ -133,6 +128,7 @@ public class AnimalManager : MonoBehaviour {
         currentPage += num;
     }
 
+    // ページ切替処理
     public void ChangePage()
     {
         ASetting.ChangePage(currentPage, maxPage);
@@ -175,15 +171,7 @@ public class AnimalManager : MonoBehaviour {
      */
     public void Command(int com)
     {
-       
             ACon.StateChange(com);
-       /*
-        else if(com == (int)COMMAND.Eat)
-        {
-            FCreator.Create("2");
-            ACon.StateChange(com);
-        } 
-        */
     }
 
     #endregion

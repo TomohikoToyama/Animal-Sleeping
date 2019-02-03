@@ -6,8 +6,7 @@ public class AnimalCommand : MonoBehaviour {
 
     public string commandName;
     public int id;
-
-
+    private Image panelImg;
     public enum COMMAND{
         Call    = 0,
         Hangout = 1,
@@ -17,100 +16,27 @@ public class AnimalCommand : MonoBehaviour {
         Close   = 5
 
     }
-    public enum SE
+    void Start()
     {
-        HIT = 0
+        panelImg = gameObject.GetComponent<Image>();
     }
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Onclick()
     {
         gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
-        if (id == (int)COMMAND.Call)
-        {
-            Call();
-            Close();
-        }
-        else if (id == (int)COMMAND.Eat)
-        {
-            Close();
-            Eat();
-            
-        }
-        else if (id == (int)COMMAND.Sleep)
-        {
-            Close();
-            Sleep();
-        }
-        else if (id == (int)COMMAND.Hangout)
-        {
-
-        }
-        else if (id == (int)COMMAND.Change)
-        {
-            Change();
-            Close();
-        }
-        else if (id == (int)COMMAND.Close)
+        if (id == (int)COMMAND.Close)
         {            
             Close();
-        }
-
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Cursor")
+        }else
         {
-            gameObject.GetComponent<Image>().color = new Color(125f / 255f, 150f / 255f, 255f / 255f);
-            SoundManager.Instance.PlaySE((int)SE.HIT);
+            Close();
+            AnimalManager.Instance.Command(id);
         }
 
     }
-    private void OnTriggerExit(Collider other)
-    {
-       
-            gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
-        
 
-    }
-
-    public void Call()
-    {
-        Debug.Log("呼ぶ");
-        AnimalManager.Instance.Command(id);
-
-    }
-
-    public void Eat()
-    {
-        Debug.Log("めし");
-        AnimalManager.Instance.Command(id);
-    }
-
-    public void Sleep()
-    {
-        Debug.Log("ねる");
-        AnimalManager.Instance.Command(id);
-    }
-
-    public void Hangout()
-    {
-        
-    }
-
-    public void Change()
-    {
-        Debug.Log("変化");
-        AnimalManager.Instance.Command(id);
-    }
+ 
+    // カーソルを閉じる
     public void Close()
     {
         ControllerManager.Instance.CloseMenu();

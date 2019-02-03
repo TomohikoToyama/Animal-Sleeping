@@ -13,10 +13,12 @@ public class AnimalController : MonoBehaviour {
         SLEEP   = 4,
         HANGOUT    = 5,
         EAT = 6,
+        PUT = 7,
         EATING  = 90,
         NONE    = 99
     }
-    private float reahTime = 3.0f;
+
+    private Vector3 Hand;
     private GameObject Player;
     private Vector3 targetPosition;
     private float stopTime;
@@ -80,6 +82,9 @@ public class AnimalController : MonoBehaviour {
            
                 Eating();
             
+        }else if (AData.State == (int)STATE.PUT)
+        {
+
         }
 
     }
@@ -127,6 +132,8 @@ public class AnimalController : MonoBehaviour {
         
     }   
     */
+
+
     public void StateChange(int num)
     {
         //Debug.Log(num + "の支持がでたよ");
@@ -144,8 +151,13 @@ public class AnimalController : MonoBehaviour {
         {
             Sleep();
         }
+        if (num == (int)STATE.PUT)
+        {
+            //Hand = 
+        }
     }
 
+    //アニメーション初期化処理
     private void AnimReset()
     {
         animator.SetBool("MoveFast", false);
@@ -153,10 +165,11 @@ public class AnimalController : MonoBehaviour {
         animator.SetBool("Move", false);
         animator.SetBool("Eat", false);
     }
+
+    //動物を呼ぶ
     public void Call()
     {
 
-        //呼ばれているよ
         AnimReset();
         animator.SetBool("MoveFast", true);
         targetPosition = Player.transform.position;
@@ -174,35 +187,18 @@ public class AnimalController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
 
     }
-    public void Eat()
+
+    //動物を乗せる
+    public void Put()
     {
 
-        //呼ばれているよ
-        AnimReset();
-        animator.SetBool("MoveFast", true);
-        targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
-        transform.Translate(Vector3.forward * speed * run * Time.deltaTime);
-        dis = Vector3.Distance(transform.position, targetPosition);
-        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
-        if (dis <= 3f)
-        {
-            AnimReset();
-             //Debug.Log("食事待機");
-            animator.SetBool("MoveFast", false);
-            AData.State = (int)STATE.EATING;
-
-        }
     }
-
-    public void Eating()
+    //
+    public void Skill()
     {
-        //Debug.Log("食事");
-        AnimReset();
-        animator.SetBool("Eat", true);
+
     }
+    //大きさ変化コマンド
     public void Change()
     {
         
@@ -291,9 +287,36 @@ public class AnimalController : MonoBehaviour {
 
 
     }
- 
 
- 
+
+    public void Eat()
+    {
+
+        AnimReset();
+        animator.SetBool("MoveFast", true);
+        targetPosition = GameObject.FindGameObjectWithTag("Food").transform.position;
+        transform.Translate(Vector3.forward * speed * run * Time.deltaTime);
+        dis = Vector3.Distance(transform.position, targetPosition);
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+        targetRotation.x = 0;
+        targetRotation.z = 0;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
+        if (dis <= 3f)
+        {
+            AnimReset();
+            //Debug.Log("食事待機");
+            animator.SetBool("MoveFast", false);
+            AData.State = (int)STATE.EATING;
+
+        }
+    }
+
+    public void Eating()
+    {
+        //Debug.Log("食事");
+        AnimReset();
+        animator.SetBool("Eat", true);
+    }
 
 
 }
