@@ -59,6 +59,10 @@ public class WorldUserController : MonoBehaviour {
             closeTime += Time.deltaTime;
 
         }
+        else
+        {
+            closeTime = 0;
+        }
         //Debug.Log(currentMenu);
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -71,7 +75,7 @@ public class WorldUserController : MonoBehaviour {
         {
             InputWorld();
             //バックキー入力で部屋に戻る
-            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
             {
                 ControllerManager.Instance.FadeOut();
                 StartCoroutine(ChangeWait());
