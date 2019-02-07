@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class InputEyeClosed
 {
-
+    
     static InputEyeClosed()
     {
         GameObject.Instantiate(Resources.Load(m_InputUpdateSupport));
@@ -104,6 +104,7 @@ public static class InputEyeClosed
     static public bool GetCloseBothDown() { return m_closedBoth.m_isDown; }
     static public bool GetCloseBoth() { return m_closedBoth.m_isKey; }
     static public bool GetCloseBothUp() { return m_closedBoth.m_isUp; }
+    
 }
 
 public class EyeClosedData

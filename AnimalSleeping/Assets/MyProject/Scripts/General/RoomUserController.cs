@@ -62,11 +62,13 @@ public class RoomUserController : MonoBehaviour {
 
     private bool InputEye()
     {
-        return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+        //  return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+        return false;
     }
 
     private bool InputBackEye()
     {
+        /*
         if (InputEyeClosed.GetCloseBothDown())
         {
             closeTime += Time.deltaTime;
@@ -77,6 +79,7 @@ public class RoomUserController : MonoBehaviour {
         {
             closeTime = 0;
         }
+        */
         return false;
     }
 

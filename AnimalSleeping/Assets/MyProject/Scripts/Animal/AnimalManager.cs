@@ -149,6 +149,7 @@ public class AnimalManager : MonoBehaviour {
         UseCategory = UseData.Category;
         UseID = UseData.ID;
         ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
+        GameStateManager.Instance.SelectAnimal();
     }
 
 

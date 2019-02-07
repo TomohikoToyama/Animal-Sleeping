@@ -51,7 +51,6 @@ public class WorldManager : MonoBehaviour {
     }
     private void Start()
     {
-        Init();
     }
 
     //初期化処理
@@ -75,6 +74,7 @@ public class WorldManager : MonoBehaviour {
     {  
         WSetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.WorldName);
         worldID = UseData.ID;
+        ChangeWorld();
     }
 
     //ワールドを生成する

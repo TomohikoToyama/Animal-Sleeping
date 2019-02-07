@@ -54,6 +54,7 @@ public class WorldUserController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        /*
         if (InputEyeClosed.GetCloseBoth())
         {
             closeTime += Time.deltaTime;
@@ -63,6 +64,7 @@ public class WorldUserController : MonoBehaviour {
         {
             closeTime = 0;
         }
+        */
         //Debug.Log(currentMenu);
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -158,7 +160,8 @@ public class WorldUserController : MonoBehaviour {
 
     private bool InputEye()
     {
-        return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+        //return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
+        return false;
     }
 
     private bool InputBackEye()

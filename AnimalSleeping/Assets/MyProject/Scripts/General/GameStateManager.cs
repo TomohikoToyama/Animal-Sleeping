@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
             GameObject Animal;
             GameObject World;
             //一度に複数のメニューが出ないよう制御
-            public enum SELECTMENU
+            public enum SELECT
             {   
                 NONE    = 0,
                 ANIMAL  = 1,
@@ -18,6 +18,13 @@ using UnityEngine.SceneManagement;
                 ROOM    = 4
 
             }
+
+            public enum MODE {
+                NORMAL = 0,
+                GAME   = 1
+
+            }
+
         
             public int currentMenu;
             //シングルトン化のおまじない
@@ -83,7 +90,15 @@ using UnityEngine.SceneManagement;
         void Start()
         {
         if (SceneManager.GetActiveScene().name == SCENE.Menu.ToString())
+        {
             CurrentScene = (int)SCENE.Menu;
+            animalSet = GameObject.FindGameObjectWithTag("AnimalSetting");
+            worldSet = GameObject.FindGameObjectWithTag("WorldSetting");
+            AnimalManager.Instance.Init();
+            WorldManager.Instance.Init();
+            animalSet.SetActive(true);
+            worldSet.SetActive(false);
+        }
         if (SceneManager.GetActiveScene().name == SCENE.World.ToString())
             CurrentScene = (int)SCENE.World;
 
@@ -99,9 +114,10 @@ using UnityEngine.SceneManagement;
         {
             animalSet = GameObject.FindGameObjectWithTag("AnimalSetting");
             worldSet = GameObject.FindGameObjectWithTag("WorldSetting");
-
             AnimalManager.Instance.Init();
             WorldManager.Instance.Init();
+            animalSet.SetActive(true);
+            worldSet.SetActive(false);
             ControllerManager.Instance.FadeIn();
         }
         else if (CurrentScene == (int)SCENE.World)
@@ -112,5 +128,23 @@ using UnityEngine.SceneManagement;
         }
     }
 
-    
+    //動物選択
+    public void SelectAnimal()
+    {
+        animalSet.SetActive(false);
+        worldSet.SetActive(true);
+        Debug.Log("へいへい"); 
+    }
+
+    //おでかけ先選択
+    public void SelectWorld()
+    {
+        
+    }
+
+    //ゲーム選択
+    public void SelectGame()
+    {
+
+    }
 }
