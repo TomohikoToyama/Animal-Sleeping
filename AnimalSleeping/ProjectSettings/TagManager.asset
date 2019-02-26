@@ -4,44 +4,34 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SoundManager
-  - GameStateManager
+  - Menu
+  - Button
+  - AnimalButton
+  - AnimalSimple
+  - Hand
   - AnimalSetting
-  - OptionSetting
-  - RoomSetting
-  - PlaySetting
-  - AnimalManager
-  - RoomManager
-  - PlayManager
-  - SelectLight
-  - OptionManager
-  - Close
-  - Cursor
+  - Floor
+  - PageButton
   - Label
   - WorldSetting
-  - WorldICon
-  - WorldManager
-  - Button
-  - AnimalSimple
-  - AnimalButton
-  - ObjectSpawner
   - WorldButton
-  - WorldMenu
+  - GameStateManager
+  - Cursor
+  - OptionManager
+  - OptionSetting
+  - AnimalManager
+  - RoomSetting
+  - SoundManager
+  - WorldManager
+  - RoomManager
   - AnimalMenu
-  - OptionMenu
-  - ControllerManager
-  - Menu
-  - AnimalCommand
-  - Animal
-  - Hand
-  - Food
-  - Prev
-  - Next
-  - PageButton
   - Direction
-  - Water
-  - Floor
-  - GameSetting
+  - ObjectSpawner
+  - AnimalCommand
+  - Undefined
+  - Animal
+  - RidePoint
+  - ModelModel
   layers:
   - Default
   - TransparentFX
@@ -51,7 +41,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 

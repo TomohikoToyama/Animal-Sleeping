@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
+
+
 public class RoomUserController : MonoBehaviour {
 
- 
     //一度に複数のメニューが出ないよう制御
     public enum SELECTMENU
     {
@@ -23,14 +25,17 @@ public class RoomUserController : MonoBehaviour {
     public GameObject cursor;
     public Renderer rnd;
     private float closeTime;
+    public GameObject headObj;
+    private SteamVR_TrackedObject trackedObject;
+    private SteamVR_TrackedController device; 
     void Start()
     {
         Init();
     }
     public void Init()
     {
-       
-        transform.position = new Vector3(0, 1, 0);
+
+        headObj.transform.position = new Vector3(0, 1, 0);
     }
     // Update is called once per frame
     void Update()
@@ -85,14 +90,11 @@ public class RoomUserController : MonoBehaviour {
 
     private void InputMenu()
     {
- //       Fove.Managed.EFVR_Eye.Right
-
-        //トリガー入力時の処理
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
+        //       Fove.Managed.EFVR_Eye.Right
+       
+            //トリガー入力時の処理
+            if (Positive() )
         {
-            
-
-                //Debug.Log("クリック");
                 if (target.tag == "AnimalSetting" )
                 {
                     //動物設定用メニューを開く
@@ -153,5 +155,66 @@ public class RoomUserController : MonoBehaviour {
             
 
         }
+    }
+
+    private bool Positive()
+    {
+     
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            return true;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            return true;
+        }
+        else if (InputEye())
+        {
+            return true;
+        }
+        
+        if (headObj.name == "[CameraRig]")
+        {
+            trackedObject = GetComponent<SteamVR_TrackedObject>();
+            var device = SteamVR_Controller.Input((int)trackedObject.index);
+            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                return true;
+            }
+        }
+        
+        
+        return false;
+    }
+
+    private bool Negative()
+    {
+        
+        if (OVRInput.GetDown(OVRInput.Button.Back))
+        {
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return true;
+        }
+        else if (InputBackEye())
+        {
+            return true;
+        }
+        
+        if (headObj.name == "[CameraRig]")
+        {
+            trackedObject = GetComponent<SteamVR_TrackedObject>();
+            var device = SteamVR_Controller.Input((int)trackedObject.index);
+            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+            {
+                return true;
+            }
+        }
+        
+        
+                
+        return false;
     }
 }

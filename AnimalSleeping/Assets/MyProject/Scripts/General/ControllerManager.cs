@@ -73,22 +73,7 @@ public class ControllerManager : MonoBehaviour {
         }
 
     }
-    private void Awake()
-    {
-
-        GameObject[] obj = GameObject.FindGameObjectsWithTag("Player");
-        if (obj.Length > 1)
-        {
-            // 既に存在しているなら削除
-            Destroy(gameObject);
-        }
-        else
-        {
-            // 音管理はシーン遷移では破棄させない
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
+ 
     #endregion
 
 
@@ -179,13 +164,24 @@ public class ControllerManager : MonoBehaviour {
         WCon.currentMenu = 0;
     }
 
-    public void ChangeState()
+    public void Ride()
     {
         Debug.Log("いくぞ");
-        WCon.currentMenu = 7;
+        WCon.currentMenu = 2;
     }
 
     public void Tunnel(){
         fade.color = new Color(0, 0, 0, 0.2f);
     }
+
+    public void Pick()
+    {
+        WCon.currentMenu = 7;
+    }
+
+    public void Fly()
+    {
+        WCon.currentMenu = 8;
+    }
 }
+

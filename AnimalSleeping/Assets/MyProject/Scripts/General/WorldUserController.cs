@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
+
 
 public class WorldUserController : MonoBehaviour {
 
     public GameObject Menu;
     public GameObject AnimalMenu;
+    private WristManager wrist;
     public enum SCENE
     {
         TITLE = 0,
@@ -19,12 +22,13 @@ public class WorldUserController : MonoBehaviour {
     {
         NONE    = 0,
         ANIMAL  = 1,
-        HANGOUT = 2,
+        RIDE    = 2,
         WORLD   = 3,
         OPTION  = 4,
         FOOD    = 5,
         SLEEP   = 6,
-        RIDE    = 7
+        PICK    = 7,
+        FLY     = 8
     }
     public GameObject directionObj;
     public GameObject moveObj;
@@ -43,7 +47,7 @@ public class WorldUserController : MonoBehaviour {
     float transTIme;
     Vector3 topPos;
     public Renderer rnd;
-
+    private Transform ridePos;
     private float closeTime;
     // Use this for initialization
     void Start () {
@@ -64,6 +68,7 @@ public class WorldUserController : MonoBehaviour {
         {
             closeTime = 0;
         }
+        
         */
         //Debug.Log(currentMenu);
         if (Input.GetKeyDown(KeyCode.T))
@@ -77,8 +82,9 @@ public class WorldUserController : MonoBehaviour {
         {
             InputWorld();
             //バックキー入力で部屋に戻る
-            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
+            if (OVRInput.GetDown(OVRInput.Button.Back) ||Negative())
             {
+               
                 ControllerManager.Instance.FadeOut();
                 StartCoroutine(ChangeWait());
 
@@ -88,8 +94,9 @@ public class WorldUserController : MonoBehaviour {
         {
             InputAnimal();
             //バックキー入力で部屋に戻る
-            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
+            if (OVRInput.GetDown(OVRInput.Button.Back) ||Negative())
             {
+                
                 ControllerManager.Instance.FadeOut();
                 StartCoroutine(ChangeWait());
 
@@ -108,17 +115,25 @@ public class WorldUserController : MonoBehaviour {
         {
             InputRide();
         }
+        else if (currentMenu == (int)SELECTMENU.PICK)
+        {
+            InputPick();
+        }
+        else if (currentMenu == (int)SELECTMENU.FLY)
+        {
+            InputFly();
+        }
     }
     
     public void ChangeState()
     {
         //Debug.Log("チェンジ");
-        currentMenu = 7;
+        currentMenu = (int)SELECTMENU.RIDE;
     }
     private IEnumerator ChangeWait()
     {
         yield return new WaitForSeconds(0.6f);
-        transform.position = new Vector3(0, 1, 0);
+        moveObj.transform.position = new Vector3(0, 1, 0);
         WorldManager.Instance.BackRoom();
     }
 
@@ -126,20 +141,29 @@ public class WorldUserController : MonoBehaviour {
     public void TouchImput()
     {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-
-
+        
+        
+        if (moveObj.name == "[CameraRig]")
+        {
+            var trackedObject = GetComponent<SteamVR_TrackedObject>();
+            var device = SteamVR_Controller.Input((int)trackedObject.index);
+            if (device.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
+            {
+                
+                var moveDir = directionObj.transform.rotation.eulerAngles.y;
+                var moveQ = Quaternion.Euler(0, moveDir, 0);
+                moveObj.transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
+            }
+        }
+       
+        
         if (Input.GetKey(KeyCode.X) || (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5))
         {
-            footTimer += Time.deltaTime;
+            
             var moveDir = directionObj.transform.rotation.eulerAngles.y;
             var moveQ = Quaternion.Euler(0, moveDir, 0);
             transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
-            //上方向
-            if(footTimer >= 1f)
-            {
-                //SoundManager.Instance.PlaySE(1);
-                footTimer = 0;
-            }
+              
         }
         else
         {
@@ -181,7 +205,7 @@ public class WorldUserController : MonoBehaviour {
     private void InputWorld()
     {
             TouchImput();
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
+            if (Positive())
             {
                 //プレイルーム用メニューを開く
                 AnimalMenu.SetActive(true);
@@ -225,25 +249,50 @@ public class WorldUserController : MonoBehaviour {
         }
     }
 
+    private void InputPick()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
+        {
+            currentMenu = (int)SELECTMENU.NONE;
+//            animalPos.position = new Vector3(moveObj.transform.position.x,0.1f, moveObj.transform.position.z);
+            AnimalManager.Instance.Pick();
+        }
+    }
     private void InputRide()
     {
         
-        topPos = AnimalManager.Instance.GetTop();
-        if(animalPos == null)
-            animalPos = GameObject.FindGameObjectWithTag("Animal").transform;
+        if(ridePos == null)
+            ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
 
-        var size = animalPos.localScale.y;
-        var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.7f * size, animalPos.position.z);
-        transform.position = ridePos;
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
+       // var size = animalPos.localScale.y;
+      //  var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.7f * size, animalPos.position.z);
+        moveObj.transform.position = ridePos.position;
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             currentMenu = (int)SELECTMENU.NONE;
-            transform.position = animalPos.position + new Vector3(0,1,0);
+            var posX = animalPos.position.x;
+            var posZ = animalPos.position.z;
+            moveObj.transform.position = new Vector3(posX,1,posZ);
+        }
+    }
+
+    private void InputFly()
+    {
+
+        if (ridePos == null)
+            ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
+
+        moveObj.transform.position = ridePos.position;
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
+        {
+            AnimalManager.Instance.PosReset();
+            moveObj.transform.position = new Vector3(1, 1, 1);
+            currentMenu = (int)SELECTMENU.NONE;
         }
     }
     private void InputSleep()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space) || InputBackEye())
+        if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             AnimalManager.Instance.Command(4);
         }
@@ -285,7 +334,7 @@ public class WorldUserController : MonoBehaviour {
     private void InputMenu()
     {
         //トリガー入力時の処理
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButtonDown(0) || InputEye())
+        if (Positive())
         {
             
             if (target.tag == "AnimalCommand")
@@ -305,5 +354,73 @@ public class WorldUserController : MonoBehaviour {
         currentMenu = (int)SELECTMENU.NONE;
         AnimalMenu.transform.position = new Vector3(100,100,100);
     }
+    private bool Positive()
+    {
+        
+        if (moveObj.name == "[CameraRig]")
+        {
 
+            var trackedObject = GetComponent<SteamVR_TrackedObject>();
+            var device = SteamVR_Controller.Input((int)trackedObject.index);
+            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+            {
+                return true;
+            }
+        }
+        
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            return true;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            return true;
+        }
+        else if (InputEye())
+        {
+            return true;
+        }
+        
+        
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool Negative()
+    {
+        
+        if (moveObj.name == "[CameraRig]")
+        {
+            var trackedObject = GetComponent<SteamVR_TrackedObject>();
+            var device = SteamVR_Controller.Input((int)trackedObject.index);
+            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+            {
+                return true;
+            }
+        }
+        
+        //Oculus Backキー
+        if (OVRInput.GetDown(OVRInput.Button.Back))
+        {
+            return true;
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            return true;
+        }
+        else if (InputBackEye())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+        
+        
+        
+    }
 }

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/ExternalMobileController/Resources/EMC_FirstScene.unity
+    guid: 2a1841285ba42ed4cb1032434507ed26
+  - enabled: 1
     path: Assets/MyProject/Scenes/Menu.unity
     guid: 956a6b8e33137cc4b90730f6f54675b9
   - enabled: 1

@@ -63,7 +63,11 @@ public class AnimalManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
     }
-
+    public void PosReset()
+    {
+        Debug.Log("NON");
+        ACon.PosReset();
+    }
     private void Start()
     {
         Init();
@@ -107,9 +111,9 @@ public class AnimalManager : MonoBehaviour {
     }
 
     //動物を乗せる
-    public void Put()
+    public void Pick()
     {
-
+        ACon.StateChange(99);
     }
     
     public void Eating()

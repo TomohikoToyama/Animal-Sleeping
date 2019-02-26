@@ -772,7 +772,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u306D\u308B"
+  m_Text: "\u3068\u307E\u308B"
 --- !u!222 &1834055292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 1073392375}
   id: 5
 --- !u!224 &2047320781
 RectTransform:
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 1834055291}
   id: 4
 --- !u!224 &2047320785
 RectTransform:
@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 1844820867}
   id: 3
 --- !u!224 &2047320789
 RectTransform:
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 1556067338}
   id: 2
 --- !u!224 &2047320793
 RectTransform:
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 0}
   id: 1
 --- !u!224 &2047320797
 RectTransform:
@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: {fileID: 1358711394}
   id: 0
 --- !u!114 &2047320801
 MonoBehaviour:

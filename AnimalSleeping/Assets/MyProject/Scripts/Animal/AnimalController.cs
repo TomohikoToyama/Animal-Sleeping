@@ -12,14 +12,17 @@ public class AnimalController : MonoBehaviour {
         CHANGE  = 3,
         SLEEP   = 4,
         HANGOUT    = 5,
-        EAT = 6,
-        PUT = 7,
+        MOVE = 6,
+        EAT = 100,
+        PICK = 7,
+        FLY  = 8,
         EATING  = 90,
         NONE    = 99
     }
 
-    private Vector3 Hand;
+    private Transform HandPos;
     private GameObject Player;
+    private GameObject ridePoint;
     private Vector3 targetPosition;
     private float stopTime;
     private float moveTime;
@@ -36,6 +39,7 @@ public class AnimalController : MonoBehaviour {
     private float targetScale;
     float dis;
     float sleepWait = 0.6f;
+    GameObject cameraDir;
     public Vector3 topSize;
     // Use this for initialization
     void Start () {
@@ -45,6 +49,8 @@ public class AnimalController : MonoBehaviour {
         animator = GetComponent<Animator>();
         Player = GameObject.FindGameObjectWithTag("Player");
         topSize = GetComponent<BoxCollider>().bounds.size;
+        cameraDir = GameObject.FindGameObjectWithTag("MainCamera");
+        HandPos = GameObject.FindGameObjectWithTag("Hand").transform;
     }
 
     Vector3 vel = Vector3.zero;
@@ -77,16 +83,37 @@ public class AnimalController : MonoBehaviour {
         {
             
         }
-        else if (AData.State == (int)STATE.EATING)
+        else if (AData.State == (int)STATE.MOVE)
         {
-           
-                Eating();
-            
-        }else if (AData.State == (int)STATE.PUT)
-        {
+
+            AData.State = (int)STATE.NONE;
+
 
         }
+        else if (AData.State == (int)STATE.PICK)
+        {
+            gameObject.transform.position = HandPos.position;
+            gameObject.transform.rotation = Quaternion.Euler(0, HandPos.localRotation.y,0);
+        }
+        else if (AData.State == (int)STATE.FLY)
+        {
+            
+            gameObject.transform.position += new Vector3(0,0.005f,0);
+          
+            gameObject.transform.rotation = HandPos.rotation;
+            gameObject.transform.position += HandPos.transform.forward * 0.05f;
 
+        }
+    }
+    public void PosReset()
+    {
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
+        Debug.Log("OK");
+
+        AData.State = 99;
+        AnimReset();
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        gameObject.transform.position = new Vector3(1, 2, 1);
     }
     /*
     private IEnumerator SizeChange(GameObject target)
@@ -145,21 +172,39 @@ public class AnimalController : MonoBehaviour {
         if(num == (int)STATE.RIDE)
         {
             ControllerManager.Instance.FadeAll();
-            ControllerManager.Instance.ChangeState();
+            ridePoint = GameObject.FindGameObjectWithTag("RidePoint");
+            if (ridePoint.name == "Fly")
+            {
+                gameObject.GetComponent<Rigidbody>().useGravity = false;
+                AnimReset();
+                animator.SetBool("Fly", true);
+                AData.State = (int)STATE.FLY;
+                ControllerManager.Instance.Fly();
+            }
+            else
+            {
+                
+                ControllerManager.Instance.Ride();
+            }
         }
         if (num == (int)STATE.SLEEP)
         {
-            Sleep();
+            AnimReset();
         }
-        if (num == (int)STATE.PUT)
+        if (num == (int)STATE.PICK)
         {
-            //Hand = 
+            HandPos = GameObject.FindGameObjectWithTag("Hand").transform;
+            ControllerManager.Instance.Pick();
+        }if(num == (int)STATE.NONE)
+        {
+            AData.State = (int)STATE.NONE;
         }
     }
 
     //アニメーション初期化処理
     private void AnimReset()
     {
+        animator.SetBool("Fly", false);
         animator.SetBool("MoveFast", false);
         animator.SetBool("Sleep", false);
         animator.SetBool("Move", false);
