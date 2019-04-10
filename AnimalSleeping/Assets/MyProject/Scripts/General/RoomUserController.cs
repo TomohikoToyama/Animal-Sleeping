@@ -65,28 +65,6 @@ public class RoomUserController : MonoBehaviour {
         }
     }
 
-    private bool InputEye()
-    {
-        //  return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
-        return false;
-    }
-
-    private bool InputBackEye()
-    {
-        /*
-        if (InputEyeClosed.GetCloseBothDown())
-        {
-            closeTime += Time.deltaTime;
-            if (closeTime >= 1f)
-                return true;
-        }
-        else
-        {
-            closeTime = 0;
-        }
-        */
-        return false;
-    }
 
     private void InputMenu()
     {
@@ -123,8 +101,7 @@ public class RoomUserController : MonoBehaviour {
                     target.GetComponent<AnimalController>();
                 }
 
-
-            //Debug.Log("hhh");
+                
             if (target.tag == "Button")
             {
                 target.GetComponent<GeneralButton>().Onclick();
@@ -168,10 +145,6 @@ public class RoomUserController : MonoBehaviour {
         {
             return true;
         }
-        else if (InputEye())
-        {
-            return true;
-        }
         
         if (headObj.name == "[CameraRig]")
         {
@@ -195,10 +168,6 @@ public class RoomUserController : MonoBehaviour {
             return true;
         }
         else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            return true;
-        }
-        else if (InputBackEye())
         {
             return true;
         }

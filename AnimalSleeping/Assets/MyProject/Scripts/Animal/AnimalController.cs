@@ -71,10 +71,6 @@ public class AnimalController : MonoBehaviour {
         {
             RandomWalk();
         }
-        else if (AData.State == (int)STATE.EAT)
-        {
-            Eat();
-        }
         else if (AData.State == (int)STATE.CHANGE)
         {
             Change();
@@ -108,7 +104,6 @@ public class AnimalController : MonoBehaviour {
     public void PosReset()
     {
         gameObject.GetComponent<Rigidbody>().useGravity = true;
-        Debug.Log("OK");
 
         AData.State = 99;
         AnimReset();
@@ -163,7 +158,6 @@ public class AnimalController : MonoBehaviour {
 
     public void StateChange(int num)
     {
-        //Debug.Log(num + "の支持がでたよ");
         AData.State = num;
         if(num == (int)STATE.STOP)
         {
@@ -232,12 +226,7 @@ public class AnimalController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / 2);
 
     }
-
-    //動物を乗せる
-    public void Put()
-    {
-
-    }
+    
     //
     public void Skill()
     {
@@ -270,27 +259,7 @@ public class AnimalController : MonoBehaviour {
         }
         
     }
-    public void Sleep()
-    {
-        if (!isSleep)
-        {
-           
-            ControllerManager.Instance.Sleep();
-            ControllerManager.Instance.FadeAll();
-            isSleep = true;
-            AnimReset();
-            animator.SetBool("Sleep", true);
-            
-        }else
-        {
-            isSleep = false;
-            AnimReset();
-            AData.State = (int)STATE.NONE;
-            ControllerManager.Instance.WakeUp();
-            ControllerManager.Instance.FadeAll();
-        }
-    }
-
+   
 
     public void RandomWalk()
     {
@@ -334,6 +303,8 @@ public class AnimalController : MonoBehaviour {
     }
 
 
+    //食事
+    /*
     public void Eat()
     {
 
@@ -362,6 +333,30 @@ public class AnimalController : MonoBehaviour {
         AnimReset();
         animator.SetBool("Eat", true);
     }
+    */
 
+    /*
+    //寝る
+    public void Sleep()
+    {
+        if (!isSleep)
+        {
 
+            ControllerManager.Instance.Sleep();
+            ControllerManager.Instance.FadeAll();
+            isSleep = true;
+            AnimReset();
+            animator.SetBool("Sleep", true);
+
+        }
+        else
+        {
+            isSleep = false;
+            AnimReset();
+            AData.State = (int)STATE.NONE;
+            ControllerManager.Instance.WakeUp();
+            ControllerManager.Instance.FadeAll();
+        }
+    }
+    */
 }

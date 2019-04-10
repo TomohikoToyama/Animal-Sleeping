@@ -58,19 +58,7 @@ public class WorldUserController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        /*
-        if (InputEyeClosed.GetCloseBoth())
-        {
-            closeTime += Time.deltaTime;
-
-        }
-        else
-        {
-            closeTime = 0;
-        }
-        
-        */
-        //Debug.Log(currentMenu);
+       
         if (Input.GetKeyDown(KeyCode.T))
         {
             InputRide();
@@ -127,7 +115,6 @@ public class WorldUserController : MonoBehaviour {
     
     public void ChangeState()
     {
-        //Debug.Log("チェンジ");
         currentMenu = (int)SELECTMENU.RIDE;
     }
     private IEnumerator ChangeWait()
@@ -182,26 +169,6 @@ public class WorldUserController : MonoBehaviour {
         target = null;
     }
 
-    private bool InputEye()
-    {
-        //return InputEyeClosed.GetCloseRightDown() || InputEyeClosed.GetCloseLeftDown();
-        return false;
-    }
-
-    private bool InputBackEye()
-    {
-        if (closeTime >= 1f)
-        {
-            closeTime = 0;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-
-    }
     private void InputWorld()
     {
             TouchImput();
@@ -254,18 +221,16 @@ public class WorldUserController : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             currentMenu = (int)SELECTMENU.NONE;
-//            animalPos.position = new Vector3(moveObj.transform.position.x,0.1f, moveObj.transform.position.z);
             AnimalManager.Instance.Pick();
         }
     }
+
+    //乗ってる
     private void InputRide()
     {
-        
-        if(ridePos == null)
-            ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
 
-       // var size = animalPos.localScale.y;
-      //  var ridePos = new Vector3(animalPos.position.x, topPos.y * size  + 0.7f * size, animalPos.position.z);
+        if (ridePos == null)
+            ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
         moveObj.transform.position = ridePos.position;
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
@@ -312,9 +277,6 @@ public class WorldUserController : MonoBehaviour {
             }
             if(target.tag == "AnimalCommand")
                 rnd.enabled = true;
-
-            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
-            ////Debug.Log(hit.collider.gameObject.name);
 
             cursor.transform.position = hit.point;
             cursor.transform.rotation = Quaternion.LookRotation(cursor.transform.position - transform.position);
@@ -376,10 +338,7 @@ public class WorldUserController : MonoBehaviour {
         {
             return true;
         }
-        else if (InputEye())
-        {
-            return true;
-        }
+       
         
         
         else
@@ -407,10 +366,6 @@ public class WorldUserController : MonoBehaviour {
             return true;
         }
         else if (Input.GetMouseButton(1))
-        {
-            return true;
-        }
-        else if (InputBackEye())
         {
             return true;
         }
