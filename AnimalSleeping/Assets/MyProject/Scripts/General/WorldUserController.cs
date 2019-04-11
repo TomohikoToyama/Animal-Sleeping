@@ -93,7 +93,7 @@ public class WorldUserController : MonoBehaviour {
         }
         else if (currentMenu == (int)SELECTMENU.FOOD)
         {
-            InputFood();
+           // InputFood();
         }
         else if (currentMenu == (int)SELECTMENU.SLEEP)
         {
@@ -199,6 +199,7 @@ public class WorldUserController : MonoBehaviour {
 
     }
 
+    /*
     private void InputFood()
     {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
@@ -215,7 +216,7 @@ public class WorldUserController : MonoBehaviour {
             Destroy(food);
         }
     }
-
+    */
     private void InputPick()
     {
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
@@ -232,6 +233,14 @@ public class WorldUserController : MonoBehaviour {
         if (ridePos == null)
             ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
         moveObj.transform.position = ridePos.position;
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Positive())
+        {
+            var moveDir = directionObj.transform.rotation.eulerAngles.y;
+            var moveQ = Quaternion.Euler(0, moveDir, 0);
+            transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
+            animalPos.position += new Vector3(transform.position.x,animalPos.position.y, transform.position.z);
+
+        }
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             currentMenu = (int)SELECTMENU.NONE;

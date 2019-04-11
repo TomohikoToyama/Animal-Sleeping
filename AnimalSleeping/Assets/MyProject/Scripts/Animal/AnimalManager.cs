@@ -116,11 +116,7 @@ public class AnimalManager : MonoBehaviour {
         ACon.StateChange(99);
     }
     
-    public void Eating()
-    {
-        //食事
-        ACon.Eating();
-    }
+   
     public void LoadData()
     {
 

@@ -240,19 +240,17 @@ public class AnimalController : MonoBehaviour {
         {
             this.transform.position += new Vector3(0, 2f, 0); 
             this.transform.localScale = maxSize;
-            speed *= 5;
             AData.Size = 1;
             AData.State = (int)STATE.NONE;
         }
         else if (AData.Size == 1) {
             this.transform.localScale = minSize;
-            speed /= 20;
             AData.Size = -1;
             AData.State = (int)STATE.NONE;
         }
         else if (AData.Size == -1)
         {
-            speed *= 4;
+
             this.transform.localScale = normalSize;
             AData.Size = 0;
             AData.State = (int)STATE.NONE;
