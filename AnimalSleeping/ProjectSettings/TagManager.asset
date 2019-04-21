@@ -34,6 +34,7 @@ TagManager:
   - ModelModel
   - Water
   - PlayGameManager
+  - PlayGameSetting
   layers:
   - Default
   - TransparentFX
