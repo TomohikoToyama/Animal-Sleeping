@@ -233,14 +233,7 @@ public class WorldUserController : MonoBehaviour {
         if (ridePos == null)
             ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
         moveObj.transform.position = ridePos.position;
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Positive())
-        {
-            var moveDir = directionObj.transform.rotation.eulerAngles.y;
-            var moveQ = Quaternion.Euler(0, moveDir, 0);
-            transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
-            animalPos.position += new Vector3(transform.position.x,animalPos.position.y, transform.position.z);
-
-        }
+       
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             currentMenu = (int)SELECTMENU.NONE;
