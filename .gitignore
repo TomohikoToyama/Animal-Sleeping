@@ -6,6 +6,8 @@
 *[Oo]culus/
 *[Rr]esources/
 [Pp]lugin/
+*SteamVR/
+*SDK/
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory

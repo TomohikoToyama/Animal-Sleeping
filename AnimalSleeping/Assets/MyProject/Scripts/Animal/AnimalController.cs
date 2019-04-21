@@ -20,6 +20,7 @@ public class AnimalController : MonoBehaviour {
         NONE    = 99
     }
 
+    private bool goFront;
     private Transform HandPos;
     private GameObject Player;
     private GameObject ridePoint;
@@ -69,7 +70,16 @@ public class AnimalController : MonoBehaviour {
         }
         else if (AData.State == (int)STATE.RIDE)
         {
-            RandomWalk();
+            if (goFront)
+            {
+           
+                animator.SetBool("Move", true);
+                gameObject.transform.position += gameObject.transform.forward * 0.01f;
+            }
+            else
+            {
+                RandomWalk();
+            }
         }
         else if (AData.State == (int)STATE.CHANGE)
         {
@@ -94,13 +104,36 @@ public class AnimalController : MonoBehaviour {
         else if (AData.State == (int)STATE.FLY)
         {
             
-            gameObject.transform.position += new Vector3(0,0.005f,0);
-          
+           // gameObject.transform.position += new Vector3(0,0.005f,0);
             gameObject.transform.rotation = HandPos.rotation;
-            gameObject.transform.position += HandPos.transform.forward * 0.05f;
+            if (goFront)
+            {
+                gameObject.transform.position += HandPos.transform.forward * 0.05f;
+            }
+
+            else {
+            }
+
 
         }
     }
+
+    //プレイヤーからの入力
+    public void InputUser(int num)
+    {
+        if(num == 0)
+        {
+            goFront = true;
+        }
+         else if(num == 99)
+        {
+            if(AData.State == (int)STATE.RIDE)
+            AnimReset();
+            goFront = false;
+        }
+
+    }
+    //位置の初期化
     public void PosReset()
     {
         gameObject.GetComponent<Rigidbody>().useGravity = true;

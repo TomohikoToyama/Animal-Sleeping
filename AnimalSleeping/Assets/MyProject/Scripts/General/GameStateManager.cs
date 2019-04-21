@@ -133,7 +133,13 @@ using UnityEngine.SceneManagement;
     {
         animalSet.SetActive(false);
         worldSet.SetActive(true);
-        Debug.Log("へいへい"); 
+    }
+
+    //動物選択に戻る
+    public void BackAnimal()
+    {
+        animalSet.SetActive(true);
+        worldSet.SetActive(false);
     }
 
     //おでかけ先選択

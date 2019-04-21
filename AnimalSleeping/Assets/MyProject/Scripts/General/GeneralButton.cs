@@ -27,15 +27,17 @@ public class GeneralButton : MonoBehaviour {
         PanelObj = transform.parent.gameObject;
 
         RootObj = transform.root.gameObject;
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
     }
     //メニューを閉じる
     public void CloseMenu()
     {
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
         if (RootObj.tag == ROOT.AnimalSetting.ToString())
             AnimalManager.Instance.OpenCloseMenu();
-        if (RootObj.tag == ROOT.WorldSetting.ToString())
+        else if (RootObj.tag == ROOT.WorldSetting.ToString())
             WorldManager.Instance.OpenCloseMenu();
-        if (RootObj.tag == ROOT.OptionSetting.ToString())
+        else if (RootObj.tag == ROOT.OptionSetting.ToString())
             OptionManager.Instance.OpenCloseMenu();
 
     }
@@ -48,6 +50,12 @@ public class GeneralButton : MonoBehaviour {
             WorldManager.Instance.ChangeWorld();
         }
         
+    }
+
+    public void OnEnable()
+    {
+        gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+
     }
 
     public void SetSelect()

@@ -124,6 +124,9 @@ public class RoomUserController : MonoBehaviour {
                 target = null;
             }
 
+        }else if(Negative())
+        {
+            AnimalManager.Instance.BackSelect();
         }
 
         // 英語対応
@@ -167,7 +170,7 @@ public class RoomUserController : MonoBehaviour {
         {
             return true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetMouseButtonDown(1))
         {
             return true;
         }

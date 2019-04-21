@@ -53,11 +53,11 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 10
     m_Resolution: 2
-    m_BakeResolution: 40
+    m_BakeResolution: 30
     m_AtlasSize: 512
     m_AO: 0
     m_AOMaxDistance: 1
@@ -1191,6 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 1073392375}
   id: 5
 --- !u!224 &2047320781
@@ -1259,6 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 1834055291}
   id: 4
 --- !u!224 &2047320785
@@ -1327,6 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 1844820867}
   id: 3
 --- !u!224 &2047320789
@@ -1395,6 +1398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 1556067338}
   id: 2
 --- !u!224 &2047320793
@@ -1463,6 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 0}
   id: 1
 --- !u!224 &2047320797
@@ -1531,6 +1536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b76c6b6bc30fe4c8c4f236cd55e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  com: {fileID: 0}
   commandName: {fileID: 1358711394}
   id: 0
 --- !u!114 &2047320801

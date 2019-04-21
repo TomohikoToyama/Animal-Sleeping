@@ -70,9 +70,8 @@ public class WorldUserController : MonoBehaviour {
         {
             InputWorld();
             //バックキー入力で部屋に戻る
-            if (OVRInput.GetDown(OVRInput.Button.Back) ||Negative())
+            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetMouseButtonDown(1))
             {
-               
                 ControllerManager.Instance.FadeOut();
                 StartCoroutine(ChangeWait());
 
@@ -82,7 +81,7 @@ public class WorldUserController : MonoBehaviour {
         {
             InputAnimal();
             //バックキー入力で部屋に戻る
-            if (OVRInput.GetDown(OVRInput.Button.Back) ||Negative())
+            if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetMouseButtonDown(1))
             {
                 
                 ControllerManager.Instance.FadeOut();
@@ -217,6 +216,8 @@ public class WorldUserController : MonoBehaviour {
         }
     }
     */
+
+    //
     private void InputPick()
     {
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
@@ -233,16 +234,26 @@ public class WorldUserController : MonoBehaviour {
         if (ridePos == null)
             ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
         moveObj.transform.position = ridePos.position;
-       
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
+
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButton(0))
+        {
+            AnimalManager.Instance.InputUser(0);
+        }
+        else if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             currentMenu = (int)SELECTMENU.NONE;
             var posX = animalPos.position.x;
             var posZ = animalPos.position.z;
             moveObj.transform.position = new Vector3(posX,1,posZ);
         }
+        else
+        {
+            AnimalManager.Instance.InputUser(99);
+        }
     }
 
+
+    //飛行時の入力
     private void InputFly()
     {
 
@@ -250,6 +261,15 @@ public class WorldUserController : MonoBehaviour {
             ridePos = GameObject.FindGameObjectWithTag("RidePoint").transform;
 
         moveObj.transform.position = ridePos.position;
+
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButton(0))
+        {
+            AnimalManager.Instance.InputUser(0);
+        }
+        else
+        {
+            AnimalManager.Instance.InputUser(99);
+        }
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
         {
             AnimalManager.Instance.PosReset();
@@ -367,7 +387,7 @@ public class WorldUserController : MonoBehaviour {
         {
             return true;
         }
-        else if (Input.GetMouseButton(1))
+        else if (Input.GetMouseButtonDown(1))
         {
             return true;
         }

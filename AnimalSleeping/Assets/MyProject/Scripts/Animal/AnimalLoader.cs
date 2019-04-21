@@ -9,15 +9,6 @@ public class AnimalLoader:MonoBehaviour{
 
     private List<string[]> Datas = new List<string[]>();
 
-    //カテゴリ
-    public  int Category{ get; private set; }
-    //public int AID{ get; private set; } フェスでは未使用
-    public int ID { get; private set; }
-    public string Name { get; private set; }
-    //public string NickName { get; private set; } フェスでは未使用
-    public int  MoveType { get; private set; }
-    public int Favorite { get; private set; }
-
     //データ読み込み
     public List<string[]> LoadData()
     { 

@@ -152,6 +152,11 @@ public class AnimalManager : MonoBehaviour {
         GameStateManager.Instance.SelectAnimal();
     }
 
+    //動物選択パネルに戻る
+    public void BackSelect()
+    {
+        GameStateManager.Instance.BackAnimal();
+    }
 
     #endregion
 
@@ -175,5 +180,9 @@ public class AnimalManager : MonoBehaviour {
             ACon.StateChange(com);
     }
 
+    public void InputUser(int num)
+    {
+        ACon.InputUser(num);
+    }
     #endregion
 }
