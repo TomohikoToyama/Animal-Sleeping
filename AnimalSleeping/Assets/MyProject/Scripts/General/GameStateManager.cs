@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
     public class GameStateManager : MonoBehaviour
     {
+    public int language;    //0 = 日本語, 1 = English
             GameObject Animal;
             GameObject World;
             //一度に複数のメニューが出ないよう制御

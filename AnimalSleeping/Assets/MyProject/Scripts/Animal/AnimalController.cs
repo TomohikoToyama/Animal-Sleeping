@@ -297,7 +297,7 @@ public class AnimalController : MonoBehaviour {
         if (stopTime > 0)
             stopTime -= Time.deltaTime;
 
-        if (stopTime <= 0)
+        else if (stopTime <= 0)
         {
             //正面に進む
             animator.SetBool("Move", true);

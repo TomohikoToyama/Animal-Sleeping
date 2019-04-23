@@ -30,27 +30,21 @@ public class AnimalManager : MonoBehaviour {
     protected static AnimalManager instance;
     public static AnimalManager Instance
     {
-
         get
         {
             if (instance == null)
             {
                 instance = (AnimalManager)FindObjectOfType(typeof(AnimalManager));
-
                 if (instance == null)
                 {
                     Debug.LogError("SoundManager Instance Error");
-
                 }
             }
-
             return instance;
         }
-
     }
     private void Awake()
     {
-
         GameObject[] obj = GameObject.FindGameObjectsWithTag("AnimalManager");
         if (obj.Length > 1)
         {
@@ -65,7 +59,6 @@ public class AnimalManager : MonoBehaviour {
     }
     public void PosReset()
     {
-        Debug.Log("NON");
         ACon.PosReset();
     }
     private void Start()
@@ -104,6 +97,10 @@ public class AnimalManager : MonoBehaviour {
         }
     }
 
+    public void ChangeLang()
+    {
+
+    }
     //動物の高さを取得
     public Vector3 GetTop()
     {
@@ -135,6 +132,13 @@ public class AnimalManager : MonoBehaviour {
         ASetting.SetDataList(Datas, currentPage);
 
     }
+    // 言語切替処理
+    public void ChangeLanguage()
+    {
+        ASetting.ChangePage(currentPage, maxPage);
+        ASetting.SetLanguageName(Datas, currentPage);
+
+    }
     //ルームでの処理
     #region
     //ルームでのメニューを開閉する
@@ -148,7 +152,17 @@ public class AnimalManager : MonoBehaviour {
     {
         UseCategory = UseData.Category;
         UseID = UseData.ID;
-        ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
+        //日本語なら
+        if (GameStateManager.Instance.language == 0)
+        {
+              ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
+        }
+        //英語なら
+        else if (GameStateManager.Instance.language == 1)
+        {
+            ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.EngName);
+        }
+
         GameStateManager.Instance.SelectAnimal();
     }
 

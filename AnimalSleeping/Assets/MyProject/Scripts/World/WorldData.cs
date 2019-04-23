@@ -7,6 +7,7 @@ public class WorldData : MonoBehaviour {
     public  string ID { get { return id; } set { id = value; } }
     public Image Thumbnail;
     public Text WorldText;
+
     private string worldName;
     public  string WorldName { get { return worldName; } set { worldName = value; } }
     private int moveType;
@@ -16,6 +17,7 @@ public class WorldData : MonoBehaviour {
 
     private void Start()
     {
+        //水中のワールドの場合、重力を変更
         if(gameObject.tag == "Water")
         {
             GameObject.FindGameObjectWithTag("Animal").GetComponent<Rigidbody>().useGravity = false;
@@ -29,26 +31,30 @@ public class WorldData : MonoBehaviour {
  
     public void GetCell()
     {
-
-        Debug.Log("test");
-         WorldManager.Instance.UseData = this;
-         WorldManager.Instance.SetSelect();
+        WorldManager.Instance.UseData = this;
+        WorldManager.Instance.SetSelect();
     }
 
+    /*
+     * セルから取得したワールドデータを設定する
+     * ワールドのIDとワールド名と移動タイプ
+     * 
+    */
     public void SetData(WorldData data)
     {
-
         ID = data.ID;
         WorldName = data.WorldName;
         MoveType = data.MoveType;
     }
 
+    //表示にする処理
     public void Apear()
     {
         gameObject.SetActive(true);
 
     }
 
+    //非表示にする処理
     public void DisApear()
     {
         gameObject.SetActive(false);

@@ -48,12 +48,20 @@ public class AnimalSetting : MonoBehaviour {
             DataList[i].Category    = datas[i + (page - 1) * cellNum][0];
             DataList[i].ID          = datas[i + (page - 1) * cellNum][1];
             DataList[i].AnimalName  = datas[i + (page - 1) * cellNum][2];
-            DataList[i].MoveType    = int.Parse(datas[i + (page - 1) * cellNum][3]);
+            DataList[i].EngName     = datas[i + (page - 1) * cellNum][3];
+            DataList[i].MoveType    = int.Parse(datas[i + (page - 1) * cellNum][4]);
             // DataList[i].Fa = datas[i + (page - 1) * cellNum][2];
             string path = folder + DataList[i].Category + "/" + DataList[i].ID;
             thumbnail[i] = Resources.Load<Sprite>(path);
             DataList[i].Apear();
-            DataList[i].SetCell(thumbnail[i], DataList[i].AnimalName);
+            if (GameStateManager.Instance.language == 0)
+            {
+                DataList[i].SetCell(thumbnail[i], DataList[i].AnimalName);
+            }
+            else if (GameStateManager.Instance.language == 1)
+            {
+                DataList[i].SetCell(thumbnail[i], DataList[i].EngName);
+            }
         }
         //もし該当ページにデータが6個なかった場合は、ないデータ分のパネルを非表示にする
         if(dataNum < cellNum)
@@ -65,9 +73,23 @@ public class AnimalSetting : MonoBehaviour {
         }
 
     }
+    public void SetLanguageName(List<string[]> datas, int page)
+    {
+        pageNum.text = page.ToString();
 
+        for (int i = 0; i < dataNum; i++)
+        {
+            DataList[i].AnimalName = datas[i + (page - 1) * cellNum][2];
+            DataList[i].EngName = datas[i + (page - 1) * cellNum][3];
+            if (GameStateManager.Instance.language == 0)
+                DataList[i].SetCell(thumbnail[i], DataList[i].AnimalName);
+            else if (GameStateManager.Instance.language == 1)
+                DataList[i].SetCell(thumbnail[i], DataList[i].EngName);
+        }
 
-	private void DefaultSet()
+    }
+
+    private void DefaultSet()
     {
         SelectedData.Category = "100";
         SelectedData.ID = "1";

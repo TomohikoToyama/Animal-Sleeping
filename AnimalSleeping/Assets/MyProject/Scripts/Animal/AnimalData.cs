@@ -24,7 +24,7 @@ public class AnimalData : MonoBehaviour {
     public int personality;
 
 
-    public int activity;
+    private int activity;
     public int Activity { get { return activity; } set { activity = value; } }
     //動物の状態
     private int state = 99;
@@ -45,8 +45,9 @@ public class AnimalData : MonoBehaviour {
     //動物種族名
     private string animalName;
     public string AnimalName { get { return animalName; } set { animalName = value; } }
-    //ニックネーム
-    public string NickName { get; private set; }
+    //英語名
+    private string engName;
+    public string EngName { get { return engName; } set { engName = value; } }
     //水陸空移動
     private int moveType;
     public int MoveType { get { return moveType; } set { moveType = value; } }
@@ -60,6 +61,7 @@ public class AnimalData : MonoBehaviour {
         Category   = data.Category;
         ID         = data.ID;
         AnimalName = data.AnimalName;
+        EngName    = data.EngName;
         MoveType   = data.MoveType;
     }
 
@@ -71,7 +73,6 @@ public class AnimalData : MonoBehaviour {
     {
         Thumbnail.sprite = img;
         NameText.text    = str;
-        Debug.Log(NameText.text);
     }
 
     public void GetCell()

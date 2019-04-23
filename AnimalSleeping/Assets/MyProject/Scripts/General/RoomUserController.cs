@@ -27,7 +27,8 @@ public class RoomUserController : MonoBehaviour {
     private float closeTime;
     public GameObject headObj;
     private SteamVR_TrackedObject trackedObject;
-    private SteamVR_TrackedController device; 
+    private SteamVR_TrackedController device;
+    private bool engLanguage;  //false 日本語、true 英語
     void Start()
     {
         Init();
@@ -40,7 +41,28 @@ public class RoomUserController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-             EyePoint();
+        EyePoint();
+        if (Negative())
+        {
+            AnimalManager.Instance.BackSelect();
+        }
+        // 英語対応
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            //日本語なら
+            if (GameStateManager.Instance.language == 0)
+            {
+                GameStateManager.Instance.language = 1;
+                AnimalManager.Instance.ChangeLanguage();
+            }
+            //英語なら
+            else if (GameStateManager.Instance.language == 1)
+            {
+                GameStateManager.Instance.language = 0;
+                AnimalManager.Instance.ChangeLanguage();
+            }
+
+        }
     }
 
     private void EyePoint()
@@ -124,17 +146,9 @@ public class RoomUserController : MonoBehaviour {
                 target = null;
             }
 
-        }else if(Negative())
-        {
-            AnimalManager.Instance.BackSelect();
         }
 
-        // 英語対応
-        if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetKeyDown(KeyCode.Space))
-        {
-            
-
-        }
+       
     }
 
     private bool Positive()

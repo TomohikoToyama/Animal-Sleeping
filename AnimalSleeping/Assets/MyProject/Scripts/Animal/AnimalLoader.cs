@@ -28,7 +28,6 @@ public class AnimalLoader:MonoBehaviour{
             // 末尾まで繰り返し...
             
         }
-        Debug.Log("動物csv読み込み終了");
         return Datas;
         
     }
