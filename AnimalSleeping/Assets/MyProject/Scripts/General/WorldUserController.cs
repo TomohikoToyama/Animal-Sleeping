@@ -84,8 +84,8 @@ public class WorldUserController : MonoBehaviour {
             if (OVRInput.GetDown(OVRInput.Button.Back) || Input.GetMouseButtonDown(1))
             {
                 
-                ControllerManager.Instance.FadeOut();
-                StartCoroutine(ChangeWait());
+                ControllerManager.Instance.CloseMenu();
+                currentMenu = (int)SELECTMENU.NONE;
 
             }
 
