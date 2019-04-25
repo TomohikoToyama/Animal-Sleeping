@@ -1,6 +1,6 @@
 # Animal-Sleeping
 VR向け動物と添い寝するアプリ
-
+![デモ画像](https://user-images.githubusercontent.com/37957948/56710736-88239500-6762-11e9-924c-bb2339dc9042.png)
 
 操作方法
 
