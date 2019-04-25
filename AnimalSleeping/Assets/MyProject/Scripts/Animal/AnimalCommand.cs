@@ -4,29 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AnimalCommand : MonoBehaviour {
 
-    public AnimalCommand com;
-    public Text commandName;
-    public int id;
-    private Image panelImg;
+    public AnimalCommand com;   //動物命令
+    public Text commandName;    //命令名
+    public int id;              //ID
+
+    //コマンド一覧
     public enum COMMAND{
-        Call    = 0,
-        Hangout = 1,
-        Ride     = 2,
-        Change  = 3,
-        Stop   = 4,
-        Close   = 5,
-        Move    = 6,
-        Pick    = 7
+        Call    = 0,    //呼ぶ
+        Hangout = 1,    //遊ぶ(未使用)
+        Ride    = 2,    //乗る
+        Change  = 3,    //大きさ変化
+        Stop    = 4,    //止まる
+        Close   = 5,    //メニュー閉じる
+        Move    = 6,    //動く(止まってる時)
+        Pick    = 7     //持つ(大きさが小さい時)
 
     }
     int count = 0;
+
     void Start()
     {
         if(id == (int)COMMAND.Change)
         {
             com = GameObject.Find("Comand_3").GetComponent<AnimalCommand>();
         }
-        panelImg = gameObject.GetComponent<Image>();
     }
 
     public void Onclick()
@@ -69,9 +70,9 @@ public class AnimalCommand : MonoBehaviour {
 
     }
 
+
     public void Pick()
     {
-
 
         com.id = (int)COMMAND.Pick;
         com.commandName.text = "もつ";

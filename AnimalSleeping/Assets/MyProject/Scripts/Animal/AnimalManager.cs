@@ -57,6 +57,8 @@ public class AnimalManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    //動物の位置初期化処理
     public void PosReset()
     {
         ACon.PosReset();
@@ -152,12 +154,12 @@ public class AnimalManager : MonoBehaviour {
     {
         UseCategory = UseData.Category;
         UseID = UseData.ID;
-        //日本語なら
+        //言語設定が日本語なら日本語名で表示
         if (GameStateManager.Instance.language == 0)
         {
               ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.AnimalName);
         }
-        //英語なら
+        //言語設定が英語なら英語名で表示
         else if (GameStateManager.Instance.language == 1)
         {
             ASetting.SelectedData.SetCell(UseData.Thumbnail.sprite, UseData.EngName);

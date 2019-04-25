@@ -4,25 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AnimalSetting : MonoBehaviour {
 
-    private string folder = "Images/Animal/";
-    public GameObject setObj;
+    private string folder = "Images/Animal/";   //サムネイル用フォルダパス
+    public GameObject setObj;                   //
     public GameObject setCanvas;
     public GameObject setMenu;
     public Text pageNum;
-    public GameObject prevButton;
-    public GameObject nextButton;
-    public Sprite[] thumbnail = new Sprite[6];
-    public List<AnimalData> DataList = new List<AnimalData>();
-    public AnimalData SelectedData;
-    public AnimalData ChooseData;
-    public int dataNum  = 6;
-    private int cellNum = 6;
-    public Sprite clear;
-    private BoxCollider col;
+    public GameObject prevButton;               //戻るボタン
+    public GameObject nextButton;               //次へボタン
+    public Sprite[] thumbnail = new Sprite[6];  //動物サムネイル格納、1度に6体分
+    public List<AnimalData> DataList = new List<AnimalData>();  //動物データ
+    public AnimalData SelectedData;             //選択した動物データ
+    public int dataNum  = 6;                    //動物のデータ数
+    private int cellNum = 6;                    //セルの数
+    public Sprite clear;                        //ページ余り分の非表示用画像
+    private BoxCollider col;                    //
     // Use this for initialization
     void Start () {
         DefaultSet();
-        ChooseData = DataList[0];
         AnimalManager.Instance.UseData = SelectedData;
         prevButton.SetActive(false);
         col = GetComponent<BoxCollider>();
@@ -135,14 +133,5 @@ public class AnimalSetting : MonoBehaviour {
             setMenu.SetActive(false);
             col.enabled = true;
         }
-    }
-
-    //カーソルが当たった時の処理
-    //起動したての向きによっては即処理が発生してしまうので検討
-    private void OnTriggerEnter(Collider other)
-    {
-
-        //SoundManager.Instance.PlaySE((int)SE.HIT);
-
     }
 }
