@@ -1,5 +1,6 @@
 # Animal-Sleeping
-Oculus Go 向け動物と戯れるVRアプリ
+Oculus Go 向け動物と戯れるVRアプリ<br>
+今年リリース予定<br>
 
 ![デモ画像](https://user-images.githubusercontent.com/37957948/56710736-88239500-6762-11e9-924c-bb2339dc9042.png)
 ![画像2](https://user-images.githubusercontent.com/37957948/56710943-81e1e880-6763-11e9-99cf-0020cd8d48f2.png)
@@ -13,4 +14,10 @@ Oculus Go 向け動物と戯れるVRアプリ
 
 
 ====開発環境===<br>
-・Unity 2018.2.14f1
+・Unity 2018.2.14f1<br>
+<br>
+===今後の実装予定===<br>
+・動物の種類の追加<br>
+・おでかけ先の追加<br>
+・動物AI強化<br>
+・ミニゲーム実装
