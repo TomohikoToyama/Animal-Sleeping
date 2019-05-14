@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
 
 
 public class WorldUserController : MonoBehaviour {
 
     public GameObject Menu;
     public GameObject AnimalMenu;
-    private WristManager wrist;
     public enum SCENE
     {
         TITLE = 0,
@@ -32,13 +30,13 @@ public class WorldUserController : MonoBehaviour {
     }
     public GameObject directionObj;
     public GameObject moveObj;
-    float forwardSpeed = 1f;
+    private GameObject target;
+    public GameObject cursor;           //カーソルアイコン
+    float forwardSpeed = 1f;           //歩行速度
     private float smoothTime = 0.5f;
     Vector3 velocity = Vector3.zero;
     public int currentMenu;
     // Use this for initialization
-    private GameObject target;
-    public GameObject cursor;
     public Transform animalPos;
     public GameObject food;
     private Transform dir;
@@ -49,23 +47,12 @@ public class WorldUserController : MonoBehaviour {
     public Renderer rnd;
     private Transform ridePos;
     private float closeTime;
-    // Use this for initialization
-    void Start () {
-        
 
-    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-       
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            InputRide();
-
-
-        }
-       
+        //
         if (currentMenu == (int)SELECTMENU.NONE)
         {
             InputWorld();
@@ -128,19 +115,7 @@ public class WorldUserController : MonoBehaviour {
     {
         Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
         
-        
-        if (moveObj.name == "[CameraRig]")
-        {
-            var trackedObject = GetComponent<SteamVR_TrackedObject>();
-            var device = SteamVR_Controller.Input((int)trackedObject.index);
-            if (device.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
-            {
-                
-                var moveDir = directionObj.transform.rotation.eulerAngles.y;
-                var moveQ = Quaternion.Euler(0, moveDir, 0);
-                moveObj.transform.position += (moveQ * Vector3.forward).normalized * forwardSpeed * Time.deltaTime;
-            }
-        }
+       
        
         
         if (Input.GetKey(KeyCode.X) || (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5))
@@ -198,24 +173,6 @@ public class WorldUserController : MonoBehaviour {
 
     }
 
-    /*
-    private void InputFood()
-    {
-        Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-        food = GameObject.FindGameObjectWithTag("Food");
-        if (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
-        {
-            //上方向
-            transform.Translate(transform.forward * 0.01f);
-        }
-        float dis =  Vector3.Distance(transform.position, animalPos.position);
-        if (dis <= 1f)
-        {
-            AnimalManager.Instance.Eating();
-            Destroy(food);
-        }
-    }
-    */
 
     //
     private void InputPick()
@@ -277,6 +234,27 @@ public class WorldUserController : MonoBehaviour {
             currentMenu = (int)SELECTMENU.NONE;
         }
     }
+
+
+    /*
+private void InputFood()
+{
+    Vector2 touchPadPt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+    food = GameObject.FindGameObjectWithTag("Food");
+    if (touchPadPt.y > 0.5 && -0.5 < touchPadPt.x && touchPadPt.x < 0.5)
+    {
+        //上方向
+        transform.Translate(transform.forward * 0.01f);
+    }
+    float dis =  Vector3.Distance(transform.position, animalPos.position);
+    if (dis <= 1f)
+    {
+        AnimalManager.Instance.Eating();
+        Destroy(food);
+    }
+}
+*/
+
     private void InputSleep()
     {
         if (OVRInput.GetDown(OVRInput.Button.Back) || Negative())
@@ -284,6 +262,8 @@ public class WorldUserController : MonoBehaviour {
             AnimalManager.Instance.Command(4);
         }
     }
+
+
     private void EyePoint()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -341,16 +321,7 @@ public class WorldUserController : MonoBehaviour {
     private bool Positive()
     {
         
-        if (moveObj.name == "[CameraRig]")
-        {
-
-            var trackedObject = GetComponent<SteamVR_TrackedObject>();
-            var device = SteamVR_Controller.Input((int)trackedObject.index);
-            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                return true;
-            }
-        }
+      
         
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
@@ -372,22 +343,7 @@ public class WorldUserController : MonoBehaviour {
     private bool Negative()
     {
         
-        if (moveObj.name == "[CameraRig]")
-        {
-            var trackedObject = GetComponent<SteamVR_TrackedObject>();
-            var device = SteamVR_Controller.Input((int)trackedObject.index);
-            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
-            {
-                return true;
-            }
-        }
-        
-        //Oculus Backキー
-        if (OVRInput.GetDown(OVRInput.Button.Back))
-        {
-            return true;
-        }
-        else if (Input.GetMouseButtonDown(1))
+       if (Input.GetMouseButtonDown(1))
         {
             return true;
         }

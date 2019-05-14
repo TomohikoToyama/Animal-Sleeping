@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Valve.VR;
 
 
 public class RoomUserController : MonoBehaviour {
@@ -26,8 +25,6 @@ public class RoomUserController : MonoBehaviour {
     public Renderer rnd;
     private float closeTime;
     public GameObject headObj;
-    private SteamVR_TrackedObject trackedObject;
-    private SteamVR_TrackedController device;
     private bool engLanguage;  //false 日本語、true 英語
     void Start()
     {
@@ -163,15 +160,7 @@ public class RoomUserController : MonoBehaviour {
             return true;
         }
         
-        if (headObj.name == "[CameraRig]")
-        {
-            trackedObject = GetComponent<SteamVR_TrackedObject>();
-            var device = SteamVR_Controller.Input((int)trackedObject.index);
-            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-            {
-                return true;
-            }
-        }
+       
         
         
         return false;
@@ -189,15 +178,7 @@ public class RoomUserController : MonoBehaviour {
             return true;
         }
         
-        if (headObj.name == "[CameraRig]")
-        {
-            trackedObject = GetComponent<SteamVR_TrackedObject>();
-            var device = SteamVR_Controller.Input((int)trackedObject.index);
-            if (device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
-            {
-                return true;
-            }
-        }
+       
         
         
                 

@@ -1284,7 +1284,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &152213769
 GameObject:
@@ -1783,7 +1782,7 @@ Transform:
   - {fileID: 411419935}
   - {fileID: 1724639045}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
 --- !u!1 &350453055
 GameObject:
@@ -2196,7 +2195,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1001 &612321218
 Prefab:
@@ -2719,7 +2717,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1001 &704990144
 Prefab:
@@ -2875,76 +2872,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4018052480032894, guid: e30557908723bc0438761e854063ec83,
     type: 2}
   m_PrefabInternal: {fileID: 1923618846}
---- !u!1001 &756449455
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 461386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19861386, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-      propertyPath: lengthInSec
-      value: 12
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 36970eb49c121194d870e49fdaaaae06, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &767516400
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3375,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &913150032
 GameObject:
@@ -3532,7 +3458,6 @@ MonoBehaviour:
   - {fileID: 2091423777}
   - {fileID: 127658179}
   SelectedData: {fileID: 534931438}
-  ChooseData: {fileID: 0}
   dataNum: 0
   clear: {fileID: 21300000, guid: 01a2381448f8df6479fbf9f58ae62972, type: 3}
 --- !u!65 &913150036
@@ -3712,7 +3637,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &981151512
 GameObject:
@@ -3981,7 +3905,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &991643485
 GameObject:
@@ -4117,7 +4040,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1082265248
 GameObject:
@@ -4553,7 +4476,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &1225012460
 GameObject:
@@ -4917,7 +4839,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &1376042401
 GameObject:
@@ -5410,7 +5331,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!224 &1557769200
 RectTransform:
@@ -6051,7 +5971,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &1700390826
 GameObject:
@@ -6816,7 +6735,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4346389616318920, guid: e30557908723bc0438761e854063ec83, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30557908723bc0438761e854063ec83, type: 2}
@@ -7076,7 +6995,6 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 
 --- !u!1 &2061113199
 GameObject:
@@ -7380,5 +7298,4 @@ MonoBehaviour:
   foot: {fileID: 0}
   voice: {fileID: 0}
   personality: 0
-  activity: 0
   id: 

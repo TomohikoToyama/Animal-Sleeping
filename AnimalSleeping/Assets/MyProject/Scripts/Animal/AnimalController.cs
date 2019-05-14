@@ -143,50 +143,6 @@ public class AnimalController : MonoBehaviour {
         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         gameObject.transform.position = new Vector3(1, 2, 1);
     }
-    /*
-    private IEnumerator SizeChange(GameObject target)
-    {
-        
-        int loopCount = 10;
-        float waitSec = 0.05f;
-        if (AData.Size == 0)
-        {
-            targetSize = maxSize;
-            targetScale = 5f;
-            nowScale = 1f;
-
-            AData.Size = 1;
-        }
-        else if(AData.Size == 1)
-        {
-            targetSize = minSize;
-            targetScale = 0.1f;
-            nowScale = 5f;
-            AData.Size = -1;
-            AData.State = (int)STATE.NONE;
-        }
-        else if (AData.Size == -1)
-        {
-            targetSize = normalSize;
-            targetScale = 1f;
-            nowScale = 0f;
-            AData.Size = -1;
-            AData.State = (int)STATE.NONE;
-        }
-        float offsetScale = targetScale / loopCount;
-        float updateScale = nowScale;
-        for (int loop = 0; loop < loopCount; loop++)
-        {
-            // スケール更新
-            updateScale = updateScale + offsetScale;
-            target.transform.localScale = new Vector3(updateScale, updateScale, updateScale);
-            yield return new WaitForSeconds(waitSec);
-        }
-        target.transform.localScale = targetSize;
-        AData.State = (int)STATE.NONE;
-        
-    }   
-    */
 
 
     public void StateChange(int num)
